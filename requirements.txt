@@ -1,0 +1,3 @@
+google-generativeai
+openai
+python-dotenv
