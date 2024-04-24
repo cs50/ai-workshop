@@ -1,3 +1,4 @@
+anthropic
 google-generativeai
 openai
 python-dotenv
