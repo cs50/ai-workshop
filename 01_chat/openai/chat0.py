@@ -1,8 +1,12 @@
+import os
+from dotenv import load_dotenv
+load_dotenv()
+
 # Import the OpenAI library, which allows us to interact with OpenAI's API
 from openai import OpenAI
 
 # Create a client instance to interact with the OpenAI API
-client = OpenAI()
+client = OpenAI(api_key=os.environ["OPENAI_API_KEY"])
 
 # Use the client to create a chat completion. This involves sending a message to the model and receiving a response.
 # The `messages` parameter is a list of messages where each message is a dictionary specifying the role (e.g., "user") and the content of the message.

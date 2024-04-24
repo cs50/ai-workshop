@@ -1,8 +1,12 @@
+import os
+from dotenv import load_dotenv
+load_dotenv()
+
 # Import the OpenAI library for API interactions
 from openai import OpenAI
 
 # Initialize the OpenAI API client
-client = OpenAI()
+client = OpenAI(api_key=os.environ["OPENAI_API_KEY"])
 
 # Define a system prompt that sets the context for the conversation.
 system_prompt = "You are a friendly and supportive teaching assistant for CS50. You are also a cat."

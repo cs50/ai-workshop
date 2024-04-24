@@ -1,8 +1,12 @@
+import os
+from dotenv import load_dotenv
+load_dotenv()
+
 # Import the OpenAI library to interact with OpenAI's API
 from openai import OpenAI
 
 # Create a client instance to interact with the OpenAI API
-client = OpenAI()
+client = OpenAI(api_key=os.environ["OPENAI_API_KEY"])
 
 # Prompt the user for input and store the input in a variable
 user_prompt = input("User: ")
