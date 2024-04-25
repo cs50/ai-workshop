@@ -1,37 +1,10 @@
 import os
+import time
 from dotenv import load_dotenv
 load_dotenv()
 
 from openai import OpenAI
-from openai import AssistantEventHandler
-from typing_extensions import override  # Import override decorator if needed
 client = OpenAI(api_key=os.environ["OPENAI_API_KEY"])
-
-# Define the EventHandler class as per the API documentation
-# https://platform.openai.com/docs/assistants/overview?context=with-streaming
-class EventHandler(AssistantEventHandler):    
-    @override
-    def on_text_created(self, text) -> None:
-        print(f"\nAssistant: ", end="", flush=True)
-      
-    @override
-    def on_text_delta(self, delta, snapshot):
-        print(delta.value, end="", flush=True)
-      
-    def on_tool_call_created(self, tool_call):
-        # print(f"\nassistant > {tool_call.type}\n", flush=True)
-        pass
-  
-    def on_tool_call_delta(self, delta, snapshot):
-        if delta.type == 'code_interpreter':
-            if delta.code_interpreter.input:
-                print(delta.code_interpreter.input, end="", flush=True)
-            if delta.code_interpreter.outputs:
-                print(f"\n\noutput >", flush=True)
-                for output in delta.code_interpreter.outputs:
-                    if output.type == "logs":
-                        print(f"\n{output.logs}", flush=True)
-
 
 def clean_up(assistant_id, thread_id, vector_store_id, file_ids):
     """Delete the assistant, thread, vector store, and uploaded files. """
@@ -49,10 +22,10 @@ file_ids = []
 for file in os.listdir(FILES_DIR):
 
     # Upload each file to the OpenAI platform with the purpose set to 'assistants'
-    _file = client.files.create(file=open(FILES_DIR + file, "rb"), purpose="assistants")
+    file = client.files.create(file=open(FILES_DIR + file, "rb"), purpose="assistants")
     
     # Append the reference to the uploaded file to the list
-    file_ids.append(_file.id)
+    file_ids.append(file.id)
     print(f"Uploaded file: {_file.id} - {file}")
 
 # Create a vector store using the uploaded files
@@ -87,12 +60,28 @@ thread_message = client.beta.threads.messages.create(
     content=input("User: ")
 )
 
-print(f"Running assistant: {assistant.id} in thread: {thread.id}")
-with client.beta.threads.runs.stream(
+# Create a new run
+run = client.beta.threads.runs.create(
     thread_id=thread.id,
-    assistant_id=assistant.id,
-    event_handler=EventHandler()
-) as stream:
-    stream.until_done()
-    print()
-    clean_up(assistant.id, thread.id, vector_store.id, file_ids)
+    assistant_id=assistant.id
+)
+
+# Continuously check the status of the assistant's processing
+print(f"Running assistant: {assistant.id} in thread: {thread.id}")
+while True:
+
+    # Retrieve the latest status of the assistant's processing
+    _run = client.beta.threads.runs.retrieve(thread_id=run.thread_id, run_id=run.id)
+    # print(f"run status: {_run.status}")
+
+    # If processing is complete, display the assistant's response and exit the loop
+    if _run.status == "completed":
+        thread_messages = client.beta.threads.messages.list(run.thread_id)
+        print(f"Assistant: {thread_messages.data[0].content[0].text.value}")
+
+        # Clean up the assistant, thread, vector store, and uploaded files
+        clean_up(assistant.id, thread.id, vector_store.id, file_ids)
+        break
+
+    # Wait for a short period before checking the status again
+    time.sleep(1)
