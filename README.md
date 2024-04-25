@@ -2,6 +2,8 @@
 
 This workshop is designed to introduce you to the capabilities of OpenAI's APIs, including Chat Completion, Embedding, and Assistant APIs, with hands-on demonstrations and code examples.
 
+Slides for this workshop are available [here](https://docs.google.com/presentation/d/11k93gz0mYpSwaB9bvbtofa2o11Pg7Z2_hrH3pB4APQ0/).
+
 ## Requirements
 
 - Python 3.x
