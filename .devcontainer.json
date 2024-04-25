@@ -9,10 +9,13 @@
                 "ms-python.python",
                 "ms-vscode.cpptools",
                 "ms-vscode.hexeditor",
-                "ms-vsliveshare.vsliveshare"
+                "ms-vsliveshare.vsliveshare",
+                "plibither8.remove-comments"
             ],
             "settings": {
-                "explorer.compactFolders": false
+                "explorer.compactFolders": false,
+                "files.trimFinalNewlines": false,
+                "files.trimTrailingWhitespace": true
             }
         }
     }
