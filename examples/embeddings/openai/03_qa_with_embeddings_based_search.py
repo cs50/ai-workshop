@@ -14,25 +14,25 @@ def get_embedding(text, model="text-embedding-3-small"):
 
     # Replace newline characters with spaces to ensure consistent formatting
     text = text.replace("\n", " ")
-    
+
     # Request the embedding for the text from the OpenAI API and return the first embedding from the result
     return client.embeddings.create(input=[text], model=model).data[0].embedding
 
 # Open the 'embeddings.jsonl' file in read mode to load pre-computed embeddings
 with open('embeddings.jsonl', 'r') as f:
-    
+
     # Read all lines from the file
     lines = f.readlines()
 
     # Initialize a dictionary to store the embeddings
     embeddings = {}
-    
+
     # Loop through each line in the file, assuming each line is a JSON object
     for line in lines:
-        
+
         # Parse the JSON object from the line
         line = json.loads(line)
-        
+
         # Store the text chunk and its corresponding embedding in the dictionary
         embeddings[line['text']] = line['embedding']
 
@@ -51,10 +51,10 @@ best_score = float("-inf")
 
 # Loop through each chunk and its embedding in the embeddings dictionary
 for chunk, embedding in embeddings.items():
-    
+
     # Compute the similarity score as the dot product of the query embedding and the chunk's embedding
     score = np.dot(embedding, query_embedding)
-    
+
     # Update the best_chunk and best_score if the current score is higher
     if score > best_score:
         best_chunk = chunk

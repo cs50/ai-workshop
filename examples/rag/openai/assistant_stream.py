@@ -9,19 +9,19 @@ client = OpenAI(api_key=os.environ["OPENAI_API_KEY"])
 
 # Define the EventHandler class as per the API documentation
 # https://platform.openai.com/docs/assistants/overview?context=with-streaming
-class EventHandler(AssistantEventHandler):    
+class EventHandler(AssistantEventHandler):
     @override
     def on_text_created(self, text) -> None:
         print(f"\nAssistant: ", end="", flush=True)
-      
+
     @override
     def on_text_delta(self, delta, snapshot):
         print(delta.value, end="", flush=True)
-      
+
     def on_tool_call_created(self, tool_call):
         # print(f"\nassistant > {tool_call.type}\n", flush=True)
         pass
-  
+
     def on_tool_call_delta(self, delta, snapshot):
         if delta.type == 'code_interpreter':
             if delta.code_interpreter.input:
@@ -50,7 +50,7 @@ for file in sorted(os.listdir(FILES_DIR)):
 
     # Upload each file to the OpenAI platform with the purpose set to 'assistants'
     _file = client.files.create(file=open(FILES_DIR + file, "rb"), purpose="assistants")
-    
+
     # Append the reference to the uploaded file to the list
     file_ids.append(_file.id)
     print(f"Uploaded file: {_file.id} - {file}")

@@ -13,7 +13,7 @@ system_prompt = "You are a friendly and supportive teaching assistant for CS50. 
 message = client.messages.create(
     system=system_prompt,
     messages=[
-        {"role": "user", "content": user_input}  
+        {"role": "user", "content": user_input}
     ],
     model="claude-3-opus-20240229",
     max_tokens=1024

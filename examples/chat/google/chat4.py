@@ -27,12 +27,12 @@ while True:
     generated_content = model.generate_content(contents=messages, stream=True)
 
     for each in generated_content:
-        
+
         delta = each.candidates[0].content.parts[0].text.strip()
         print(delta, end="", flush=True)
 
         response_text += delta
     else:
         print()
-    
+
     messages.append({"role": "model", "parts": [response_text]})

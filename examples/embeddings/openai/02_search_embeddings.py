@@ -20,19 +20,19 @@ def get_embedding(text, model="text-embedding-3-small"):
 
 # Open the 'embeddings.jsonl' file in read mode
 with open('embeddings.jsonl', 'r') as f:
-    
+
     # Read all lines from the file
     lines = f.readlines()
 
     # Initialize a dictionary to load the embeddings
     embeddings = {}
-    
+
     # Loop through each line in the file
     for line in lines:
-        
+
         # Parse the JSON object in the line
         line = json.loads(line)
-        
+
         # Map the text chunk to its corresponding embedding in the embeddings dictionary
         embeddings[line['text']] = line['embedding']
 
@@ -48,7 +48,7 @@ best_score = float("-inf")
 
 # Loop through each chunk and its embedding in the embeddings dictionary
 for chunk, embedding in embeddings.items():
-    
+
     # Compute the similarity score as the dot product of the embedding vectors
     score = np.dot(embedding, query_embedding)
 
@@ -57,7 +57,7 @@ for chunk, embedding in embeddings.items():
     if score > best_score:
         best_chunk = chunk
         best_score = score
-    
+
     # Note: OpenAI embeddings are normalized to length 1, which means that:
     # Cosine similarity can be computed slightly faster using just a dot product
     # Cosine similarity and Euclidean distance will result in the identical rankings
