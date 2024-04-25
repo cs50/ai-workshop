@@ -53,8 +53,11 @@ while True:
         # Print the current part of the response, without adding a new line
         print(delta, end="", flush=True)
     else:
+
+        # Append the assistant's response to the conversation, allowing the AI to maintain context in future interactions
+        messages.append({"role": "assistant", "content": response_text})
+
         # Print a newline once the entire response has been streamed
         print()
 
-    # Append the assistant's response to the conversation, allowing the AI to maintain context in future interactions
-    messages.append({"role": "assistant", "content": response_text})
+
