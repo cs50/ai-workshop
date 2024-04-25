@@ -10,7 +10,10 @@
                 "ms-vscode.cpptools",
                 "ms-vscode.hexeditor",
                 "ms-vsliveshare.vsliveshare"
-            ]
+            ],
+            "settings": {
+                "explorer.compactFolders": false
+            }
         }
     }
 }
