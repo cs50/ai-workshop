@@ -14,8 +14,10 @@
             ],
             "settings": {
                 "explorer.compactFolders": false,
+                "editor.minimap.enabled": false,
                 "files.trimFinalNewlines": false,
-                "files.trimTrailingWhitespace": true
+                "files.trimTrailingWhitespace": true,
+                "workbench.editor.enablePreview": false
             }
         }
     }
