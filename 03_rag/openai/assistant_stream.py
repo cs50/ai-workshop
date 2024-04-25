@@ -42,7 +42,7 @@ def clean_up(assistant_id, thread_id, vector_store_id, file_ids):
     [client.files.delete(file_id) for file_id in file_ids]
 
 
-FILES_DIR = "./data/"
+FILES_DIR = "../../data/transcripts/"
 file_ids = []
 
 # Iterate over each file in the specified directory
