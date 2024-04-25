@@ -15,9 +15,11 @@
             "settings": {
                 "explorer.compactFolders": false,
                 "editor.minimap.enabled": false,
+                "editor.quickSuggestionsDelay": 3000,
                 "files.trimFinalNewlines": false,
                 "files.trimTrailingWhitespace": true,
-                "workbench.editor.enablePreview": false
+                "workbench.editor.enablePreview": false,
+                "emmet.showExpandedAbbreviation": "never"
             }
         }
     }

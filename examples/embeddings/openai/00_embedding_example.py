@@ -9,7 +9,7 @@ from openai import OpenAI
 # Initialize the OpenAI client
 client = OpenAI(api_key=os.environ["OPENAI_API_KEY"])
 
-# Create an embedding for the input text "SIGCSE 2024" using the specified model "text-embedding-3-small"
+# Create an embedding for the input text "cat" using the specified model "text-embedding-3-small"
 response = client.embeddings.create(
     input="cat",
     model="text-embedding-3-small"
