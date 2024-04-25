@@ -7,7 +7,7 @@ load_dotenv()
 from openai import OpenAI
 
 # Initialize the OpenAI client
-client = OpenAI()
+client = OpenAI(api_key=os.environ["OPENAI_API_KEY"])
 
 # Define a function to get the embedding of a given text using a specified model
 def get_embedding(text, model="text-embedding-3-small"):

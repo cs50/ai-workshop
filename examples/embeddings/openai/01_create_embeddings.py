@@ -21,7 +21,7 @@ def get_embedding(text, model="text-embedding-3-small"):
 
 
 # Open the file 'portland_wiki.txt' in read mode
-FILE_PATH = "../data/transcripts/ai.txt"
+FILE_PATH = "../../../data/transcripts/ai.txt"
 with open(FILE_PATH, "r") as f:
     
     # Read the entire content of the file into 'data'
