@@ -46,7 +46,7 @@ FILES_DIR = "./data/"
 file_ids = []
 
 # Iterate over each file in the specified directory
-for file in os.listdir(FILES_DIR):
+for file in sorted(os.listdir(FILES_DIR)):
 
     # Upload each file to the OpenAI platform with the purpose set to 'assistants'
     _file = client.files.create(file=open(FILES_DIR + file, "rb"), purpose="assistants")

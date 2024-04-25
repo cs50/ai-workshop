@@ -19,13 +19,13 @@ FILES_DIR = "./data/"
 file_ids = []
 
 # Iterate over each file in the specified directory
-for file in os.listdir(FILES_DIR):
+for file in sorted(os.listdir(FILES_DIR)):
 
     # Upload each file to the OpenAI platform with the purpose set to 'assistants'
-    file = client.files.create(file=open(FILES_DIR + file, "rb"), purpose="assistants")
+    _file = client.files.create(file=open(FILES_DIR + file, "rb"), purpose="assistants")
     
     # Append the reference to the uploaded file to the list
-    file_ids.append(file.id)
+    file_ids.append(_file.id)
     print(f"Uploaded file: {_file.id} - {file}")
 
 # Create a vector store using the uploaded files

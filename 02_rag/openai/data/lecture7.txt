@@ -1,0 +1,732 @@
+[MUSIC PLAYING] SPEAKER 1: All right. This is CS50, and this is week 7 on the day before All Hallows' Eve. Today, we will introduce yet another language, the goal of which is not to introduce another language for language's sake, but to really begin to emphasize that when it comes to the world of software programming, engineering more generally, there's often different tools for different jobs. 
+
+And if you were to try to use C to solve all of our future problems, it would actually be painful, as you've already seen how much more pleasant it is to solve certain problems with Python. But today, quite quickly, we'll realize that even Python's actually not the most pleasant way to solve a lot of problems, especially when it comes to data, data at scale. 
+
+And, in fact, as we transition in the final weeks of CS50 to the world of web programming, and if you so choose with your final project mobile programming, you'll actually need more tools in your tool kit than C and Python alone. In fact, today we'll introduce a database-centric language called S-Q-L, or SQL. Next week, we'll explore markup languages, like HTML and CSS. A bit of JavaScript, as well. And then we'll synthesize all of this together at the end of the class, as some of you might, for your final projects, as well. 
+
+But, before we do that, and talk about data, let's actually start to gather some data. So if you could visit this URL here on your phone, or a laptop. Or, if easier, here's a bar code version thereof. You can point your camera at this bar code here, and it's going to pull up a relatively short Google form that's just going to ask you a couple of questions, so that we can collect some actual live data and actually play around with it, initially, in Python. 
+
+So if you go to that URL there, you'll see a Google form. And if you haven't been able to scan it quite yet, that's fine. Just kind of look over the shoulder of the person next to you. But you, or they, will see a little something like this. So among the questions will be, which is your favorite language? 
+
+On the list, only thus far, is Scratch, C, and Python, and below that you'll see another question asking about your favorite problem across the problem sets thus far. Each of them is radio buttons, which means you'll be able to select one button for each of those questions. And, ultimately, what's going to be nice is that if you've never used Google Forms before as an administrator, all of that data is actually going to end up being, not only in Google Forms, but also, if you so choose, in Google Spreadsheets. Which is an example, of course, of a spreadsheet software similar in spirit to Apple Numbers on Macs or Microsoft Excel on different platforms. 
+
+And Google Sheets is going to allow us to store all of that data in rows and columns. And so, since Google made both of these products, they integrated one with the other. So, in fact, if I, on my laptop here in another window, open this up-- let me flip over. Here's the live spreadsheet. And we'll see that the very first person who buzzed in really liked Python, as did a lot of other people thereafter. 
+
+But, Hello, World was your favorite in Python, which is great. There's a couple of votes for Scratch here. If we scroll down, there's one hold out for C, who really liked Credit, in this case here. And if we scroll down further, it looks like Python and Scratch are in there. A few more C's, and so on and so forth. 
+
+So suppose that we wanted to, actually, now analyze this data. Now, any of you who have used Excel, or Numbers, or Google Spreadsheets know that it comes with built in functions and formulas, and we can do all of that, but suppose there was a huge amount of data. Or, suppose that this data was not coming in via Google Sheets, but via your own web application, or your own mobile application, and it's just ending up in some kind of spreadsheet. 
+
+Well, wouldn't it be nice if we could actually analyze that kind of data with code. And, in fact, you can. And the simplest way to store a bunch of data isn't with anything fancy, in fact, but just a literal text file, something ending in .txt, or, maybe more commonly, .csv. 
+
+In fact, what we'd call a flat file database is literally just code for a text file containing all of your data. But your data typically has delimiters that separate some values from others. And, in fact, the most common approach, daresay, is to use, indeed, comma-separated values, or, CSV files. And what that means is that in simple text alone, just asking, maybe Unicode, you sort of mimic the idea of rows and columns by using newline characters, like backslash n, to represent row after row after row. 
+
+That's pretty straightforward. To just move the cursor to the next line. And because text files aren't graphical, so there's no notion of vertical bars that you can put between what you and I think of as columns, you literally just use a comma, or some other such symbol to separate one value from another. 
+
+So, in fact, let me go ahead and do this. Even if you've never done this before, it turns out, in Google Sheets, and also Excel and Numbers, you can export your data, not in some proprietary Apple or Microsoft or Google format, but in a globally portable format known as .csv. So let me go up to file. I will go to download. And notice, I can export this in a bunch of different formats, but the one I care about for today is going to be .csv. 
+
+On my Mac, that's going to put it into my downloads folder. And what I'm going to go ahead here and do, in just a moment, is let me go ahead it and open up VS Code. So, in short, I've downloaded this file. Google gave it a long default file name. I've renamed it to favorites.csv. Let me go ahead and actually open it now in VS Code here. And this now is the exact same data. 
+
+If you're still submitting the form, I'm afraid you didn't make the cut off. So we're not going to see more data ending up in this file because I've literally downloaded a copy of it. But, indeed, if I scroll through this, we'll see that it's got some 399 lines of data. Or, technically, 398 because the very first one is what we'd call a header row, which just describes what each of these columns means. 
+
+Now notice that even though the Google Sheets interface actually put all of this data in proper graphical rows and columns, you can still see the rows because they're just separate lines, and you can kind of see the columns by focusing on the comma here, the comma here, the comma here. And then, also, the comma here, the comma here, the comma here, and so forth. 
+
+Now, a quick subtlety. Hello, World is a two-word problem name, and it itself has a comma in it. What's to stop me from confusing the comma in Hello, World from the commas that Google, apparently, inserted into this file? Yeah. So, automatically, you all did not type this. We did not type it into the form. But Google is smart enough, as is Apple and Microsoft, when they export CSVs to somehow escape seemingly dangerous characters, or characters that could just break things. 
+
+And, in this case, a convention in the CSV world is just to quote any strings that themselves have commas so that any program you're writing that reads this file doesn't get confused. So the only thing that came in automatically from Google is just this timestamp here, based on the time of day in our own local timezone. That was added automatically. So we have three, and not just two columns. 
+
+So with that said, we have three columns: timestamp, language, and problem. The latter two of which came from all of you. Let's actually write some code that analyzes this data. Let's figure out what the most popular something or other is here. So I'll close the CSV file. Let me go ahead and use what seems to be folks favorite language, thus far, and write a file called favorites.py, for instance. 
+
+And I'm going to use Python to open that CSV file, analyze it, crunch some numbers, and output some statistics, if you will. So the easiest way to manipulate CSV files, as you might have gleaned, is not to just open the file yourself, look for commas, allocate memory, or anything like that in C. In Python, you can literally just import CSV, which is a Python module that gives you CSV related functionality. 
+
+In Python, there's a bunch of ways to open files. One way to open a file is like this in Python. You can say file equals open, similar to fopen in C. You can specify the name of the file you want to open, like favorites.csv, and you can explicitly say you want to open the file for reading, quote unquote, "r," just like fopen. 
+
+Strictly speaking, in Python read is implied. So if you omit the second argument, it will still work. But for parity with fopen, I'll do the same here. Then you can, maybe, do something with file, and then, at the end, you can close the file like this. 
+
+So in Python, there really is a mapping between fopen and fclose. But in Python the functions are called open and close for short. But a more common way, a more Pythonic way, so to speak, i.e. the way people tend to do it in Python, is actually to use a keyword that didn't exist in C, where you instead say with. And you say, with open this file name as a specific file name, and then indent it inside of that. Now you can do whatever you want with the file. 
+
+And the implication of using with, even though it's not obvious from the keyword itself, is that the file will be automatically closed for you later. So this is just a minor Python convenience so that you don't have to remember to close the file. Unless something goes wrong, it will just close automatically as soon as you're outside of this with block. 
+
+So how do I go about reading a CSV? The simplest way is to actually give yourself a variable called, maybe, reader. Like if I want to read the CSV, I'll call my variable reader. Set that equal to the return value of a function that comes with Python CSV module called reader, in lowercase, and you just pass in the file name. 
+
+So the first line there on line three opens the file and gives me access to the bytes there in. Line four now actually uses this library that comes with Python to just go read it for me, figure out where the commas are, so that it can hand me, line after line, the data in the file. Now the first piece of data in the file, though, was what? What's the very first row? 
+
+So it was that header row with timestamp, language, problem. I actually want to skip that because that's not data. That's what we might call metadata that's describing my actual data. So one way to deal with this, I can literally just say next reader. And next, even though the semantics here are a little weird, it just means, no, no, give me the next line from that reader instead of the first by default. 
+
+And now inside of this with block, I can do something like this. For each row in that reader, let's do something super simple initially. Let's just print out row bracket one. So row bracket one. So what's going on here? Well, the CSV reader in Python is going to return to you, inside of this loop, one row after another. 
+
+Each of those rows, though, has how many columns? Three. The timestamp, the language, and the problem. And just like in C, our lists in Python are zero index. So zero, one, two. So if I'm printing out row bracket one, that's the second, or middle, column. So what's this going to print row after row? Each of the languages that you all replied with. So that's all. 
+
+This isn't doing any kind of analytics yet. I'm just going through the motions to, at least, print out some data of interest. So let me run this. Python of favorites.py, enter. And it happens super fast. But if I scroll back in my terminal window, there is all of that raw data. So this is to say, once you know the function names, once you know the keywords, it's actually pretty simple in Python to just get up and running with a file, and start looking at the data therein. 
+
+But it turns out that it's a little sub-optimal to use the reader alone. It turns out there's better ways to do this, and let me make this clear as follows. I don't strictly need a variable, but let me actually declare a variable called favorite, set it equal to row bracket one, and then print out that favorite value. This is not doing anything new. It's just declaring an additional variable, but I wanted to highlight the fact that I'm just kind of trusting that row bracket one is the problem-- or, is the language I care about. Is language, is language. 
+
+But suppose one of you, or I, go into the Google spreadsheet, and like anyone might with a spreadsheet, you might start moving things around. And you might swap some of the columns left and right. You might delete one of the columns, add something else. In short, spreadsheets are arguably fragile in that it's pretty easy in the GUI, the graphical user interface, to change them around. And so my code in Python, accordingly, is, arguably, fragile because I'm just hoping that row bracket one is always the data that I care about. 
+
+So what would be marginally better? Well, let's actually use that header row instead. And more common, arguably, in Python, is not to use a simple reader, but, instead, what we would call a Dictionary Reader. I'm going to change this to DictReader, capital D, capital R, and that's it for the change to line four. 
+
+On line five, I'm going to get rid of the next line because I don't want to skip the header now. What DictReader does, which reader does not, is it automatically analyzes that first line in the file, figures out what are all of your columns called, and, thereafter, when you iterate over this reader what each of your rows now is-- it's no longer a list of size three, bracket zero, bracket one, bracket two. 
+
+Each row that you get back in this loop on line five is now, wonderfully, a dictionary instead, the keys of which are from the header field. Timestamp, language, problem. The values of which are whatever each of you typed in again and again. So how do I change the code? I no longer have these numeric indices because row is no longer a list, it's a dictionary. 
+
+So if I literally want the language that you typed in, I can use row bracket, quote unquote, "language," treating row as a Dict not as a list anymore. Now this is, again, more robust because if you move the columns around on me, code is still going to work, at least so long as you don't rename the columns at the very top. So that's still one assumption I'm making. 
+
+All right. Well, beyond that, what could I actually do here? Well, just to be clear, I don't, strictly speaking, need this variable. So no need to highlight this again. So let me just simplify the code a little bit and get rid of this variable, and instead just print out the language in that row. 
+
+As a quick check, let me rerun Python of favorites.py and it seems to still work, even though there's a lot of output. We're not going to check all 399 lines, but it looks like it printed out all of those popular languages. Well, what more can we actually do? 
+
+Well, let's actually now start to crunch some numbers and figure out how many people like Scratch, how many people like C, how many people like Python. Let's start to analyze this. So maybe the most pedantic way to do this in Python would be to just create some variables and do all of the counting myself. So let me actually go ahead and do this. Let me delete this code for now. 
+
+And after opening the reader, let me create a variable called Scratch and set it equal to zero, a variable called C, set it equal to zero, a variable called Python, set it equal to zero, just so that I have three counters, similar to what we did in week zero, week one, anytime we counted anything Honestly, this looks a little stupid, and it's not wrong. In fact, this is how you would do it in Python, but Python also has some clever syntax. 
+
+If you want to be really cool, you can do Scratch comma, c comma, Python equals zero, zero, zero, and do all three at once if you like that. So it tightens up the code a little bit, even though the effect is ultimately the same. Now let's go ahead and iterate over this file row by row by row. And if we see Scratch, increment the Scratch counter. If we see C, increment the C counter. If we see Python, increment the Python counter, instead. 
+
+So how do I do this? Well, I could do something like, for each row in the reader, just like before, let me go ahead and get that favorite variable and set it equal to the language in that dictionary that just came back as part of this iteration. And now I can do something like this, if favorite equals, equals "Scratch" then, with my indentation, I can do Scratch plus equals one, elif favorite equals, equals "C." 
+
+I can go ahead and increment C plus equals one. Else-- and I don't think I want else, just to be safe. Even though we only saw three options, I think just to be super safe, elif favorite equals, equals "Python," then let's go ahead and increment Python. The one thing we can't do that we could do in C is the plus, plus trick. So plus equals is as close as we can get. 
+
+So what have I done? Inside of this loop, I've just incremented each of those counters by one if I see Scratch, or C, or Python, again and again. All right. Outside of the loop and outside of the with block, because once I'm done reading all of the rows, I might as well let the with clause close the file automatically, let's just go ahead and print out some values. 
+
+So I'm going to go ahead and print out Scratch colon, and then inside of there let's print out whatever the value of that variable is. Let's then go ahead and print out C colon, and then whatever the value of the C variable is. And then, lastly, let's print out Python colon and whatever the value is. 
+
+And now I made three typos here. This is not going to print the values. What do I need to do? Sorry? Yeah, I'm missing the f in front of each of these strings so that I actually get formatted. And that is to say, the variables get interpolated inside of the curly braces like we saw last week. 
+
+All right. So, honestly, that's kind of a decent amount of code, like 18 or so lines of code, just to count the number of responses. But let's see if I got it right. Let me open my terminal and run Python of favorites.py, and now I see, by an overwhelming amount, folks like Python, followed by C, followed by Scratch, in that order. But that was a decent amount of code to have to write, and it turns out there's actually better ways of doing this, more Pythonic ways, more programmatic ways of doing this. 
+
+And if we think back to one of our universal data structures. Think back to how we preached last week, and the week before, the value of these dictionaries, more generally. Like the CSV module, clearly a fan of them, because that's what DictReader is giving us, dictionary, after dictionary, after dictionary. And this was the general idea of a dictionary. It associates keys with values, much like you might in a two-column table on a chalkboard, or the like. 
+
+Well, this is what I need if I want to keep track of how many people said Scratch, and C, and Python. If I had a piece of chalk, I could just write Scratch, and C, and Python as three keys. And then with my chalk and, maybe, an eraser, keep track of the values. They all start at zero. Then, I add one, add two, add three. Or, maybe, on a chalkboard, I actually use hash marks. But a dictionary is kind of the perfect data structure for just associating something like Scratch, C, Python, with something else-- keys with values, respectively. 
+
+So this is going to look a little weirder, but it's going to be pretty conventional to do something like this instead. Let me go back into VS Code. I'll close my terminal window. And let me go ahead and actually delete a lot of this because I can simplify this further. Let me go ahead and now give myself, maybe, a variable just, generically, called counts, and set that equal to an empty dictionary. And you can actually do this in a couple of ways. 
+
+You can literally write out dict with nothing in parentheses, which will give you an empty dictionary, like the picture on the board, but a little more conventional is to just use two keystrokes and use two curly braces with nothing inside. That gives me an empty dictionary like this picture here. Now my loop is going to be the same. I'm going to do, for each row in the reader, I'm going to go ahead and grab the favorite language for this person. So favorite equals row, quote unquote, "language." 
+
+But now I'm going to do something a little different. There's two scenarios here. Either, I have seen this language before and I want to increment it by one. Or, if I've never seen this language before because the loop just started, what should I initialize the count for this language to? So, one because I've only seen it once. Exactly. So now let me go ahead and do exactly that. If this current favorite, that I am seeing in the row, is already in the counts dictionary-- and in Python, this is literally how you ask that question. If favorite in counts. 
+
+That will check, is there a key with this name, Scratch, C, or Python? If so, go into that location in the counts dictionary, index into it at the favorite location, because favorite is a string. It's either, quote unquote, "Scratch," "C," or "Python," and just increment it by one like this. Else, as you noted. If it's not there implicitly, then counts bracket favorite should probably be set equal-- not to zero because we're literally are seeing it in the current row. Let's initialize it to one. 
+
+And, thereafter, if we see it again, it's going to be plus equals one, plus equals one, plus equals one. So now outside of that loop, outside of the with block, let me do this. For each favorite in those counts-- And this, too, in Python is a trick if you want to iterate over all of the keys in a dictionary. That is, if you want to iterate over the left-hand column of all of these keys, you literally can say, for something in that dictionary. So for favorite in counts, this is giving me a variable called favorite and updating it automatically top to bottom in that dictionary. 
+
+Let's go ahead and print out an f string that's going to say whatever the name of that language is colon, and whatever the value of that language is in that there dictionary. So, again, logically the only thing that's new is this. I'm now using one dictionary instead of three variables to keep track of three things, like updating this chalkboard with three different things, Scratch, C, Python. 
+
+And the last thing I'm doing, which is a little different, is once I have that dictionary, whether there's three languages, or, maybe, tomorrow there'll be fourth because we're going to introduce SQL today. Well, this will iterate over all of those keys and print out the values. All right, so if I didn't do anything wrong, if I do Python of favorites.py and hit enter. There we have it. 
+
+And it happens to be in a different order this time. That's because we saw Python first, we then saw Scratch, and, eventually, we saw C. But if we wanted to sort these differently, we actually could with some different code. But, in short, what have we done? We've created this kind of structure in memory with three keys, Python, C, and Scratch, because each time we encounter such a language from you all, we either set our counter to one or increment it by one instead. 
+
+Any questions on this code, or this general idea of using dictionaries as, like, a little cheat sheet for doing some math in this way? Super common paradigm. All right. Well, let me tweak this a little bit. Right now, in my output, we're seeing Python, Scratch and C. 
+
+Maybe, for the sake of discussion, suppose we want to sort this by key. We can actually do that. Let me close my terminal temporarily. And it turns out, in Python, there's a bunch of ways to do this, but the simplest way to sort a dictionary by key is literally to use a function called sorted that comes with Python, that just does it for you. And even if you pass it a dictionary, it will sort that dictionary by the left-hand column so you can iterate it over alphabetically instead. 
+
+So if I go back now to VS Code. If I open my terminal window and I rerun Python on favorites.py, now that I've added the sorted call, we should now see just because it's sorted alphabetically instead. Now that's not that useful, especially if we had lots of languages. You probably don't care about it being alphabetized as much as you care about it being ranked by which is the most popular, which is the least popular. And, for that, there's a bunch of ways to do this in Python. And, I think, the simplest way to sort by value the right-hand column instead of the left-hand column is probably to make this change instead. 
+
+Let me close my terminal temporarily. Let me still use the sorted function, which by default sorts by key, but let's change it to be as follows. Let's change it to sort by a function called counts.get, which is a little weird, but this comes back to last week's brief discussion of object-oriented programming, or oop. 
+
+Remember, in Python, that almost everything is like an object of some sort. An int is an object, a dictionary is an object, a string is an object. Which is to say that, not only do these things have values like, quote unquote, "Hello, World," or 50, these variables, these objects, can also have functions built into them, a.k.a. methods. So it turns out that because counts is a dictionary, because I made it so, that counts dictionary, like any dictionary in Python, comes with a function called get. 
+
+And if you just tell the sorted function to use that built-in method, it will actually, for every key, get its value, get its value, get its value, and sort effectively by the right-hand column instead of the left. Now we'll see down the line, perhaps, more sophisticated ways of using this, but, for now, this just overrides the default behavior and sorts the dictionary, not by key, but by value instead. 
+
+All right. So now watch this if I run Python of favorites.py once more. Previously, it was in the order in which the languages appeared first in the CSV file, then it was sorted alphabetically. Now it should be sorted by value. And, indeed. Scratch is the least with 40, C is the next with 78, Python is the biggest with 280. That's not much of a top 10, or a top three list. 
+
+Let's actually reverse it. And the easiest way in Python to do that is to pass a third argument into sorted, and you would know this by just reading the documentation. You can literally say, reverse equals True, capital T, and now if I rerun this one last time, Python of favorites.py, I'll see the same values but with the whole thing reversed in order. 
+
+Long story short, even though this might feel like a slog, like adding this and looking up this, so much easier than in C where you would have had to figure out, how does bubble sort work? Let me implement bubble sort, selection sort, any of those sorting algorithms, or use some other library. In Python, you just get a lot more for free, so to speak. It's just built in once you get comfy with the documentation. 
+
+And, to be clear, this is an argument, as is this, as is this. But in Python, we have not only positional arguments, which are based on what position they are in, left to right, just like C, you also have these named parameters whereby they have explicit names that you can use yourself, to make clear that you're using this one but not this other one. More parameters in Python can be optional than in C. Phew. 
+
+All right. Any questions about that technique yet? And if you're feeling like this is starting to take the fun out of Python, that's actually kind of the point of doing this the hard way. All right. Well, let's do it one other way that's marginally better. It turns out, in Python there really is this rich ecosystem of libraries, the code that comes with the language itself, or, even, third parties. 
+
+And coming with the language is another module called the collections module, or package here, whereby if I use from collections, I can import something called Counter, capital C. And it turns out, if this felt a little bit painful to create a dictionary yourself, initialize it, maybe, to zero or one, like this. Turns out, you have the same problem that people before you have had, and so there's another way to do this. 
+
+You can create a variable called counts, set it equal to Counter, capital C, open paren, close paren. And this is a different type of object. It's a different type of object in Python, that has counting capabilities built in. And so if I actually want to use this counter instead, I can do this. For each row in the reader, let's go ahead and grab the favorite language from that row, just like before. 
+
+And without doing any of that headache of like, if, elif, or any of this, you can literally just index into that counter using favorite, quote unquote, "Scratch," or "C," or "Python," and increment it by one. What the Counter class is going to do for you, so to speak-- Another example of object-oriented programming, and counts is now an object thereof. 
+
+What this whole feature of Counter is going to do for you is it's going to automatically initialize everything to zero, even if you've never seen it before, and then you can just blindly start incrementing it. So, in short, there's just more pleasant ways, sometimes, to do something in Python as well. 
+
+All right. How about, lastly, let's make things, maybe-- Oh, actually, let's do this. We can even simplify the sorting here. Let me actually take this one step further. Instead of manually figuring out how to sort this, I'm going to do this. For each favorite, and the count thereof in the counts variable's most common function's return value, go ahead and print out this as well. 
+
+So in short, again, a bit new syntax. But what's going on here? Well, it turns out that this counts class and-- sorry, this Counter class, and, in turn, this counts variable, comes with a function built in that you would only know from the documentation. It's literally called most underscore common, and what it returns to you when you call it is a pair of key value, key value. 
+
+And so this, too, is a trick in Python that we did not have in C. If you want to iterate over something, but grab two variables at a time on each iteration like this, you separate them by commas and can get favorite count, favorite count, favorite count. So if I run this now, Python of favorites.py, this, too, just works. And it's getting a little simpler, a little tighter than before than if we had actually done it all manually. 
+
+Lastly, here is a code that's the shortest version thereof. We're down to like 14 or 15 lines. If I wanted to change this to analyze the most popular problem thus far in the class, how do I go about changing the code to print out, top to bottom, the most popular problem or problems? What line should change? Yeah. So, yeah. Line 10. 
+
+Because I've written this in kind of a general purpose way and using dictionaries with keys, it suffices to change language to, quote unquote, "problem" because that was the third column from the CSV. And so now, if you're curious, let's actually make my terminal window a bit bigger. Python of favorites.py, enter. 
+
+And, OK. Tragically, we peaked early with Hello, World-- is the most popular problem thus far, followed by Filter, then Scratch. OK. Peaked even earlier. Mario, DNA, and so forth, and a bunch of others thereafter. So based on this sample size, here's the ranking of the problems thus far. So, we got it. More Hello, World problems in the weeks to come. 
+
+All right. Now that we've done that in that way, let's just make this program slightly interactive and see how we can really take a fundamentally different approach. I'm going to go into VS Code. I'm going to keep everything the same, except that, at the bottom, I'm going to get rid of this loop because I don't want any more print out everything. I want to look up specific counts. Like, how popular was this problem, how popular was this other problem? 
+
+And what I'm going to go ahead and do is to create a variable called favorite, set it equal to-- I could use get string in the CS50 library, but we saw last week there's no need to for strings, certainly. Let me just use the input function that comes with Python, and prompt the human for their favorite problem. 
+
+And then let me go ahead and print out, for instance, an f string containing whatever their favorite is, colon, and whatever the count is thereof of that favorite, close quote. So let me open my terminal window. Let me run Python of favorites.py, enter. And if I type in Hello, World, looks like 65 people, indeed, like that one. If I run Python of favorites.py again. I type in Scratch, now we see that one. If I type in anything else, I'm going to get its specific value. 
+
+So this is to say, not only can we write Python code to analyze some data pretty tightly versus the manual code we wrote out earlier, you can also make these programs interactive as well. And this is going to be a super common paradigm, right, if you go into the world of consulting, analytics, data science, more generally. Among your roles is going to be to analyze data, to ask questions of data, get back the answer. be ask questions of data, get back the answer. 
+
+Honestly, life gets pretty tedious, even though you've only been programming in Python, perhaps, for like one week, a week and a half now. When you have to write code to solve all of the world's problems-- and there's this sort of tenant in programming, that programmers tend to avoid writing code as much as they can because, ideally, you would solve problems with the right tool for the job, minimizing the number of lines of code you actually write. 
+
+So how do we actually get to that point? Well, instead of just dealing with CSV files, pure text, it turns out there's an entire world of proper databases. Not flat file databases, where you store everything in text files, but a database program, a piece of software running on a computer, running on a server, that's always listening for you. It's got a lot of memory, it's got a lot of space, and in turn a lot of data, and it supports a database specific language that makes it much easier, much faster to ask questions of the very same data. 
+
+It's a relational database in the sense, too, that it's not even necessarily one spreadsheet, one set of rows and columns. You can have two sheets, three sheets, 30 sheets across which there might very well be relationships, or relations. So S-Q-L, or SQL, is a database specific language, stands for Structured Query Language, that's a declarative language whereby you're not going to be in the habit with SQL, typically, of writing loops and conditionals, and this kind of thing. 
+
+You're instead going to describe the data that you want to get back, you're going to describe the question that you want the answer to, and we'll do this using a relatively small grammar. That is to say, there's not that many keywords in SQL. It's a pretty small language. But it's going to allow us to eliminate dozens of lines of Python code, perhaps. 
+
+SQL follows this CRUD paradigm. So C-R-U-D, which simply means that in a relational database, you can really only do four things. You can create data, read data-- that is, look at it or analyze it somehow. Update the data, or delete the data. So, CRUD, for short. And that really speaks to just how relatively simple the world is, even though we'll just scratch the surface of some of its capabilities today. And you'll explore more over time. 
+
+Specifically, in SQL, there's going to be other keywords that map to those four ideas. Technically, you don't just create data in the world of SQL, you can also insert data, like inserting more rows into a sheet. And it's not the word "read" that people use. People say to "select" data. But they mean to read data, which is sort of the opposite of writing or creating data. But the U and the D are the same, except that there's also a keyword in SQL known as DROP, which lets you very destructively, very dangerously delete entire database tables, as well. 
+
+So how do we do this, and what's the connection to our favorites data thus far? Well, here is the syntax in this language called SQL via which you can create a table. So the jargon is a little different, but the ideas are exactly the same from the world of spreadsheets. What you call a sheet in a spreadsheet, the database world calls a table. It's a table of rows and columns, but it's the exact same idea. 
+
+You're going to have discretion over what to call the table, just like you can call a spreadsheet something, or else, and you can also specify the types of data that you want to store in your rows and columns. And it's going to go a little more deeply than just formatting it, like in Excel, and Numbers, and Google Spreadsheets, you can actually control, maybe, how big the data could be depending on the database you're actually using. 
+
+In CS50, we're going to use a light version of SQL. Literally, a language called-- an implementation of SQL called SQLite, which has really all of the core functionality that you would see in the real world, and with larger, more scalable systems, but it's going to allow us to focus on a lot of the building blocks. 
+
+And SQLite's actually really popular on Macs, PCs, and phones, nowadays. A lot of the data that games and other applications on your phone might store, actually have a file, a binary file with zeros and ones, that's in the SQLite format. So if you do a mobile app, for instance, for your final project, you'll have an opportunity to play with something like this. 
+
+Well, how do you actually run SQLite3? It's just a command built into your code space. So this is a program you could install on your own Mac, your own PC, or the like. We'll do everything as we've done before, in the cloud, and actually use your code space. And by that I mean, we can just start to play with this data now using SQL instead of Python. So let me do this. Let me open up my terminal window here, and let me go ahead and maximize my terminal window just because we'll focus now on the files here. 
+
+Recall that I have a file called favorites.csv, and that CSV file is just text. But let me load it into a proper database so I can actually use this other language called SQL on it. To do this, I'm going to run SQLite3, which just means the third version of it, and I'm going to create a new database called favorites.db. That's just a convention, but it means here comes a database that I'm going to create. 
+
+Notice, I'm not using the tabbed code editor. I'm not using the code command because the code command is generally for text files. SQLite3 is going to create a binary file, zeros and ones, ultimately. When I run that, it's going to ask me to verify yes. I'm going to hit y and then enter. And now I'm at the SQLite prompt, which is not the dollar sign. It literally says SQLite with an angled bracket. 
+
+Now, one time only, I want to go ahead and load favorites.csv into this database so I can actually play around with it using not Python, but this new language called SQL. And the way I'm going to do this is as follows. I'm going to do dot. Mode csv, enter. And that just puts SQLite into CSV mode. It has different modes for different file formats. 
+
+I'm going to .import and then I'm going to specify the file that I want to import, which is favorites.csv. And then this one's up to me. What is the name of the table I want to create? And table, again, is essentially synonymous with sheets. So I'm going to call everything the same. I'm going to call my table favorites as well. 
+
+So what this command is essentially going to do, is all of those lines of Python code that open the file, read it row by row, and do something with it-- This is just built into SQLite. It's going to load the whole darn CSV into this new favorites.db file, and then that's it for now. I'm going to go ahead and literally type .quit to get out of SQLite. I'm back at my dollar sign prompt. 
+
+If I type ls, I have not only favorites.csv, I also have favorites.db now as well, a brand new file, and in that file now is an optimized version of the CSV file. In that DB file now is a version of the data that's going to lend itself to CRUD operations, creating, reading, update, and deleting, using this new language called SQL. 
+
+All right, so how do I get into this? Well, let me clear my terminal window and pretend that I'm doing this now the next day. I've already created the database. That's a one time operation. Once you've got the data, now I'm going to go ahead and again run SQLite3 favorites.db just to open the file again. But it's already now-- all of the data is in there. 
+
+Just as a teaser, let me go ahead and do this. .schema is a SQLite command that just shows me the schema of this database table. And we'll see more about this in a little bit, but for now this is showing me, essentially, the SQL command that was automatically run when I imported this database the first time around. 
+
+And, for now, just notice that it mentions timestamp, it mentions language, it mentions problem. Very loosely, it calls each of those texts. So we're not trying very hard to distinguish one type of data from another. It's all text. But notice, create table If not exists favorites. This is essentially the create table syntax that I alluded to earlier via which you can create a table in a SQLite database. But more on that in just a bit. 
+
+Here now is how we can actually get at the data in that database. It turns out that we can select one or more columns from a database table using syntax like this. Literally, the keyword select, then the name of one or more columns that are in that database, and then from the specific table that you care about. 
+
+And notice that in capital letters here are all of the SQL specific keywords, select, and from, in particular. And in lowercase, by convention, here are the placeholders for the columns that you, or I, have created, and the tables that you, or I, have created. So if I go back to SQLite here. Let me just clear with Control L, which will just freshen up the screen here so we can focus on what's new. 
+
+If I want to select everything from the table called favorites, here's what I can do. Select star from favorites semicolon. And, do forgive me, semicolons are back for SQL, in this case. But select star from favorites uses a syntax you might not be familiar with. Star here has nothing to do with pointers. Star is a wild card. It means give me everything, no matter what it's called, from this particular table. 
+
+When I hit enter, what we're going to see is the entire contents of the favorite table that's the result of having imported that CSV into this database. So when I hit enter, there is all of that data. And SQLite, just to be friendly, it's using what we might call ASCII art, just very simple text, like hyphens, and vertical bars, and pluses on the corner, to make it look pretty and make it look like it is a proper table. But what you're really seeing is the contents of favorites.db, specifically in that table. 
+
+Specifically, if I only care about languages, let me try something more specific than star. Select language from favorites semicolon. This is going to give me just a single column now, of all of the favorites that you selected for language specifically. This is a little overwhelming to see all 399 or so pieces of data, so let me actually truncate it a little bit. 
+
+Let me do select language from favorites limit 10. So we're about to see that there's little tricks you can use to tweak the behavior of the language in order to get back more or less data. In fact, it turns out there's a bunch of keywords like these built into SQL, much like Google Spreadsheets, Apple Numbers, Microsoft Excel, and certainly Python. There's a lot of functionality that you just get for free with the language. 
+
+If you want to calculate an average, count the number of things in a file, get the unique or distinct values, force everything to lowercase, force everything to uppercase, get the maximum value, minimum value-- much like spreadsheets, if you're familiar with that world, you get all of that functionality in SQL but also more. So, for instance, if I go back to my terminal window here. Let me go ahead and select the total number of favorites in this table, the total number of rows that you all inputted. 
+
+So I could do select star from favorites semicolon, and then I could literally start counting these. Like 1, 2, 3, 4-- there's clearly a better way. And, indeed, on our list of functions was a count function. And so the way I can use that in SQL is like this. Select count of star-- so pass star in as an argument to the count function. You don't care what columns you're counting just count them all. From favorites semicolon. 
+
+And now, you're actually going to get back like a little baby table that has just one row, one column inside of which-- one cell of which has the total actual count. And it's 398 because 399, recall, included the actual header row from the file. All right. So suppose you want to-- actually, note that this is the exact same thing as counting a specific column because every row has the same number of columns, three. 
+
+We could just say select the count of languages, or select the count of problems. All of those are going to give me back the same answer. It is, therefore, conventional in SQL if you're just trying to count the number of rows, don't even worry about what they're called. Just do count star to get back everything more simply. 
+
+All right, but what if we want to get back the distinct languages and we didn't know a priori that this came from a Google form with three radio buttons? Well, we could do something like this. We could select the distinct languages from the favorites table, enter. And that gives me Python, Scratch, C because distinct is one of the other functions that comes with SQL. 
+
+This is, obviously, very easily countable with my human eyes, but if I wanted to do this more dynamically, I could change this to be count the distinct languages. And just like in C, just like in Python, just like in Scratch, I can nest these functions and pass the output of one into the input of another. If I hit enter now, I now get three in this case here. 
+
+OK. Let me pause to see if there's any questions or confusion just yet. Yeah. 
+
+[INDISTINCT SPEECH] 
+
+Does SQLite-- 
+
+[INDISTINCT SPEECH] 
+
+SQLite3 is a program. And it's an implementation of the SQLite language, which itself is a lightweight version of what the world known as SQL, which is a very convoluted way of saying there's lots of humans in the world. Not everyone agrees what SQL should be. Microsoft might disagree with Oracle, might disagree with other companies, as well. 
+
+So there's a common subset of SQL in the world that almost everyone knows, and learns, and uses, but there are also some vendor specific features. SQLite tries to distill things really into the essence, and so that's what you increasingly see on Android, on iOS, on Macs, and PCs, as well. So we use it because it's relatively canonical. Good question. 
+
+All right. So let's do a few other things by introducing a few other keywords without trying all of these right now. Here in this list is a bunch of new keywords that are going to give us even finer control. And we saw limit already, and that just limits the output. 
+
+But you can also have what are called predicates. You can literally use the keyword where to start filtering the data, without using an if, and an elif, and an elif, and an elif, and so forth. You can just in one line express something conditionally, you can order the data, and you can even group similar data together. 
+
+So what do I mean by this? Let me go back to VS Code here, and let me play around with a few different queries. Let me select, maybe, the count of rows from favorites, which previously was going to be 398 if I just get back all of the rows, but suppose I only want to know how many of you liked C. I can then say something like where the language in each row equals, quote unquote, "C," and the convention here is to use single quotes, though SQLite is tolerant of other formats as well. 
+
+If I hit enter here, I'll see, indeed, as we saw with Python, the 78 number. That, honestly, took what? 13, 14, 15 lines of code? Now I've distilled that kind of query into a single line of SQL code instead, by using this built in functionality. 
+
+Suppose I really want to get specific, and how many of you really liked Hello, World in C as your favorite? Well, I could change this query. And just like your dollar sign prompt, your shell, you can go up and down in your history in SQLite to save keystrokes. You can use Boolean logic. And I can say language equals C AND, maybe, problem equals, quote unquote, "Hello, World," and the number of you that liked that problem was seven. 
+
+So really, really early on likes Hello, World in C. Now notice a couple of key differences. One, I'm using AND, and not ampersand, ampersand like in C. I'm using single equal signs. So SQL behaves like Scratch does, which is not like Python or C. Why? Different people have implemented different languages differently. Equals, equals, equality in the world of SQL for comparing things left and right. 
+
+All right. Things are now going to get a little more interesting, but the whole goal of all of that Python code was to analyze the ranking of languages and popularity thereof. Turns out in SQL, once you have the vocabulary, it's pretty easy to do something like that. I'm going to do this. I'm going to select all of the languages in the table, but I'm also going to select the count thereof. 
+
+And then I'm going to do that from the favorites table, but I'm going to group by language because I claimed a moment ago that group by is another one of our key phrases in SQL that's going to let us group data. And what this effectively means is that if you've got this table with a lot of duplicate languages, again, and again, and again, you can group by that column, and, essentially, smush all of the Python rows together, all of the Scratch rows together, all of the C rows together, but figure out how many of those rows just got smushed together. Effectively, doing all of that dictionary legwork, or the counter legwork, that I did in 13-- 15 lines of Python code. 
+
+So if I hit enter here, this now is the motivation for what we're now starting to do. I have distilled into a single line of code in a language called SQL what, indeed, took me more than a dozen lines of Python code just to get back an answer. And I can do the same thing with problem. I can just change language here, for instance, to problem instead. But, per this list, I can not only group things, I can order them. 
+
+So if you actually want to get a top 10, or a top three list, well let's just change this query slightly. Before the semicolon, let me order by the count of those rows semicolon. And now what I get is from smallest to largest. 40, 78, 280. If you want to flip that, that's fine. By default, order by uses ascending order, abbreviated A-S-C. If you want to do descending order, D-E-S-C, you can do that as well. And now we have a top three list, from largest to smallest. 
+
+Now, honestly, this is a bit of a mouthful to use count star over here, count star over here. There's a nicety in SQL, too, where you can create little aliases of sorts. So if I use the same query again-- let me scroll over to the left. I can actually use the keyword as here, and I can rename this weird looking column, count star, to anything I want. I can rename it to n. And then at the end of this query, I can order by n, essentially, creating a synonym, if you will, for one versus the other. 
+
+So if I hit enter now, same exact thing, but my little baby table that came back-- not a technical term-- has two columns, one of which is more simply called n now instead of count star. It just makes it minorly more convenient in your actual SQL code to reference things that might actually be a little annoying to type. Lastly, suppose we want to get a top one list, and we just want the most popular language. 
+
+Honestly, I can just do limit one, enter. That gives me just this tiny little table, a temporary table, really, with one row. And, honestly, if I don't even care about what the language is, I can omit that entirely. Just see how many people really like the most popular language. 280, in this case. But, of course, it's more interesting to see what it actually is. So, in short, just by turning these knobs syntactically, it's relatively easy to start getting at more and more data. And more answers there, too. Phew. 
+
+Questions on this thus far? Any questions? No? OK. Well suppose that this week, for instance. One of our new problems is going to be called Fiftyville, and it's going to allow you to explore the world of SQL in the context of a place called Fiftyville. Suppose that suddenly becomes your favorite problem. Well, how can we go about adding more data to a database? 
+
+Well, we've seen create table for creating the table, we've seen select for selecting data there from. Turns out there's also an insert into command that you can use to insert new data into a table. Now, I did this in bulk by just importing that whole CSV file, and SQLite3 did it all for me automatically. 
+
+But in the real world, if you don't have a captive audience, every one of whom is submitting the form at the same time-- but maybe it's an application that's running 24/7, you're going to get more and more data over time, just like Google itself. 
+
+So if you write code like this, you can insert one row at a time, one row at a time, and actually change the data in your table. So just as a check, let me do select star from favorites, enter. Just to see all of the data. And the last data we got was at 1:41 PM, and 21 seconds. Suppose now I've decided I want to insert one new row. 
+
+I can do this. Insert into favorites-- and then I have to specify what columns do I want to insert into. I'm going to insert a new language column, and a new problem column. Timestamp? I could. I don't really want to look up the time, so I'm going to leave that one blank. And I'm going to put in values as follows for this. SQL for the language, which wasn't even an option on the form earlier, and Fiftyville for the name of the problem, semicolon. 
+
+So there's a bit of dichotomy here. In the first set of parentheses, you specify a comma separated list of the columns that you want to put data into. In the second set of parentheses, you actually specify the values that you want to put into those columns. So when I hit enter nothing seems to happen, which, in general, is a good thing at my terminal. 
+
+But if I now rerun select star from favorites, we will see-- voila, a brand new row. We don't know what time or date it was inputted at. In fact, we see an old friend, null, which indicates the absence of a value, but we do indeed see that SQL, in Fiftyville, is actually now in there. So in the world of SQL, null has nothing to do with pointers or addresses. The world of SQL, it's just using the same word to represent the same idea, that there's no data here, but it has nothing to do with actual memory addresses in this case. 
+
+But suppose that you don't want to do that, and, like, no, no, no. Let's just delete that. Fiftyville hasn't even been released yet, nor have we even finished talking about SQL. How do we delete data from a database table? Well, there's a delete from command. Let me go back to VS Code here. Let me go ahead and clear my terminal just to keep things clean. Let me go ahead and delete from favorites, and let me not hit enter here after a semicolon. 
+
+This is one of the most destructive things you can do as a database administrator. If you Google around, there are horror stories of interns in the real world executing commands like this at their companies. This will delete everything from favorites. So if you ever do this, remember, we told you not to today. But if we add a where clause here, only delete rows where the timestamp column is null, this is more reasonable. 
+
+And, frankly, any companies you work for should also have backups of their database, so we shouldn't even be reading about these horror stories, but such is the real world. So this is going to delete any row from the favorites table where Timestamp, capital T, because that's how Google did it, is null. I go ahead and hit enter. Nothing seems to happen, but if I do select star from favorites semicolon that now row is, again, gone. 
+
+So you can use these predicates, these where conditions, coupled with select, coupled with delete, and other operations as well. What if I actually want to make a change? So if you want to update existing data like this. Well, we could do this. I could update this table I could set one column equal to this value where some condition is true. 
+
+So how might this work? Well, let me boldly claim that a lot of you are really going to like Fiftyville in the world of SQL, so all of these favorites are sort of passe now. So let's do this. Let me go ahead and update the favorites table, setting the language column equal to "SQL," quote unquote. And with a comma let me go ahead and also update the problem column to be equal to, quote unquote, "Fiftyville." 
+
+I'm not going to have any kind of where here, which means this is just going to do its thing on all of the rows. So if I hit enter nothing seems to have happened, but if I now do select star from favorites, everyone's favorite is literally that problem. So this too is destructive, unlike the real digital world, there's no Control Z, or undo that. You better have made a backup of your database, otherwise that's not a good thing. 
+
+In this case, I do have this CSV file, so I could just delete my favorites.db file. I could re-import the data, so I haven't really lost anything of importance, but you could in the case of the real world and any data you're actually working on. So just to make the point, let me go ahead and delete from favorites semicolon, enter. Let me reselect. There's no data there anymore. 
+
+And in fact, if I do select count star from favorites, we'll see as much that the answer is, in fact, zero because everything has now been deleted. Any questions, then, on that code there? No? All right. So if not too scared yet, let's go ahead and take our 10-minute break now. Halloween candy is served, and we'll be back in 10. 
+
+All right. So we are back, and before we dive back into SQL and some real world data, it turns out, unbeknownst to me, we've had a Halloween costume contest. So it's now time to announce the winners of this year's CS50 costume contest. If our two winners would like to come on up who, I'm told during break, dressed up as me. 
+
+[APPLAUSE] 
+
+Come on over. Would you like to introduce yourselves? 
+
+SPEAKER 2: Yes Hi, everyone. I'm David. I am living in Matthews as a first year. I'm planning on studying gov and computer science. 
+
+SPEAKER 3: Hi, everyone. I'm David. I'm a second year in Mather, and I'm planning on just studying computer science. 
+
+[LAUGHING] 
+
+SPEAKER 1: Well, thank you. We have some Oreos for you. Thank you, both, so much. Did anyone else dress like this? We have two more Oreos, if you'd like? Intentionally? 
+
+[LAUGHING] 
+
+Oh, that's pretty good. OK. Yes, we have one more winner. Come on down. 
+
+[LAUGHS] 
+
+Thank you. 
+
+SPEAKER 4: Hi. 
+
+SPEAKER 1: This is intentional? 
+
+SPEAKER 4: No. 
+
+SPEAKER 1: Oh, OK. 
+
+[LAUGHING] 
+
+SPEAKER 4: Hello, my name is David. I'm from Canada, and I'm a first year. I'm not sure what I'm going to study. 
+
+SPEAKER 1: OK. Welcome, as well. 
+
+SPEAKER 4: Thank you. 
+
+SPEAKER 1: All right. 
+
+[APPLAUSE] 
+
+Up until now, we've played around with the data that you all gave us, which was based, very simply, on your favorite language and your favorite problems. But it turns out there's a lot of real world data in, indeed, the real world, some of which is quite voluminous. And, indeed, there can be not just dozens, or hundreds, but thousands, hundreds of thousands, even millions of rows in the biggest of databases. 
+
+And so what we thought we'd do in the latter part of today, is really, actually, get our hands dirty with a real world data set from the Internet Movie Database, otherwise known as IMDb. And, in fact, if you go to imdb.com, you'll be able to answer, via their web interface, some of the very questions we'll do today using SQL alone. 
+
+But what you'll find, ultimately, is that what websites like imdb.com, or their mobile app versions thereof, are probably doing is-- yes, giving you a nice pretty graphical interface to type queries, but underneath the hood they are passing your input into SQL queries, or similar queries, that they formed most of. They're just waiting for placeholders, like the keywords, that you're actually searching for. 
+
+So let's go ahead and experiment, maybe, with just some real-world data, initially, before we consider how to actually store it at scale. So let me open up, just for the sake of discussion, an actual, empty spreadsheet, just so I have some rows and columns to play with. And let me propose that we want to model TV shows from the real world. How can we go about doing this? 
+
+Well, maybe I could start in this first column A, so to speak, and I could create a title column. And then, maybe, a column for the star of that show. And a very popular show, of course, is The Office. So I might put this into the second cell in that first column. And under star, I could put someone like Steve Carell. But, of course, he wasn't the only star of the show. There are others as well. 
+
+And so if I want to put in someone like Rainn Wilson, well, maybe, I need a second star column. So Rainn Wilson. But even as early as the first season, there was also another star in the credits, John Krasinski. So he was a star. Jenna Fischer was top credited in the first season. So Jenna Fischer. And then BJ Novak, Harvard alum, was also in the first season's opening credits, as well. 
+
+So we've got all-- one, two, three, four, five of these folks. Hopefully, I didn't misspell anyone's name, but here's the beginnings of a real-world data set. And we could imagine doing this for everyone's favorite shows, adding more, and more rows. But let's consider, as we often do, not just the correctness of this implementation, but the design. 
+
+It's pretty straightforward. It's very readable. So I think it's good in that sense. But if you start to nitpick what's poorly designed, even in the world of spreadsheets, about what I've done here-- assuming that the next row is another show, the next row is another show, and so forth. What's bad about this? Yeah? 
+
+[INDISTINCT SPEECH] 
+
+Yeah, so each row is going to have a different number of columns, and even I, kind of, couldn't make up my mind from the get go. Like, do I have just one star column? Or two? Or maybe now I'm up to 5? For even bigger shows, and later in The Office, when more people got top billing, we're going to need more than five columns for stars. So that's fine. 
+
+We can clearly scroll to the right, and just keep adding more columns, but there should be something about that design that like rubs you the wrong way, like something feels a little off if some rows have this many columns, others have this many. The data would be very jagged along the right hand side. It would be very sparse, which would be another way to describe it. 
+
+There's probably a better way. So maybe I should flip the data around, and maybe a better approach here would be to just have one column for stars. So let me do this. Let me just move Rainn Wilson over here, and John Krasinski over here, and Jenna Fischer over here, and BJ Novak over here, as well. I'll get rid of all of these superfluous, identically named columns. And now this is sort of better because now I can have any number of stars in the vertical, although it's a little weird to leave this blank. 
+
+So maybe I should of copy paste here. So in some sense this is better, in that now I only have one title column, one star column, and I can just keep adding row, row, row, for each show and its stars. But what's now poorly designed about this? Yeah? 
+
+[INDISTINCT SPEECH] 
+
+Yeah. I'm repeating the title. And, in general, copy, paste, repeating yourself in code has generally been a bad thing. It's generally gotten us in trouble if I make a change, or maybe a typographical error somewhere. Maybe it propagates elsewhere. And if nothing else, it's just a lot of wasted space. If this is actually going to be stored in a database, in a CSV file, why are you duplicating the same string again, and again, and again, for large TV shows? That's just wasteful. It just doesn't seem wise. 
+
+So how can we eliminate that redundancy? Well, unfortunately, in the world of spreadsheets, things kind of now escalate quickly to be kind of annoying. But let me do it, nonetheless, with just a small bit of data. Let me propose that we do this instead. Let me create not one sheet but maybe multiple sheets, and assume that there's some kind of relationship, or relation, across these sheets. So, just to be pedantic, let me call this sheet, not the default sheet one, but let's call this shows. 
+
+And in this sheet, I'm going to have a title column for every show, and I think I'm going to be proactive here. I'm going to start giving every show a unique ID number, much like Harvard affiliates have Harvard IDs, Yale affiliates have Yale ID numbers, and so forth. Let's go ahead and give each show its own unique identifier, for reasons we'll soon see. 
+
+So for The Office let me, just for consistency with the actual Internet Movie Database, I'm going to give it a unique number of 386676. The specifics don't really matter, but that happens to be what people in the real world actually do. But that's it for TV shows, even though I could imagine there being many more in this sheet. 
+
+Let me create another sheet now here, and I'll call it people. And in the people sheet, let me keep track of all of those TV stars. So one column will be name, another will be also called ID here, but it's going to be a person ID, not a show ID. 
+
+And here we have, for instance, Steve Carell. We have Rainn Wilson. We have John Krasinski. We have Jenna Fischer. And we have BJ Novak. And, this is going to be a little tedious, but just to be consistent with reality, turns out that according to IMDb Steve Carell's unique number in the world is 136797, Rainn's is 933988, John's is 1024677, Jenna's is 278979, and, lastly, BJ Novak's is 1145983. Phew. 
+
+OK. So now we have the same people, but they each have a unique ID number. Lastly, let's associate those shows with those people in a way that avoids the two problems we identified earlier, which was having a variable number of columns in one case versus redundancy in the second case. Let's really tighten things up so nothing is in duplicate that doesn't actually need to be. 
+
+So I'm going to create a third sheet here, and I'll call it stars, like the TV stars for these shows, and what I'm going to do is have only two columns, a show ID, and a person ID. I could write these in different ways, but it's conventional in the database world to use snake case, so to speak, where everything is lowercase, with underscores instead of spaces. And for show ID-- well, we're only mocking up one show for now, but I'm going to go ahead and say 386676, which is The Office, I claimed. 
+
+And now I'm going to go ahead and have all of those person IDs, and this time it's OK to copy paste, if only to save time. So I'm going to grab all of these five stars IDs, paste them there, and I am going to indulge by duplicating the show ID, even though we didn't like that earlier. Now this indeed has escalated quickly because none of these sheets are very useful to look at to the human eye because none of them has the complete picture. 
+
+We have shows in one, people in another, and then like this cryptic mapping of numbers in the third. But I propose that this is the right way to implement data if your goal is to have a canonical source of truth for every show and every person. That is to say, you only say the show's name once in one place. You only write the TV star's names once in one place. And you associate them, you relate one with the other, by way of this third sheet here. 
+
+So if you've not seen it already, notice that if The Office has this unique ID, 386676, notice in the stars table, that same value appears multiple times. But what this third sheet is doing is associating that same show ID with one, two, three, four, five different people. Now I can see that it's similar in spirit to what we already indicted as bad design a moment ago. The Office, The Office, The Office. 
+
+But think about our world of C. In the world of C, and really computers in general, data takes up finite amount of space, typically. Like an integer is four bytes, 32 bits. So even though, yes, I'm duplicating this value, it's just the same four bytes, four bytes, four bytes. It's not t-h-e space o-f-f-i-c-e, null character. 
+
+It's not the same 11 bytes again, and again. It's just a number, and numbers tend to be much more efficient. That computers can crunch numbers much more quickly. Duplicating numbers is in general allowed, or smiled upon. Duplicating strings will get you into trouble. 
+
+So with that said, is this a useful spreadsheet now? Would you want to be handed this in your job and asked questions? Like, hey, who stars in The Office? You can answer it, but you have to look up one sheet, then another, then a third. Or you need to use VLOOKUP, or special functions in Excel, or Google Sheets. 
+
+I mean, you're just creating a lot of work for yourself. But, academically, if you will, systematically, this has a lot of merit because we've avoided all duplication. We've normalized the data, so to speak, by factoring out any duplication. So where are we going with this? 
+
+Well, it turns out that we'll play now with some actual data from the real world from the actual Internet Movie database. And in a moment, it's going to look a little something like this. This is an artist's rendition of five different-- sorry, six different tables. So not one, but six different tables that we created using freely available Internet Movie Database data. 
+
+They kindly provide, not CSVs, but TSVs, tab separated values, which are essentially the same thing, but you look for tab characters instead of commas in order to convert them, as we did, into our own format, SQLite in this case. But we'll see that there is a file that we've made available from today, which you can download off the course's website, called shows.db, and it contains all of this same information. And in that shows.db file there are indeed these six tables, but let's focus on just two of them initially. 
+
+IMDb, the Internet Movie Database, is all about rating TV shows, and tracking that kind of information, so let's actually take a look at some of these ratings and figure out how we can actually answer actual questions. So let me go over to VS Code. And let me run SQLite of shows.db, which is a file that already exists. There's no CSVs, no TSVs, we did all of this for you already. 
+
+When I hit enter, I get my SQLite prompt. And the first thing I like to do whenever I'm playing with a SQL database for the first time-- maybe I got it from a class, or my boss, or the like-- is just to wrap my mind around what's inside of the database because you're not typically going to be provided with pictures like this. You're just going to be given a file. 
+
+So let me just select some data. Let me select star from the shows table. I don't really want to see all of it, so let me just limit it to the first 10 shows in the table. And here, we can infer what the shows table looks like. 
+
+Every show has an ID, a title, the year in which it debuted, apparently, and the number of episodes as of last night when we exported the data. So that seems to reflect this picture, and this is technically an entity relationship diagram, a standard way of depicting things. And you'll see that in our picture shows, indeed, have an ID column, title column, year column, and episodes column. 
+
+Well what about these ratings? Well, according to the picture, that has a show ID, a rating, and a votes column. So let's go back to VS Code here, and let's do select star from ratings, limit 10, just to wrap our mind around some of the data. And there we have a show ID in the left, we have rating in the middle, which seems to be like a floating point value, and then votes, which seems to be an integer. 
+
+So we have some different types of data here. But there's a lot of data. In fact, if I do this now. Select star from shows-- let's not select all of the data. Let's do select count stars from shows, and in this database there are 214,000 shows in this database. So we're well past the 398 rows that we've been talking about thus far. So it turns out, per this diagram, there's actually a standard relationship between these two tables, shows and ratings respectively, and it's what we would call a one-to-one one relationship whereby every show in this design has one rating. 
+
+And this is indicated, technically, if you look at what the arrowheads look like on these diagrams. This indicates that it's a one-to-one relationship, which means every show has one rating, which means every row in the shows table has a corresponding row in the ratings table. Strictly speaking, they could be in the same table. You could just join them together and make one wider table, but IMDb keeps the data separate so we too kept them separate in two separate tables here. 
+
+So what does this actually mean in practice? Well, let's actually take a look in VS Code at the schema for these tables. Let me clear my screen, and let me .schema, but specifically look at the schema, or the design of, the shows table. So you can do .schema shows, and any command in SQLite with a dot is SQLite specific. In the real world, if you're using other products like Oracle, or Postgre, or MySQL, or others, they have different commands, but anything else that we've been typing, especially the capitalized keywords, is indeed standard SQL. 
+
+If I hit enter here, here is what the shows table apparently looks like. In other words, here is the create table command that we, the staff, ran in order to create this table for you, and then we imported a bunch of data into it. Every show has an ID, has a title, has a year, has a number of episodes. But there's more detail here. Apparently, the ID is an integer, the title is text, and it is not null, cannot be null, the year is numeric, whatever that means, and the episodes is an integer. Well, that is now familiar. And then primary key. 
+
+So there's some other stuff going on there, which we'll come back to, but let me also do .schema ratings, enter, and we'll see a couple of other data types here. There's show ID, which is still an integer, but not null. Rating, which is a real number, a.k.a. float, but it, too, cannot be null. And then some number of votes, which is an integer, cannot be null. And then there's mention of foreign key. 
+
+So unlike our data set for the favorites a bit ago, which we just did automatically, and imported, this database by us, and by IMDb, has been more thoughtfully designed, where there's actually some relationships across multiple tables, rather than previously just one. Now in the world of SQL, we have indeed different data types. For instance, we have these five primarily. 
+
+One, cutely named BLOB, which is actually Binary Large Object, which generally means like a file or some piece of data that's zeros and ones. Though, generally, it's best to store files on file systems, like in folders, on disks, so to speak, not in your database. There's integers we've seen. There's numeric. Which numeric is more like dates and times, things that are numbers, but not necessarily integers or floating point values. There's reals, which do have decimal points in them. And then there's just text. 
+
+In other SQL databases in the real world, in your future jobs, or your future classes that you might use SQL again in, there are even more data types in other databases: Oracle, MySQL, Postgre, and so forth. But these are sort of representative of them. They just get more precise in other systems. But there's also some keywords, that we've seen already, that you can specify when designing a database. --that this column cannot be null. 
+
+If you want to make sure that no one can insert or update data unbeknownst to you that is null, you can impose that when creating the table. And unlike Excel, and Google Spreadsheets, and Apple Numbers, which will generally let the human type in or not type in anything they want, with a database you have more protections over the integrity of your data. Moreover, you can specify that a column's values must be unique. 
+
+If you want to avoid duplicates, like you don't want the same person to be able to register twice for your website thereby making sure they have one unique email address, your database can help with that too. You don't have to rely on Python to check if it already exists. But there's this other feature of relational databases, that is databases that have multiple tables across which there are relationships, and that's these keywords we saw briefly a moment ago. Primary key, and foreign key. 
+
+And we started to scratch this surface here. It turns out what I was doing was actually best practice in the world of relational databases I gave or, really, IMDb gave every show in the world a unique ID. And that unique ID, in this case 386676, is a numeric value, an integer, that uniquely identifies that TV show. In other words, this is the primary key for this table. Technically a sheet, but I'm using that just because it's easier to type in than my black and white window. 
+
+This ID column is the primary key for shows, as I was mocking up earlier. What is the primary key in the people sheet here? It is also ID. It's a different ID, but it's by convention often called the same thing. But this people column, called ID, is its primary key. And you can perhaps see where this is going. Those same numbers also happen to appear in this third table, but in that context, they're sort of foreign keys. 
+
+They didn't come from this star sheet, but they are in this star sheet, so they're sort of relatively foreign to it. So foreign keys is simply the presence of primary keys in some other table, in some other data set. And so it's just a description of relativity, but the foreign key is the column that uniquely identifies your data. Foreign keys is just the appearance of those same numbers elsewhere. 
+
+So what does this mean? If we go back to VS Code here, you'll see that when we created this table using IMDb's real data, we specified that in our shows table, which is bigger than the one I mocked up with Google Sheets there, has not only an ID and a title it, again, also has year in which the show debuted, and the total number of episodes. Because that's juicy data that comes from IMDb, beyond what I mocked up a moment ago. 
+
+In the ratings table, meanwhile, there's a show ID, which is also an integer, just like this ID, but as the name implies, this show ID column is actually going to be a foreign key that references the shows tables ID column. So this is the relational in relational databases. These are two tables that have a relationship, and that relationship is that show ID is referring to this actual ID here. And it allows us essentially, conceptually, to link these two tables together. 
+
+So what does this actually mean? Well, let me go ahead and do this. Let me go back to VS Code here. I'll clear my terminal, and let's play around with some of this data. So let's go ahead and do this just to experiment. Select star from ratings where-- let's get all of the good shows where, just like Rotten Tomatoes, we'll do the cut off at 6.0 out of 10. So where rating is greater than or equal to 6.0. And just so I don't overwhelm my screen, let me just limit this to the first 10 results. 
+
+In other words, this is SQL syntax for selecting all of the ratings that are at least 6.0 or higher from that table. Enter. And we see just the first 10 of them. Not the top 10 because we've not sorted or grouped or anything like that, but the first 10 in the table. So what is interesting here is that we've seen just some sampling of the data, if you will. But this isn't all that interesting here. 
+
+Let me actually distill this just to the show ID because, in other words, I want to know 10 good shows to watch. So let me just select show ID. So same result, but less data. It's just that first column thereof. Now this is going to be a little annoying, but if I want to find out the names of these shows-- think about the picture from whence we came. All of the show's names are in the shows table, but all of the show's ratings are in the ratings table. 
+
+So even if I do select star from ratings, I'm never going to know what show I'm looking at. Like, what the heck is show ID 62614? Well, I could do this. I could select star from shows where the ID of the show equals 62614 semicolon. Enter. OK, so I could watch this show from 1981. Let me do another one. Select star from shows where ID equals 63881. So I'm just grabbing the second ID from here. 
+
+OK. So Catweazle, a kid's show from 1970. All right. So I'll watch that. So now let's do another one. I'll just copy this. Like suffice it to say, this is not the best way to look up data, where I'm literally copying and pasting values from one query into the next. But this is where SQL gets a bit powerful. I can have nested queries. I can put one inside of the other. 
+
+So let me instead do this. Let me clear the screen, and let me instead do this. Select star from shows where the ID of the show is in the following list of IDs. Select. And, actually, I'll do this on a separate line. Select show ID from ratings where the rating value is greater than or equal to 6.0 semicolon. 
+
+So I've separated this onto two lines. The dot, dot, dot is just a continuation character, which means same query, multiple lines, but the parentheses are deliberate. Just like grade school math, I want what's in parentheses to happen first. And so what the database will do is we'll select, as before, all of the show IDs from the ratings table where the rating value is at least 6.0 out of 10. And that's going to return to me, effectively, a list, some kind of collection of show IDs, which previously I was copying and pasting, now the database will do the legwork for me. 
+
+It will now select everything from the shows table, where the ID of the show is in that list of values. And it's actually going to be more than 10 unless I go in there and say limit 10, which I can do. So let me go ahead and hit enter now. And now I see more useful information not just the ratings information, which in a vacuum tells me nothing about what to watch. Now I see the show ID, the title, the year, and the episodes. 
+
+But notably, what is-- and if I want to distill this into just the title, let me actually go back here and instead do select just the title from shows where the ID is in this whole list. And I'll re-execute it by just copying and pasting the same. The only difference now is instead of star, I'm selecting title. Here's now how the data analyst at IMDb might be selecting 10 shows that are really good to watch, according to ratings. 
+
+But what, of course, is missing from the output, whether I do star or just title? What's missing? Yeah? 
+
+AUDIENCE: Rating. 
+
+- The actual rating. I know these are at least 6.0, but which is 7.0? Which is 10.0? It'd be nice to actually combine the data in some way. So we can actually do that, too, because it turns out that when you have two tables in the world of SQL, or even more, you can actually join them together. You can join them together, literally using a keyword called join. And you can do this as follows. Let me propose, with a sample data set, these two tables. And dot, dot, dot just means we don't really care about the specifics. We just care about the structure. 
+
+So on the left here is a simplified version of my shows table that has a show ID and a show title, but I've omitted year and episodes as just intellectually distracting from the basic structure here. But they're there in the real table. On the right hand side here, we have the ratings table with just two of its columns, the show ID and the rating, but I've omitted the votes because it doesn't really add anything to the discussion. But let me propose this. 
+
+Notice that these two tables and these two rows therein definitely have commonalities. Like, they both have the same ID. In the left table it's 386676, a.k.a. The primary key of that row. But it's also appearing in duplicate in the right hand table, 386676, and in that context it's a foreign key. The point, though, is that they're the same. 
+
+So wouldn't it be nice if I could treat one table here, one table here, and if my fingertips represent these identical values, kind of like glue them together so I get one wider table with all of the information together to satisfy your concern, that we don't even know what the ratings are of those shows. Well let me go ahead and do this. Just for artist's rendition, let me flip title and ID, which has no functional effect. It's just going to put the numbers closer together on the screen. 
+
+Let me then literally highlight the fact that these two numbers are identical, and let me propose that we do the equivalent of this, we somehow join these two tables on that common value. Strictly speaking, I don't need both values because they're duplicates, so I don't care if one of them goes away. But what I'd really like to do is select, indeed, a temporary table that is the joined version of that original data. 
+
+And frankly, I don't really care as the user what the ID is. Heck, all I care about is what show to watch and what its rating is. Give me the title and the rating. All of these numbers are, again, metadata, things that the computer cares about, but we humans probably do not. So how can we implement that idea? Of taking one data set that has a relationship with this data set, and somehow combine it together? Well let me go back to VS Code here. Let me clear my screen. And this is going to be a bit cryptic at first, but it's very step by step. 
+
+Let me do this. Select star from shows, but not from shows alone. Let me join it with the ratings table. So let me select everything from shows joined with ratings, but I need to tell the database, well, what do I want to join things on? What are my fingertips? Specifically, I want them to join on those common integers. 
+
+So I can literally say, on, and then I can specify one table on the left. Shows.id on the left should equal the ratings table's shows.id column on the right. Again, if I'm joining shows with ratings it's called ID in one, it's called show ID in the other, but it's the exact same thing. In fact, if I rewind, this is where we came from. Two tables with the same value. 
+
+So with this query here, if I go ahead and now specify not just that but let me further say, where rating is greater than or equal to 6.0. And, heck, let's limit it to 10. Just fits on the screen, so it's more of a mouthful, but when I hit enter now we have a wider table that indeed contains everything, star, from having joined these two tables left and right. 
+
+Now, again, I don't really care about much of this data, like year and episodes and definitely not the IDs. So let me actually hit up. Let me go to the beginning of the query, and let me just select the title of the show and the rating of the show. The query is getting a little long and it's wrapping, but it's the same query. 
+
+Except, instead of star, I've done title comma rating. Now when I hit enter-- like, this is the list that would have been nice to see the first time around. Show me 10 shows with a rating of 6.0 or higher, but remind me what the rating actually is so, maybe, I can prioritize the sevens, the eights, the nines, and even the tens, if any. 
+
+Any questions about this technique of joining two tables? This sort of solves the problem that we created in the world of this sheet, where I was just kind of playing around, where I sort of moved all the data into its separate locations, which is not at all pleasant to use. But with SQL, with join, you can still get any of the data you want. Yeah. 
+
+[INDISTINCT SPEECH] 
+
+Correct. So, yes, I should have called that out more explicitly. In my query here, I was using dot notation, which we've seen in Python, we've seen in C. It means something similar in spirit here, but it has nothing to do with structured objects. In this case, it has to do with tables and columns. So shows.id just makes clear that I want the ID column from the shows table to line up with the show ID column from the ratings table. 
+
+Strictly speaking, I don't need to do that because in this case there is no ambiguity. One table has a column called ID, the other table has a column called show ID. So certainly the database can just figure this out for me. But, for best practice, and for the sake of being explicit, using the dot notation and table names can help, especially if there's some common language across them. 
+
+All right. Well let's go back to the bigger data set here. These are all six tables in IMDb. We focused for just a moment there on like shows and ratings alone, but what about genres. So, genres, like comedy, and documentary, and drama, and so forth. Turns out that this actually implements a different type of relationship. Previously we saw a one-to-one relationship, but it turns out that IMDb supports what's called a one-to-many relationship when it comes to genres. 
+
+Why? Well, shows like The Office, I do think are generally considered comedy and that's it, but there are certainly other TV shows that might have multiple genres associated with them. Maybe it's comedy and a bit of romance thrown in, like rom-coms, and so forth, so you could imagine some shows having two or three or more genres, and so one-to-many means that one show can have many genres. One-to-one would mean one show can have one rating, as we've seen. 
+
+So why don't we go ahead and focus, maybe, on how about a query like this. Let me go back to VS Code here, clear my screen, and let's just look at some of those genres. Select star from genres and then I'll limit it to 10. And, again, I do this just to wrap my mind around a new data set. I could look at the schema, but that tends to be more cryptic. I just want to look at the raw data. 
+
+OK. It looks like here there are a bunch of genres: comedy, adventure, comedy. So two comedies, which is interesting. Oh, interesting. Family, action, sci-fi, family. So the values here are duplicated, which it turns out is not the best design of IMDb. We literally just imported the data as they implement it. But notice that show ID 62614 is a comedy, but so is show 63881, and so is show 65270. 
+
+So it turns out that in the real world sometimes data is somewhat messy. There's duplication of comedy, comedy, comedy, but such is the way IMDb's data is. But what's more interesting to me, for now, is notice this. This show ID in three rows is the same. So there's some show out there that's considered by the world to be an adventure, a comedy, and a family show. 
+
+So let's see what that is. Let me just highlight and copy that value, 63881, and do this. Select star from shows where the ID of the show equals that value. And it turns out, we saw it briefly before, it's a show from the 1970s called Catweazle, which falls into all three of those categories. So by using a one-to-many relationship, sort of depicted by this picture here, you can implement that same idea without having that jagged edge. 
+
+When we looked at the spreadsheet earlier, in an earlier version of this, we had star, star, star, which we could do again, genre, genre, genre, but now we instead have two separate tables where this many-to-many relationship is implemented across. So let's actually play around with it. Let me go back to VS Code here, and let's actually take a look at the schema for genres. 
+
+And we'll see that it's pretty small, as the picture suggests. It's called genres. Every row has a show ID, which is an integer, cannot be null. It has a genre, which is text, cannot be null. And that show ID is a foreign key in this table that references an ID column in the shows table. So very similar in spirit, and so it really is just kind of on the honor system that we're only putting one row for each show in ratings, but 0 or more shows in the genres table for shows, as well. 
+
+So what can we do once we want to tinker with genres? Well, let me do this. How about we select the show ID from the genres table where the genre is comedy. Like, I'm in the mood for some comedy. Let's see all of the available comedies, except let's just limit it to 10. Here are the show IDs for 10 comedies according to the Internet Movie Database. 
+
+Well, that's not very interesting. I care about the title, so we can do that. Select title from shows where the ID of the show is not equal to, but rather, in the following subquery, if you will. Select show ID from genres where genre equals, quote unquote, "Comedy," limit 10, just to keep things simple. So same query as before, but now I'm using it as a nested query to select the actual titles whose IDs match those their. Enter. 
+
+And there are those titles for 10 comedies, maybe a couple of which we've seen. Catweazel we've seen before. But what if we want to now-- let's see. Maybe we want to get all of the-- let's flip it around. Catweazle keeps coming up. Why don't we figure out, with a query, what all of its genres are? So Catweazle. Let's see. So let's do select star from genres limit 10, because I know it's in the the first 10. This was, 63881 was Catweazle's ID. So let's do this. So select genre from genres where the show ID equals that value. 
+
+OK. So there's the same query as we did before. Can we make this dynamic? Well, we can, too. What if I instead, more dynamically do, select genre from genres where the show ID-- and not in. If I'm looking for a specific show, now I can actually do equals. And in my subquery, I could do this, select ID from shows where the title of the show equals, quote unquote, "Catweazel," semicolon, enter. 
+
+So, again, even though I'm typing these very quickly, I'm really just composing similar, smaller ideas that we've seen before into larger and larger queries to just get at more of this data. So what's really going on underneath the hood? Well, you can think of it like this. If we've got this relationship between shows and genres, here's an excerpt from shows, and I didn't bother showing the thousands of other shows. Here's an excerpt from genres on the right. 
+
+What is that query-- what are we essentially trying to do? Well, let me flip this around here. Let me highlight the fact that this is the same, this is the same, this is the same. So wouldn't it be nice if I could kind of get these all together? Well, if I join these tables, we're actually going to notice an interesting artifact. If I join them together, as we did before with ratings, I'm going to need to fill in the gap there because this is not a table. 
+
+Tables, by definition, always have the same number of rows and columns. You can't have gaps in them like this. So the simplest thing to do is just to fill that in this way. But if I were to try to combine two tables that have this one-to-many relationship, you're actually going to get duplication. It's not duplication in the original tables, but in the temporary tables, otherwise known as a result set, that's coming back to us. 
+
+So what do I mean by this? Well, if we actually implement this same idea as before, where we try to join these two tables, let me propose that we do it with this syntax. Let me do select star from shows join genres, which is just like we did with ratings but now let's join it on shows.id equals genres.show_ID. But let's just do this for Catweazel, where ID equals 63881, semicolon. 
+
+With the ratings, it worked perfectly because it was a one-to-one relationship, so the rows just got wider, if you will. But now, because it's a one-to-many relationship, when you execute these queries, you are going to get back duplicate data but this is OK. It's considered OK because this is sort of ephemeral. These result sets, these temporary tables, exist just for us to look at the data, just for us to crunch the numbers somehow. It's not actually stored in duplicate in the database itself. 
+
+If I wanted to tighten this further, though, let me actually get rid of the star and let me just do title genre. And, indeed, we can now see. OK, Catweazel three times has three different categories. But, generally, we don't even care about that so I can even whittle this query down to just selecting genre, and that, too, will just give me the result, effectively, hiding the duplication. 
+
+But when you join data with a one-to-many relationship you're temporarily going to get duplicates, which is actually useful because it's very easy then to get at the show's title no matter where you are in some loop. All right. Well, what more can we do here? 
+
+Well let me propose that we revisit the main database, here with six tables, and let's look at, perhaps, the juiciest, and the one that's really what most people use IMDb for is to look up shows and people therein. Let's focus on these three tables. And we can infer, from this diagram, that there's now, for the first time, three tables involved in a relationship. 
+
+There's people, there's shows, but I've proposed this intermediary stars table, much like I temporarily, in Google Sheets, gave us a third sheet to link the two together. This stars table we're about to see, it's purpose in life is to join two other tables together. And, in fact, it's only going to have two columns, show ID and person ID. So what this is going to do for us is implement this idea, many-to-many relationship. 
+
+Why? Because any TV show can obviously have many people in it, but one person can presumably star in many different shows. Like, Steve Carell has been in multiple shows, not just The Office. So when you have a many-to-many relationship, you actually do need this third table to bridge the two any number of times. But it's going to make our life a little more unpleasant to get the data we want because it's going to add some additional steps, if you will. 
+
+So let me do this. Suppose that I want to get everything I know about The Office. Well, let's start with a single query here in VS Code. Select star from shows where title equals, quote unquote, "The Office." And I should see-- Oh, interesting. Several attempts at creating a TV show called The Office over the years. You can, perhaps, infer the year in which the most popular of them began. 2005? 
+
+So I presume this is the one we all know and have watched, at least in the US, which is this one, 386676, which matches the ID that I very carefully used earlier. So let me actually be a little more deliberate, where the title equals The Office and the year equals 2005. That query now gets us The Office that we all in the US and, perhaps, love. But now let's actually do something like, get all of the people who starred in it, at least according to IMDb, whoever had top billing. 
+
+So how can I do this? Well, unfortunately, in the shows table there are no people, and there's no stars even, but I could do a nested query like this. Why don't I select the person ID from the stars table where-- whoops, where the-- sorry, where show ID equals, and then in parentheses let me do that same query as before and for time's sake, I'll just copy paste so that we get back the one and only Office in that subquery. 
+
+So what I'm going to do is take an intermediate step, a baby step, if you will. Right now, I have found in the shows table The Office I care about. But if I want to get to the people table, I have to take a step through the stars table, this intermediate table, just to get anywhere close to the names of those people. So what can I get from the stars table? Well, why don't I at least select all of the person IDs in that table that are somehow associated with the same show ID? 
+
+So in VS Code, what I'm doing is this. Select person ID from that intermediate stars table, where the show ID in question is whatever the show ID is for The Office. I could literally type 386676, but I'm trying to do this more dynamically so I've used a nested query instead. All right, this is correct. Whoops, ironically. Where show ID-- Oh, thank you. Oh, who said that? OK. Batman. I owe Batman Oreos after class. Thank you, Batman. That's de facto. Yes. Other good prize for that costume. 
+
+[LAUGHS] 
+
+OK, so let me fix this. My apologies. So let's go ahead and select person ID from stars where show ID equals, and this is where I messed up before. I did select star from shows, but I can't look for a show ID equaling an entire row of information. I instead need to do select ID from shows where the shows title equals, quote unquote, "The Office" and the year of that show is 2005. And just to call this out, much like in C, I'm quoting strings, but I'm not quoting numbers. 
+
+It's not necessary for something like 2005. And just to be super clear, too, I have generally adopted a style already today of capitalizing any SQL keywords, like select, like from, like where, and so forth, and then using lowercase for everything else. Strictly speaking, that's not necessary. Stylistically, we would encourage you to be in the habit of using uppercase for your SQL keywords because they just pop more on the screen. It sort of makes things more readable. 
+
+But strictly speaking, SQL itself does not care about that capitalization of keywords. All right, now let me cross my fingers. And now I get back this list of person IDs. And, again, my goal was to figure out who is in The Office that debuted in 2005. This is not that interesting because I don't know who any of these people are, but here's where we can do one additional step and nest a nested query. 
+
+So let me actually select the names from the people table where the ID of those people is in. And then on a new line, just to make it pretty, where the ID equals this query, which I'll paste here, and then that equals, and then another line and indent further, this query here. So just to save time, I'm copying and pasting the previous query, but I'm wrapping it with one outermost query, now, that's saying select names from people where the ID of those people is in this result set, where the ID of those shows is in this result set. 
+
+So the parentheses make clear, ideally, what's happening and what order from inside out. Enter. And there we have it, at least according to IMDb, for the latest season, like this is the top-billed stars that are in this here database. All right. So how can we do something else? Well, let me just do it in the other direction. 
+
+Suppose we want to see all of Steve Carell shows, not just The Office. Select title from shows where the ID of the show is in. And then here, I'm going to do select show ID from stars where person ID equals. And then here, indenting for clarity, I'm going to select Steve Carell's ID by saying, select ID from people where the name of that person is, quote unquote, "Steve Carell." And so in this way, 
+
+I'm writing the SQL query sort of in reverse. I'm asking first what I care about. But before I can even answer that, I have to answer this nested query, what is Steve Carell's ID? Once I have that, what are all the show IDs that person ID has been in? And then, please tell me what the title of all of those shows is. Let me go ahead and cross my fingers. And, voila. 
+
+Some of these you might have heard of, some of you might not have, but if you were to go on imdb.com and search for Steve Carell, you would presumably see this here list of shows that he's been in, in some particular order. Just to show you two other syntaxes, but let me not emphasize this because it will look complicated. There are other ways to solve this same problem. 
+
+If you prefer the approach of joining, we can actually join not just two, but three tables together. But question first. 
+
+[INDISTINCT SPEECH] 
+
+No, just stretching first. So two final ways to execute the same idea, but the first of them that I just did is arguably, relatively, simpler. You could do this. I could select the title from the shows table by joining it on the stars table on the shows ID column, equaling the stars tables show ID column. And then I can further join it on the people table, on stars dot person ID equaling people.id. 
+
+This is a mouthful, and even I am kind of crossing my fingers that it didn't screw up when transcribing it from my printout here, but what I'm effectively doing is joining one, two, three tables all together by telling the database how to join the shows table, with the stars table, and the people table. Specifically, the way to bridge that picture, per the diagram, is to specify that shows.id should be lined up with stars.show ID. And stars.person ID should be lined up with people ID. 
+
+And that's it. That essentially allows us to connect these three tables with their common fields. If I hit enter now, I'm going to get back, somewhat slowly actually, a really long list, with some duplication, of all of those particular shows. Actually, all shows in the database because I didn't practice what I'm preaching. I wanted to search for just Steve Carell, what you're seeing is the entirety of the tens of thousands of TV shows. 
+
+Control C is your friend. Let me go ahead and reload SQLite, and let me type that again. Let me type that once more, sorry. Select title from shows, join stars on shows.id equals stars.show ID, join people on stars.person ID equals people ID where-- this was the part I left out. Name equals Steve Carell. And if I didn't screw up by typing so fast-- enter. Now we get, a little more slowly than before, those same shows that Steve Carell starred in. 
+
+So this is just to say there's another way of doing this. But maybe a third way, which is a little simpler than that, explicitly joining them in that way. You can, alternatively, still do this, select title from shows, stars, and people. You just literally enumerate, with commas, what three tables you want to join somehow. And then you can instead of using join, you can just use where clauses to make sure they line up properly. 
+
+You can say, where shows.id equals stars.show ID, and people ID equals stars.person ID, and name equals, quote unquote, "Steve Carell." And I realize this is hard to keep track of everything now, all these darn different ways to do this, this is just to say that there's different approaches to solving the same problem and for different people you might think about things a little more differently than someone else. 
+
+If I hit enter here, this too it's a little slower than the nested selects it seems, but it does, in fact, give us that same answer. And just for thoroughness, if I go back to our diagram. Besides the tables we've seen, there's actually another writers table in there, as well. If you're curious to see what writers is, let's just glance at that real fast. In VS Code, let me do .schema writers, and it's actually almost the same as stars. 
+
+Except this case, in writers, we are associating a show with a person ID, both of which in this context are foreign keys that indeed reference back shows and people ID. Which, again, if I do this schema stars, which we didn't see before, is structurally the same. So the relationship is essentially embodied, in this case, by IMDb, and in turn by us, by way of the tables name, TV stars or writers thereof. 
+
+All right. I know that's a lot. Any questions before we take a higher level step back? Yeah. 
+
+[INDISTINCT SPEECH] 
+
+A good question. Does SQL provide any way to figure out the mapping between tables without looking at the database? Short answer, no. Like, this is the dia-- well, that's not quite fair. Depending on the database you're using, you might be able to click a button, for instance, and get a nice pretty picture like this, that shows the relationships. Indeed, we use software to generate this. We didn't do this diagram, for instance, by hand. 
+
+SQLite itself does not provide you with that. In SQLite the best you can do is run .schema. And if you don't specify a table name, you'll get everything from the table described. Once you get comfortable with SQL, though, the idea is that you can read the text and sort of infer what the structure is. But, yes, there are graphical programs can generate prettier pictures like this, but it depends on the software you're using. Yeah. 
+
+[INDISTINCT SPEECH] 
+
+SQL is not case sensitive with respect to its keywords. But table names, and other things that you chose, you've got to be consistent with how you capitalize them. I've done everything in lowercase, but that tends to be one convention. Other people might use camel case, where you alternate caps appropriately. All right, so let's take a higher level look at this, and also consider some of the actual real world problems that, tragically, are still with us in some form today. 
+
+Notice that some of the queries we executed a bit ago were actually relatively slow whereas I hit enter and got a lot of my results like that. Those last two queries, where I was joining all of those tables looking for Steve Carell's shows were actually relatively slow. And let's try to take a simpler case. 
+
+Let me do this. In SQLite you can actually time your queries by running .timer and then turning it on. This is just going to keep track now of how many seconds or milliseconds any of your queries take if you're curious to figure out what's faster, what's slow. Let me do something relatively simple like this, select star from shows where the title of the show equals, quote unquote, "The Office," semicolon. 
+
+All right, that was pretty darn fast. And it took 0.044 seconds in reality. If you care further, you can break this time down into user time, like spent in my account, versus system time, which means spent in the operating system, essentially. But we'll focus on the real wall-clock time of 0.044 seconds. Pretty darn fast. 
+
+But we can actually do better because it turns out in the world of SQL, you can create what are called indexes, which is a fancy way of saying a data structure that makes it faster to perform queries, like selects, and even other queries as well. In an index, you can use syntax like this, create index, the name of the index, on a specific table on the specific columns. And what I mean by this is if you know that your application, like imdb.com or their mobile app, is going to search on certain columns frequently, you can prepare the database in advance to build up some fancy data structures in memory so it can get back answers even faster than that. 
+
+So case in point, let me go back to VS Code here, and let me create an index called, whatever, title index, for instance on the shows table, specifically on the title column. So that's simply the syntax for telling the database in advance, index this column because I'm going to do a lot of searching on it so I want the queries to be fast. Enter. It took a moment. It took almost half a second, but the index I only have to build once. Even though, technically, you have to maintain it over time if you're doing updates, deletes, and inserts. 
+
+But now let me do the same query as before, select star from shows where title equals, quote unquote, "The Office." Previously, that query took 0.044 seconds. When I hit enter now? Boom. I mean, it takes no time at all, or less time than it's even keeping track of in terms of significant digits. 
+
+Now, that might not seem like a big deal to us humans and our human eyes, but if you've got hundreds, thousands, millions of users, as maybe the real imdb.com has, you just saved yourself a fortune in servers and complexity. Why? Because the same server can, clearly, now handle way more people per unit of time, per second, because each query takes less and less time. 
+
+I mean, we're all too familiar here and at Yale, surely, with certain University applications that are just so darn slow. When you click a button and the stupid thing spins and makes you wait and wait, a lot of the time that can be explained by poor database design, or databases that might not have been indexed properly. So when you're searching for some course, for instance, in the course catalog, it's taking forever because underneath the hood it's essentially doing linear search over everything. 
+
+But, by contrast, in a relational database, when you create an index in advance because you have a hunch that maybe users are going to search on that column, like show titles. Essentially, you're building up in memory what's called a b-tree, which is not a binary tree. It's still a tree, though, if you think back to week five. 
+
+But it's a very short, fat tree instead, where every node might have two, or three, or 30 children, which essentially pulls the height of the tree way up. Which is to say that when you search for some value in a b-tree, it's invariably going to be in the leaves. So the shorter the tree is, the fewer steps it takes to find the value you care about. 
+
+So when you run create table, that kind of data structure is being magically created for you by the database so it's not a simple linear search through the entire column, top to bottom. So with that said, we can see this really with more complicated queries. And let me go back to VS Code here. Let me propose to run that same, slow query before, even though it's fine if you're not comfortable with the syntax. It was relatively slow, though, to watch. 
+
+So let's do select title from shows stars and people where shows.id equals stars.show ID, and people.id equals stars.dot person ID, and name equals Steve Carell. So this was the last of those queries. That just searches for all of Steve Carell's TV shows without using joins explicitly but by just enumerating all three tables in question, and then using where to cleverly connect the dots, so to speak. 
+
+But my timer is still on. So notice now, when I hit enter, it doesn't just feel slow. It actually took 2.763 seconds. Like, that's slow. That's expensive. That's going to annoy your users. That's going to annoy your students if the database is thinking, and thinking, and thinking, and taking that much time. But let's note this. That same query I just executed touched a bunch of columns, and it turns out that whenever you declare a primary key in a database, at least in SQLite, you get an index for free. 
+
+Primary keys are automatically indexed, so searching for a number in that column? Super fast. Not linear search, it's something logarithmic, most likely, or, ideally, closer to something like constant time even. Here, though, I'm touching not just shows.id, but I'm also filtering on stars.show ID, so a foreign key. Foreign keys are not indexed by default. 
+
+I'm looking at people ID. That's a primary key. That's indexed. But stars.person ID, not indexed by default, is a foreign key. Lastly, I'm filtering by name in the people table. Names are not indexed by default. So I'm touching three separate columns, two foreign keys, one name field, that have no fancy tree structure built for them. But I can do that. 
+
+Let me go down to my terminal here. Let me create one index called, say, person index, though, I could call it anything I want, on the stars table on the person ID column. So that indexes that foreign key. Took 1.7 seconds, but I only have to do it once. Create index, show index on the stars table show ID. So another foreign key is getting its own index. Took 1.4 seconds, but it's a one time thing. And, lastly, let's index all of those actors names. Create index called name index on the people table on the name column. Enter. That took 1.0 seconds, but a one time operation. 
+
+So, essentially, I've built up like three of these trees in memory now, specifically for these columns. So now recall, previously, that slow query. If I scroll back up, that took, what was it? 2.7 seconds? I think. 2.7 seconds, previously. But if I now run the same thing, select title from show stars people where shows ID equals stars.show show ID, and people ID equals stars.person person ID, and name equals Steve, so close, Carell. Same query as before previously took 2.7 seconds, which was the most annoying of them yet. 
+
+Now, when I hit enter? Boom. 0.001 seconds, which is the difference, again, between bunches of linear searches and, in this case, searching a fancier, week-five style, b-tree, in this case. So indexes matter. So what's then, maybe, the trade off here? Like, why not index every column in every table? Because this is feeling great. Like, we're speeding things up by factors of 1,000, practically. What's the trade off? 
+
+[INDISTINCT SPEECH] 
+
+Lots and lots of memory, or space. Yeah, so you're just trading off space for time, which we said a couple of weeks ago is an acceptable trade off depending on what resources you have. But it's probably an overcorrection to index everything, especially since it will slightly slow down inserts, updates, and deletes because you have to maintain this tree structure so it doesn't devolve back into a linked list or something linear. But, in fact, being selective about it is perhaps the best strategy. 
+
+All right. So that we can now solve some other problems more generally, let me just connect two dots. Even though we focused today on SQL, specifically for databases, you can actually combine one language with another and solve different problems. And so, in fact, let me do this. Let me revisit our favorites.py from earlier, but let me actually now use the favorites database as follows. 
+
+Let me go into VS Code here. Let me remove favorites.db because if you recall it made everyone's count previously-- became Fiftyville. So let me remove that file. Let me run SQLite3 on favorites.db again. Let me create the file anew. Let me set the mode to CSV again. Let me import that file called favorites.csv into an identical table as before called favorites. And then quit. So I've just reset things to my backup, if you will, from the CSV file. So, I again have a favorites.db. 
+
+Let me now minimize my terminal window here and reopen favorites.py, and let me just go ahead and get rid of that version entirely and focus this time on not talking to a CSV file, opening it, iterating over the rows. We can actually use Python to execute SQL queries and kind of get the best of both worlds. 
+
+So let me do this here. Let me, from the CS50 Python library, import our own SQL functionality. And this is a training wheel we still provide for SQL because it's just much easier than using the industry standard libraries for SQL. It just is painful for simple tasks. So now, let me create a variable called db, for database. I'm going to set it equal to this SQL function that CS50 wrote. 
+
+And this is going to look weird, but the way you open a DB file in Python, whether it's with CS50 library or someone else's, you say SQLite colon slash, slash, slash favorites.db. So weird syntax, but it's commonplace. Three slashes, not two like a URL is usually. Now let's use a variable called favorite and set it equal to the return value of input by asking the human for their favorite TV show. 
+
+And now, previously we opened up the CSV file, iterated over it looking for the show they typed in, show they typed in. Or, rather-- Oh, sorry, not the show. The problem, or the problem that we typed in. Let me instead do this. Let me set, use a db variables, execute function, which comes with the CS50 library, and let me execute this SQL query. 
+
+Select count star as n from favorites where problem equals question mark. And the question mark is a little weird, but think of it, for now, like C's percent s. Comma favorite. I'm going to plug in whatever the human typed in into that query where the question mark is. So no percent s, I'm using a question mark in this world of SQL. 
+
+This is going to give me back a temporary table, and I'm going to store that temporary table in a variable called rows. Because the temporary table is essentially zero or more rows, so I'm going to name my variable rows. And then if I want to get back the first and only row, I can literally do row equals rows bracket zero just to be pedantic, just to get, literally, the first row in that temporary table, or result set. And now if I want to print back the n column therein, I can do print row, quote unquote, "n." 
+
+So let me take a step back and do this. Let me go into SQLite3 of favorites.db and let me literally type something like this. Here I'm in SQLite3 at the bottom and the problem I'm searching, for instance, is Scratch semicolon. Notice that is how in SQL, in the command line of SQLite3, I can get back the answer I want. But what if I want to make a Python program that queries the database for that value and then prints something out? 
+
+In two weeks time, what if I want to do that to make a web application, like imdb.com or a mobile app, that writes code to generate a user interface but that pulls the data from a database? You're not going to have your human users using SQLite3, you're going to generate the output for them. So let me close my terminal window here. Rather, let me close out of SQLite 3. Let me now run Python of favorites.py, enter. 
+
+I'm prompted for my favorite using the input function. I type in Scratch and hit enter, and there's my 34. So this is an incredibly common practice, to use one language for what it's best at. Like SQL is best at reading data from databases, Python is, maybe, best in this case for creating a user interface or, eventually, making a web application. But it's certainly fine to use one inside of the other. 
+
+The documentation for this library, if and when you get curious, is it this URL here, along with a lot of CS50's own documentation. But there are some problems, nonetheless, we might encounter in this world, and we thought we'd end on these challenges. It turns out that in the world of SQL, even though we haven't touched upon this yet, you're generally working not with like hundreds of people and their favorite languages and problems, not even thousands of movies, but like millions of things in the database, like Instagram posts or TikTok videos or the like. Those are huge databases with millions of rows. 
+
+The problem with SQL and, really, databases in general, is if you have thousands, millions of things happening at once, things can get out of order and your math can be wrong. You can lose track of how many likes something has. And so, for instance, as of last night this remains the most popular Instagram post, to date, in the world. It was clicked on by so many people. And you might think that's pretty straightforward to keep track click, click, click, but not when there's millions of devices in the world and thousands of servers, probably, at Meta running Instagram's back end. 
+
+So how do you actually keep track of all of these likes? Well, maybe, Meta is using code like this to implement the counter for likes on Instagram. Maybe they are using lines of code similar to what we just wrote db.execute select the current number of likes from the posts table where the ID of the post equals whatever the one is that the user clicked on. 
+
+So the post a moment ago, presumably, has a unique ID, a primary key, and that number just gets plugged in here when Meta wants to figure out, all right, someone just clicked on this post. Let's figure out what the current number of likes so we can add 1 to it and update the database. So this query here gives us a temporary table containing the current number of likes before you or someone else clicked. 
+
+Maybe then we just declare a variable called likes to get at the first row's likes column. So this is just Python syntax, similar to what I did, just to get the actual number you care about, like 34 or whatever million it is here. But then suppose there's a second database query and a third line of code that updates the posts table setting the likes equal to this value where the ID of the post is this value. 
+
+So these question marks are similar, again, in spirit to printf's percent s. They're placeholders for things that are going to be plugged in after the commas. So if I want to update the number of likes to be whatever the current number is plus one, I put it there as a second argument and then I plug-in the ID of that post. The problem, though, with large systems like the Metas, the Googles, the Microsofts, and others of the world, is that they are executing code like this on multiple servers, thousands of servers, that might be executing slightly out of order. 
+
+One might be faster, one might be slower. Which is to say, even though these three lines of code represent what should happen when I click on that post and you click on that post and you click on that post, the lines of code chronologically might get shuffled a little bit. Like, maybe, this line of code gets executed for me and then it gets executed for you and then you, and then the server moves on to the next line of code. 
+
+So it's sort of multitasking, handling lots of users at once. The problem with this is that you run into a race condition of sorts, where the servers are sort of racing to handle one user but other users requests are happening at the same time. So the analogy that I was taught years ago in an operating systems class actually pertains to something like a refrigerator here. 
+
+So we have a mini refrigerator here. Suppose you've got one in your dorm or your house room, and you come home one day. And you really like milk, so you open the fridge and you look inside, and there's-- Oh, we're out of milk. So you close the fridge, you walk out to CVS, or somewhere else, and go to get more milk. 
+
+Meanwhile, though, your roommate comes home, who in this story also likes milk, and so they decide that-- Oh, I'm out of milk in the fridge. So they, maybe, head out. Maybe they follow a different path to go get more milk as well. Some number of minutes pass, you both come home later on. Like, Oh, darn it. Now we have twice as much milk as we need. We don't really like it that much. And some of it's going to go sour now, so it's wasted like. 
+
+We've made a mistake. We should not have bought twice as much milk. Now, stupid story, but the point is that both of you made decisions based on the state of a variable. But the problem was that variable was in the process of being updated when someone else looked at it. The first person in the story was on their way to the store so the variable was about to be incremented in terms of quantity of milk, but the other person didn't know that yet so they too tried to increment it. 
+
+And, in that case, we ended up with too much milk. But suppose what might happen here is similar in spirit. Suppose that post, at some point in time, had just 1,000,000 likes. And suppose this line of code got executed for me, for you, and for you after all three of us clicked on it. Well, the value of our likes variable in Meta servers might be 1,000,000, 1,000,000, and 1,000,000. They therefore update 1,000,000 to be 1,000,000 plus one. 
+
+And so what they update the database to be is 1,000,001, but they do it three times. 1,000,001, 1,000,001, 1,000,001. But they've lost two of those likes because they might have inspected the variable while some other server, some other user's like, was being processed. So long story short, when you have lots of data on lots of servers, all of which is happening very quickly, you run into these so called race conditions. And code like this can be dangerous, even though it might not look incorrect at a glance. 
+
+Thankfully, in the world of SQL, though you won't generally have to do this certainly for problem sets sake, there are solutions to this. But too many engineers in the world don't know this, don't remember this, or don't appreciate this reality. There are keywords in certain databases that let you instead begin a transaction, which means, essentially, that these three lines of code should either all happen together or not at all. 
+
+They should be atomic. That is to say, they should all happen without interruption or they just shouldn't happen at all. And that ensures that the math does not go wrong because my like will get counted, and then you're like, and then you're like, as opposed to them being intermingled and lost track of accordingly. 
+
+So in Python, using the CS50 library, you could wrap these three lines of code by saying begin transaction to the database, commit the transaction to the database, and that relatively simple solution avoids this problem of race conditions. But this, too, is a topic. 
+
+If you Google, invariably you'll see that this is a problem that has hit various servers and apps over time. But there's one other problem that the world is still not very good at, and that's known as a SQL injection attack. And it turns out that even with what we've been doing, even code like this here, is all too easily vulnerable to being hacked, if you will. 
+
+That is misused in some way, unless you practice what I'm preaching, which is using placeholders like this. It turns out that it's very dangerous to take user input in, generally. Like, most of your users might be nice, good people, but there's always going to be someone who's malicious or curious or just execute something you don't expect, and things can go wrong. 
+
+So in the world of SQL, here's what can happen. For instance, here is the login screen for Yale accounts. Here's the comparable screen for Harvard accounts. And all of us are in their habit of using one of these screens or something similar or another. 
+
+You're often asked for a username or email address and a password. But suppose that Harvard or Yale or Google or Microsoft or wherever, are taking user input from forms like this, be it on the web or on a mobile app, and they're just plugging your input into a SQL query that they wrote in advance that just is waiting for your username or password to be plugged in so they can ask a complete query of the database. It turns out that if I'm a bit malicious, or curious, I could, maybe, type in some funky syntax to fields like this that I know have special meaning to certain databases. 
+
+And it turns out in the world of SQL, SQLite in particular, single quotes are clearly important. Because I've been using them all day long for strings, and I didn't mention this yet, but the comment character in SQLite is dash, dash. If you want the rest of a line to be ignored, you just say, dash, dash. So it's not hash, it's not slash, slash, like in Python and C, respectively. It's dash, dash, or two hyphens. 
+
+So suppose that I'm a hacker or a curious student, and I want to see if Harvard knows what it's doing when it comes to SQL injection attacks. I could literally type in, maybe my username with a single quote and then dash, dash. Well, why would I do this? Well, suppose for the sake of discussion that some developer at Harvard, or any website, really, has written a line of code like this to check if the username and password just typed in match what's in the database. 
+
+So how might I do this? And if so, let the user log in, show them their account, or whatever. So here's the line of code in question. Select star from users where username equals question mark and password equals question mark. This is correct. This is green because it's good. It is not vulnerable to attack because 
+
+I'm using these placeholders here, which, even though we've implemented in the CS50 library, most SQL libraries support the same syntax. But it can vary by system. This is safe. What is not safe is to use some of the stuff you learned last week where you can just use f strings, or format your own strings and interpolate values with curly braces. For instance, suppose you took me at my word last week that you can do this in Python. 
+
+This code here, unfortunately, in yellow, is not safe. Here's a format string in Python. Here's the beginning of a SQL query. Here's a placeholder for the user username. Here's a placeholder for the user's password. And I've proactively, correctly, put single quotes around them. The problem is if you just blindly plug users input into pre-made queries like this, they can finish your thought for you, in ways you don't expect, if you trust the users. 
+
+For instance, if I plug in for my username, mail in at harvard.edu, single quote, dash, dash. Notice what happens. Here's the single quote from the query. Here's what I typed in. But, wait a minute. It looks like this single quote that I typed in finishes the thought that the developer started. The dash, dash means, heck, ignore the rest of that. 
+
+And, indeed, I've lifted grayed out because what effectively happens is that only executed is what's in yellow here at the moment. Why? Because everything after that close quote, which finishes the developers thought, is just ignored. So I mean, this is literally an example of how you can hack into a database by injecting SQL. Like dash, dash is an example of SQL. Silly as it is, it's a comment that tells the database to ignore the password. 
+
+So what does this mean? Well, of course you're going to get rows back now because if you're only searching for someone by username, it doesn't matter what their password is, what they typed in, you've essentially blacked out that part and you're not even checking the password. The effect then would be that you could log in as me or Carter or anyone else, just by knowing their usernames if the Harvard developer wrote code in this way. 
+
+And even though I'm pretty sure Harvard key does not suffer from this, so many darn websites have in the past. And if you Google, SQL injection attacks-- search by and Google, for instance, the past month or the past year, you will tragically likely see results because humans continue to make this mistake. The solution though, ultimately, is actually just use placeholders, just use the library that escapes potentially dangerous input. 
+
+And this looks a little weird, but in C we saw that the escape character was a backslash? And that made backslash n, or backslash something else, be treated specially. Weirdly, in SQL it tends to be just another single quote. So if you do quote, quote that actually means-- I mean, a literal quote. It's not like the empty string, or nothing in between it. So it looks weird. 
+
+But, long story short, if you use a library like CS50, or anything in the real world that handles escaping of user input, the whole query you can think of as being now good and green again because it doesn't matter what the human types in. Any scary characters will be properly escaped by the database. So it'll depend on the library you're using, but it almost always is the syntax using question marks or some similar placeholder. 
+
+All right. So with that said, you are now inducted into the Hall of People who know now a little something about databases. We've only just scratched the surface of using the language, but it's now something we'll use to build up more and more interesting applications, especially for final projects when we soon transition to web programming or mobile app development, if you go that route. But you'll soon be able to speak a language, literally and figuratively, that those before you have acquired as well. 
+
+So you are now qualified to understand this sort of internet joke. This is someone who, if I Zoom in, was trying to get out of paying some camera based tolls by tricking the state or the city into deleting or dropping their whole database. Drop means delete the whole thing, not just the rows therein. OK, so maybe not that funny. But this is now the note will end on, similar to other xkcd comics we've introduced you to. Every CS person out there has seen, knows this comic. So if you ever refer to, with a wink-- if you ever refer to little Bobby tables with a wink, if it's a computer scientist on the other end, they'll know whom you mean. 
+
+[LAUGHING] 
+
+OK, there we go. All right. Tough crowd. All right, Batman, come on down for your cookies, and we'll see you next time. 
+
+[APPLAUSE] 
+
+[MUSIC PLAYING] 
+
