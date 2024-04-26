@@ -20,7 +20,7 @@ def get_embedding(text, model="text-embedding-3-small"):
     return client.embeddings.create(input=[text], model=model).data[0].embedding
 
 
-# Open the file 'portland_wiki.txt' in read mode
+# Open the file 'ai.txt' from the 'data/transcripts' directory in read mode
 FILE_PATH = "../../../data/transcripts/ai.txt"
 with open(FILE_PATH, "r") as f:
 
