@@ -15,7 +15,7 @@ model = genai.GenerativeModel(model_name="gemini-1.5-pro-latest")
 # ==========================================
 
 # helper function
-def embed_chunk(chunk, model="models/embedding-001"):
+def get_embedding(chunk, model="models/embedding-001"):
     '''
         'embedding input into vector representation'
     args:
@@ -46,7 +46,7 @@ with open(FILE_PATH, 'r') as f:
     # embed each chunk in chunks
     print("Creating embeddings...")
     for chunk in chunks:
-        embedding = embed_chunk(chunk)
+        embedding = get_embedding(chunk)
         embeddings[chunk] = embedding
 
     # saving: write to file name 'embeddings.jsonl'
