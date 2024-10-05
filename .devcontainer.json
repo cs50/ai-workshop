@@ -16,10 +16,11 @@
                 "explorer.compactFolders": false,
                 "editor.minimap.enabled": false,
                 "editor.quickSuggestionsDelay": 3000,
+                "emmet.showExpandedAbbreviation": "never",
                 "files.trimFinalNewlines": false,
                 "files.trimTrailingWhitespace": true,
                 "workbench.editor.enablePreview": false,
-                "emmet.showExpandedAbbreviation": "never",
+                "workbench.editor.closeOnFileDelete": true,
                 "workbench.preferredLightColorTheme": "GitHub Dark Default"
             }
         }
