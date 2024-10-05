@@ -29,7 +29,7 @@ while True:
     # Request a chat completion from the OpenAI API based on the conversation so far
     chat_completion_stream = client.chat.completions.create(
         messages=messages,
-        model="gpt-4",
+        model="gpt-4o",
         # Sets the sampling temperature to control randomness (0 makes output deterministic, 1 maximizes randomness, with 0.2 being more focused and less random).
         temperature=0.2,
         stream=True,  # Enable streaming for long-running completions

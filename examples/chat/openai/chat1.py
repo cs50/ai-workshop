@@ -17,7 +17,7 @@ chat_completion = client.chat.completions.create(
     messages=[
         {"role": "user", "content": user_prompt}  # The message sent to the model is the user's input
     ],
-    model="gpt-4",  # Specifies that we are using the "gpt-4" model for this completion
+    model="gpt-4o",  # Specifies that we are using the "gpt-4o" model for this completion
 )
 
 # Extract the response text from the first choice of the chat completion. The API can return multiple choices, but here we are only interested in the first one.

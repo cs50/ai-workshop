@@ -20,7 +20,7 @@ chat_completion = client.chat.completions.create(
         {"role": "system", "content": system_prompt},  # The system/context message
         {"role": "user", "content": user_prompt}  # The user's message
     ],
-    model="gpt-4",  # Specifies using the "gpt-4" model for generating responses
+    model="gpt-4o",  # Specifies using the "gpt-4o" model for generating responses
 )
 
 # Extract the chatbot's response from the completion

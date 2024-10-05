@@ -29,7 +29,7 @@ while True:
     # Request a chat completion from the OpenAI API based on the conversation so far
     chat_completion = client.chat.completions.create(
         messages=messages,
-        model="gpt-4",  # Specifies using the "gpt-4" model
+        model="gpt-4o",  # Specifies using the "gpt-4o" model
     )
 
     # Extract the response text from the completion

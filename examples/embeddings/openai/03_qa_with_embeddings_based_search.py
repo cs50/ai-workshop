@@ -73,7 +73,7 @@ chat_completion = client.chat.completions.create(
         {"role": "system", "content": f"{system_prompt}"},
         {"role": "user", "content": f"{prompt}"}
     ],
-    model="gpt-4",
+    model="gpt-4o",
 )
 
 # Extract the text of the generated response
