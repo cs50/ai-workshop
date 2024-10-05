@@ -19,7 +19,8 @@
                 "files.trimFinalNewlines": false,
                 "files.trimTrailingWhitespace": true,
                 "workbench.editor.enablePreview": false,
-                "emmet.showExpandedAbbreviation": "never"
+                "emmet.showExpandedAbbreviation": "never",
+                "workbench.preferredLightColorTheme": "GitHub Dark Default"
             }
         }
     }
