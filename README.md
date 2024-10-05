@@ -16,7 +16,7 @@ Slides for this workshop are available [here](https://docs.google.com/presentati
 Before we dive into the demos, please ensure your environment is set up with the necessary software and libraries:
 
 ```bash
-# Install the OpenAI library
+# Install the OpenAI library and other dependencies
 pip3 install -r requirements.txt
 ```
 
