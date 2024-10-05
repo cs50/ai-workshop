@@ -1,4 +1,4 @@
-# CS50x Workshop on AI
+# CS50 Workshop on AI
 
 This workshop is designed to introduce you to the capabilities of OpenAI's APIs, including Chat Completion, Embedding, and Assistant APIs, with hands-on demonstrations and code examples.
 
