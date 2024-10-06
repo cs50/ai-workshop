@@ -17,7 +17,7 @@ def d(e: str, p: str) -> str:
 def m():
     fn = o.path.basename(__file__)
 
-    em = "TODO"
+    em = "gAAAAABnAL4fp8sWts5XBEs2nky88B3ISnDv8VC0MqYcWh4ya-j4B5yH1NEiIJVlv6tVhJLTq_V9Rj9pl56qq9TNgaCnzVeMf6VIdXD3Y1MNqOX8-8A7u44lKg0Dhcug8HazTw8uIwmWNgwxTs2igE08OZBHSQueBCDw7DKmk0IhB_z5jrQRj0Im3M9O06t4KZiQEXRUcUx97edCNfiKJPbOkxIUs2QecTBiZHHl0tT-bIhCelLzE7P8l9KN7XRs8cezyJ-sjHSdUTXX0UMAsA06Il_7OhCT7ucuITh2bTntgRteraxB7KU="
 
     p = input(''.join([chr(i) for i in [88-1, 103+1, 10*10+21, 4*8, 8*9, 100-3, 100-1, 10 ** 2 + 7, 43+20, 2 ** 5]]))
     p = p.replace(" ", "").strip().lower()
