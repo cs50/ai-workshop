@@ -14,13 +14,18 @@ def d(e: str, p: str) -> str:
     dm = c.decrypt(e.encode())
     return dm.decode()
 
+def e(m: str, p: str) -> str:
+    k = a(p)
+    c = f(k)
+    em = c.encrypt(m.encode())
+    return em.decode()
+
 def m():
     fn = o.path.basename(__file__)
 
     em = ""
 
-    p = input(''.join([chr(i) for i in [88-1, 103+1, 10*10+21, 4*8, 8*9, 100-3, 100-1, 10 ** 2 + 7, 43+20, 2 ** 5]]))
-    p = p.replace(" ", "").strip().lower()
+    p = input("A51C30: ")
 
     try:
         dm = d(em, p)
