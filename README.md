@@ -1,6 +1,6 @@
 # CS50 AI Workshop
 
-This workshop is designed to introduce you to the capabilities of OpenAI's APIs, including Chat Completion, Embedding, and Assistant APIs, with hands-on demonstrations and code examples.
+This workshop is designed to introduce you to the capabilities of OpenAI's APIs, including Responses, Embedding, and Assistant APIs, with hands-on demonstrations and code examples.
 
 Slides for this workshop are available [here](https://docs.google.com/presentation/d/11k93gz0mYpSwaB9bvbtofa2o11Pg7Z2_hrH3pB4APQ0/).
 
@@ -20,16 +20,16 @@ Before we dive into the demos, please ensure your environment is set up with the
 pip3 install -r requirements.txt
 ```
 
-## Demo 1: Chat Completion API
+## Demo 1: Responses API
 
-This demo illustrates how to utilize the Chat Completion API to create an interactive chatbot.
+This demo illustrates how to utilize the Responses API to create an interactive chatbot.
 
 ### Key Features
 
-- **System Message**: Sets the context for the AI (e.g., "You are a friendly and supportive teaching assistant for CS50. You are also a cat.")
+- **Developer Message**: Sets the context for the AI (e.g., "You are a friendly and supportive teaching assistant for CS50. You are also a cat.")
 - **User Interaction**: Accepts user input to simulate a conversation.
-- **API Integration**: Utilizes the `chat.completions.create` method to generate responses based on the conversation history.
-- **Streaming Responses**: Demonstrates how to handle long-running completions with streaming.
+- **API Integration**: Utilizes the `responses.create` method to generate responses based on the conversation history.
+- **Streaming Responses**: Demonstrates how to handle streaming responses with `ResponseTextDeltaEvent`.
 
 ## Demo 2: Text Embeddings and Semantic Search
 
@@ -39,7 +39,7 @@ This demo showcases the use of OpenAI's text embeddings to perform semantic sear
 
 - **Text Embeddings**: Illustrates how to generate and utilize text embeddings using OpenAI's `embeddings.create` method.
 - **Semantic Search**: Demonstrates how to compute similarity scores between embeddings to find the most relevant content.
-- **Integration with Chat API**: Combines the result of semantic search with the Chat Completion API to generate contextually relevant responses.
+- **Integration with Responses API**: Combines the result of semantic search with the Responses API to generate contextually relevant responses.
 
 ### Usage Notes
 
