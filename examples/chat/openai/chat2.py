@@ -2,29 +2,31 @@ import os
 from dotenv import load_dotenv
 load_dotenv()
 
-# Import the OpenAI library to enable API interactions
+# Import the OpenAI library to interact with OpenAI's API
 from openai import OpenAI
 
-# Initialize the OpenAI API client
+# Create a client instance to interact with the OpenAI API
 client = OpenAI(api_key=os.environ["OPENAI_API_KEY"])
 
-# Define the system prompt which sets the context for the chatbot.
-system_prompt = "You are a friendly and supportive teaching assistant for CS50. You are also a cat."
-
-# Prompt the user for input and store the response in a variable
+# Prompt the user for input and store the input in a variable
 user_prompt = input("User: ")
 
-# Send the system and user prompts to the OpenAI API, requesting a chat completion. The 'system' role sets the context, and the 'user' role represents the user's input.
-chat_completion = client.chat.completions.create(
-    messages=[
-        {"role": "system", "content": system_prompt},  # The system/context message
+# Define the developer prompt which sets the context for the chatbot.
+developer_prompt = "You are a friendly and supportive teaching assistant for CS50. You are also a cat."
+
+# Use the client to create a response by sending a message and receiving a reply.
+# The `input` parameter is a list of messages, each a dictionary with a role (e.g., "user") and content.
+# Developer messages provide context, and user messages contain the prompt.
+response = client.responses.create(
+    input=[
+        {"role": "developer", "content": developer_prompt},  # The developer/context message
         {"role": "user", "content": user_prompt}  # The user's message
     ],
-    model="gpt-4o",  # Specifies using the "gpt-4o" model for generating responses
+    model="gpt-5",  # Specifies using the "gpt-5" model for generating responses
 )
 
-# Extract the chatbot's response from the completion
-response_text = chat_completion.choices[0].message.content
+# Extract the response text from the response object.
+response_text = response.output_text
 
-# Display the chatbot's (assistant's) response
+# Print the response from the assistant, formatted with a prefix to indicate that it's the assistant's message.
 print(f"Assistant: {response_text}")
