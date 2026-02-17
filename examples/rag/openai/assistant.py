@@ -8,7 +8,7 @@ client = OpenAI(api_key=os.environ["OPENAI_API_KEY"])
 def clean_up(vector_store_id, file_ids):
     """Delete the vector store and uploaded files."""
 
-    client.beta.vector_stores.delete(vector_store_id)
+    client.vector_stores.delete(vector_store_id)
     [client.files.delete(file_id) for file_id in file_ids]
 
 
@@ -26,7 +26,7 @@ for file in sorted(os.listdir(FILES_DIR)):
     print(f"Uploaded file: {_file.id} - {file}")
 
 # Create a vector store using the uploaded files
-vector_store = client.beta.vector_stores.create(
+vector_store = client.vector_stores.create(
   name="CS50 Lecture Captions",
   file_ids=file_ids
 )

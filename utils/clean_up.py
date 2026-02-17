@@ -24,10 +24,10 @@ for file in all_files:
         print(e)
 
 # Delete all vector stores
-all_vector_stores = client.beta.vector_stores.list()
+all_vector_stores = client.vector_stores.list()
 for vector_store in all_vector_stores:
     try:
-        response = client.beta.vector_stores.delete(vector_store.id)
+        response = client.vector_stores.delete(vector_store.id)
         print(response)
     except Exception as e:
         print(e)
