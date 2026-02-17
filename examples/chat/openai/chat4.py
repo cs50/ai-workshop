@@ -31,7 +31,7 @@ while True:
     # Request a response from the OpenAI API based on the conversation so far
     response_stream = client.responses.create(
         input=messages,
-        model="gpt-4o",
+        model="gpt-5.2",
         stream=True,  # Enable streaming for long-running responses
     )
 

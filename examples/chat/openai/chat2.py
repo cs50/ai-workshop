@@ -22,7 +22,7 @@ response = client.responses.create(
         {"role": "developer", "content": developer_prompt},  # The developer/context message
         {"role": "user", "content": user_prompt}  # The user's message
     ],
-    model="gpt-5",  # Specifies using the "gpt-5" model for generating responses
+    model="gpt-5.2",  # Specifies using the "gpt-5.2" model for generating responses
 )
 
 # Extract the response text from the response object.

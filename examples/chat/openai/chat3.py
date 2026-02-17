@@ -29,7 +29,7 @@ while True:
     # Request a response from the OpenAI API based on the conversation so far
     response = client.responses.create(
         input=messages,
-        model="gpt-5",  # Specifies using the "gpt-5" model
+        model="gpt-5.2",  # Specifies using the "gpt-5.2" model
     )
 
     # Extract the response text from the response object.

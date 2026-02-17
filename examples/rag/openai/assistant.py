@@ -48,7 +48,7 @@ assistant = client.beta.assistants.create(
     name="CS50 Duck",
     tools=[{"type": "file_search"}],
     tool_resources={"file_search": {"vector_store_ids": [vector_store.id]}},
-    model="gpt-4o",
+    model="gpt-5.2",
 )
 print(f"Created assistant: {assistant.id} - {assistant.name}")
 
