@@ -8,8 +8,10 @@ client = OpenAI(api_key=os.environ["OPENAI_API_KEY"])
 def clean_up(vector_store_id, file_ids):
     """Delete the vector store and uploaded files."""
 
+    print("\nCleaning up resources...")
     client.vector_stores.delete(vector_store_id)
     [client.files.delete(file_id) for file_id in file_ids]
+    print("Done.")
 
 
 FILES_DIR = "../../../data/transcripts/"
@@ -41,22 +43,34 @@ instructions = (
     "Do not provide full answers to problem sets, as this would violate academic honesty."
 )
 
-# Prompt the user for input
-user_input = input("User: ")
+# Store the previous response ID to maintain conversation context across turns
+previous_response_id = None
 
-# Use the Responses API with the file_search tool to answer based on uploaded documents
-response = client.responses.create(
-    model="gpt-5.2",
-    instructions=instructions,
-    input=user_input,
-    tools=[{
-        "type": "file_search",
-        "vector_store_ids": [vector_store.id]
-    }]
-)
+# Start an infinite loop to continually accept user input and generate responses
+try:
+    while True:
 
-# Print the response from the assistant
-print(f"Assistant: {response.output_text}")
+        # Prompt the user for input
+        user_input = input("User: ")
 
-# Clean up the vector store and uploaded files
-clean_up(vector_store.id, file_ids)
+        # Use the Responses API with the file_search tool to answer based on uploaded documents
+        response = client.responses.create(
+            model="gpt-5.2",
+            instructions=instructions,
+            input=user_input,
+            previous_response_id=previous_response_id,
+            tools=[{
+                "type": "file_search",
+                "vector_store_ids": [vector_store.id]
+            }]
+        )
+
+        # Print the response from the assistant
+        print(f"Assistant: {response.output_text}")
+
+        # Save the response ID so the next turn continues the conversation
+        previous_response_id = response.id
+
+except (KeyboardInterrupt, EOFError):
+    # Clean up the vector store and uploaded files when the user exits
+    clean_up(vector_store.id, file_ids)
