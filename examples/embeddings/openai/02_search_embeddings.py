@@ -11,6 +11,7 @@ client = OpenAI(api_key=os.environ["OPENAI_API_KEY"])
 
 # Define a function to get the embedding of a text using a specified model
 def get_embedding(text, model="text-embedding-3-small"):
+
     # Replace newline characters with spaces in the text
     text = text.replace("\n", " ")
 
@@ -64,4 +65,8 @@ for chunk, embedding in embeddings.items():
     # https://help.openai.com/en/articles/6824809-embeddings-frequently-asked-questions
 
 # Print the chunk that is most similar to the query
+print(f"\n{'='*60}")
+print(f"Best match (score: {best_score:.4f})")
+print(f"{'='*60}")
 print(best_chunk)
+print(f"{'='*60}")
