@@ -1,4 +1,4 @@
-# This script deletes all assistants, files, and vector stores from your OpenAI account.
+# This script deletes all files and vector stores from your OpenAI account.
 # !!! Proceed with caution, as this action is irreversible. !!!
 
 import os
@@ -9,19 +9,10 @@ from openai import OpenAI
 client = OpenAI(api_key=os.environ["OPENAI_API_KEY"])
 
 # Prompt user to confirm deletion
-confirmation = input("Are you sure you want to delete all assistants, files, and vector stores? (yes/no) ")
+confirmation = input("Are you sure you want to delete all files and vector stores? (yes/no) ")
 if confirmation != "yes":
     print("Exiting...")
     exit()
-
-# Delete all assistants
-all_assistants = client.beta.assistants.list(order="desc", limit="100",)
-for assistant in all_assistants:
-    try:
-        response = client.beta.assistants.delete(assistant.id)
-        print(response)
-    except Exception as e:
-        print(e)
 
 # Delete all files
 all_files = client.files.list()

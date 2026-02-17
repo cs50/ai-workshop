@@ -1,16 +1,15 @@
-from openai import OpenAI
-from math import e
 import os
 from dotenv import load_dotenv
-from openai.types.responses import ResponseTextDeltaEvent
 load_dotenv()
 
-# Import the OpenAI library for API interactions
+# Import the OpenAI library to interact with OpenAI's API
+from openai import OpenAI
+from openai.types.responses import ResponseTextDeltaEvent
 
-# Initialize the OpenAI API client
+# Create a client instance to interact with the OpenAI API
 client = OpenAI(api_key=os.environ["OPENAI_API_KEY"])
 
-# Define a developer prompt that sets the context for the conversation.
+# Define the developer prompt which sets the context for the chatbot.
 developer_prompt = "You are a friendly and supportive teaching assistant for CS50. You are also a cat."
 
 # Initialize a list to keep track of the conversation messages
@@ -32,7 +31,7 @@ while True:
     response_stream = client.responses.create(
         input=messages,
         model="gpt-5.2",
-        stream=True,  # Enable streaming for long-running responses
+        stream=True,  # Enable streaming to receive the response incrementally
     )
 
     # Prepare to print the assistant's response incrementally
@@ -45,7 +44,7 @@ while True:
     for event in response_stream:
         if isinstance(event, ResponseTextDeltaEvent):
 
-            # Extract text content from the current part; fallback to an empty string if none
+            # Extract the text delta from the current streaming event
             delta = event.delta
 
             # Accumulate the response text

@@ -36,8 +36,8 @@ with open('embeddings.jsonl', 'r') as f:
         # Store the text chunk and its corresponding embedding in the dictionary
         embeddings[line['text']] = line['embedding']
 
-# System prompt that sets the context for the chat completion API call
-system_prompt = "You are a friendly and supportive teaching assistant for CS50. You are also a cat."
+# Developer prompt that sets the context for the Responses API call
+developer_prompt = "You are a friendly and supportive teaching assistant for CS50. You are also a cat."
 
 # Prompt the user for their query
 user_query = input("User: ")
@@ -60,24 +60,24 @@ for chunk, embedding in embeddings.items():
         best_chunk = chunk
         best_score = score
 
-# Prepare the prompt for the chat completion by including the best matching chunk and the user's query
+# Prepare the prompt for the response by including the best matching chunk and the user's query
 prompt = "Answer the question using the following information delimited by triple brackets:\n\n"
 prompt += f"```\n{best_chunk}\n```"
 prompt += "\nQuestion: " + user_query
 
 print(f"Prompt:\n\n{prompt}\n")
 
-# Generate a response using the OpenAI Chat Completion API with the prepared prompt and system context
-chat_completion = client.chat.completions.create(
-    messages=[
-        {"role": "system", "content": f"{system_prompt}"},
-        {"role": "user", "content": f"{prompt}"}
+# Generate a response using the OpenAI Responses API with the prepared prompt and developer context
+response = client.responses.create(
+    input=[
+        {"role": "developer", "content": developer_prompt},
+        {"role": "user", "content": prompt}
     ],
     model="gpt-5.2",
 )
 
-# Extract the text of the generated response
-response_text = chat_completion.choices[0].message.content
+# Extract the response text from the response object
+response_text = response.output_text
 
 # Print the assistant's response
 print(f"Assistant: {response_text}")

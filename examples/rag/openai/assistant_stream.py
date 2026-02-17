@@ -3,41 +3,13 @@ from dotenv import load_dotenv
 load_dotenv()
 
 from openai import OpenAI
-from openai import AssistantEventHandler
-from typing_extensions import override  # Import override decorator if needed
+from openai.types.responses import ResponseTextDeltaEvent
 client = OpenAI(api_key=os.environ["OPENAI_API_KEY"])
 
-# Define the EventHandler class as per the API documentation
-# https://platform.openai.com/docs/assistants/overview?context=with-streaming
-class EventHandler(AssistantEventHandler):
-    @override
-    def on_text_created(self, text) -> None:
-        print(f"\nAssistant: ", end="", flush=True)
 
-    @override
-    def on_text_delta(self, delta, snapshot):
-        print(delta.value, end="", flush=True)
+def clean_up(vector_store_id, file_ids):
+    """Delete the vector store and uploaded files."""
 
-    def on_tool_call_created(self, tool_call):
-        # print(f"\nassistant > {tool_call.type}\n", flush=True)
-        pass
-
-    def on_tool_call_delta(self, delta, snapshot):
-        if delta.type == 'code_interpreter':
-            if delta.code_interpreter.input:
-                print(delta.code_interpreter.input, end="", flush=True)
-            if delta.code_interpreter.outputs:
-                print(f"\n\noutput >", flush=True)
-                for output in delta.code_interpreter.outputs:
-                    if output.type == "logs":
-                        print(f"\n{output.logs}", flush=True)
-
-
-def clean_up(assistant_id, thread_id, vector_store_id, file_ids):
-    """Delete the assistant, thread, vector store, and uploaded files. """
-
-    client.beta.assistants.delete(assistant_id)
-    client.beta.threads.delete(thread_id)
     client.beta.vector_stores.delete(vector_store_id)
     [client.files.delete(file_id) for file_id in file_ids]
 
@@ -48,7 +20,7 @@ file_ids = []
 # Iterate over each file in the specified directory
 for file in sorted(os.listdir(FILES_DIR)):
 
-    # Upload each file to the OpenAI platform with the purpose set to 'assistants'
+    # Upload each file to the OpenAI platform for use with file search
     _file = client.files.create(file=open(FILES_DIR + file, "rb"), purpose="assistants")
 
     # Append the reference to the uploaded file to the list
@@ -62,37 +34,42 @@ vector_store = client.beta.vector_stores.create(
 )
 print(f"Created vector store: {vector_store.id} - {vector_store.name}")
 
-# Create an assistant with the specified instructions, persona, and behavior
+# Define the instructions that set the persona and behavior for the response
 instructions = (
-    "You are a friendly and supportive teaching assistant for CS50."
-    "You are also a rubber duck."
-    "Answer student questions only about CS50 and the field of computer science;"
-    "Do not answer questions about unrelated topics."
-    "Do not provide full answers to problem sets, as this would violate academic honesty"
+    "You are a friendly and supportive teaching assistant for CS50. "
+    "You are also a rubber duck. "
+    "Answer student questions only about CS50 and the field of computer science; "
+    "Do not answer questions about unrelated topics. "
+    "Do not provide full answers to problem sets, as this would violate academic honesty."
 )
-assistant = client.beta.assistants.create(
-    instructions=instructions,
-    name="CS50 Duck",
-    tools=[{"type": "file_search"}],
-    tool_resources={"file_search": {"vector_store_ids": [vector_store.id]}},
+
+# Prompt the user for input
+user_input = input("User: ")
+
+# Use the Responses API with the file_search tool and streaming enabled
+response_stream = client.responses.create(
     model="gpt-5.2",
-)
-print(f"Created assistant: {assistant.id} - {assistant.name}")
-
-# Create a new thread
-thread = client.beta.threads.create()
-thread_message = client.beta.threads.messages.create(
-    thread.id,
-    role="user",
-    content=input("User: ")
+    instructions=instructions,
+    input=user_input,
+    tools=[{
+        "type": "file_search",
+        "vector_store_ids": [vector_store.id]
+    }],
+    stream=True,
 )
 
-print(f"Running assistant: {assistant.id} in thread: {thread.id}")
-with client.beta.threads.runs.stream(
-    thread_id=thread.id,
-    assistant_id=assistant.id,
-    event_handler=EventHandler()
-) as stream:
-    stream.until_done()
-    print()
-    clean_up(assistant.id, thread.id, vector_store.id, file_ids)
+# Print the assistant's response incrementally as it streams
+print(f"\nAssistant: ", end="", flush=True)
+
+# Iterate over each event in the streamed response
+for event in response_stream:
+    if isinstance(event, ResponseTextDeltaEvent):
+
+        # Print the current delta of the response, without adding a new line
+        print(event.delta, end="", flush=True)
+
+# Print a newline once the entire response has been streamed
+print()
+
+# Clean up the vector store and uploaded files
+clean_up(vector_store.id, file_ids)
