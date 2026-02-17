@@ -1,6 +1,6 @@
 # CS50 AI Workshop
 
-This workshop is designed to introduce you to the capabilities of OpenAI's APIs, including Responses, Embedding, and Assistant APIs, with hands-on demonstrations and code examples.
+This workshop is designed to introduce you to the capabilities of OpenAI's APIs, including the Responses, Embedding, and File Search APIs, with hands-on demonstrations and code examples.
 
 Slides for this workshop are available [here](https://docs.google.com/presentation/d/11k93gz0mYpSwaB9bvbtofa2o11Pg7Z2_hrH3pB4APQ0/).
 
@@ -46,17 +46,17 @@ This demo showcases the use of OpenAI's text embeddings to perform semantic sear
 - **Pre-computed Embeddings**: Before running this demo, ensure you have an `embeddings.jsonl` file containing pre-computed embeddings for various content chunks relevant to your subject matter.
 - **Custom Model Selection**: You can experiment with different models for embeddings to suit your content and accuracy requirements.
 
-## Demo 3: Assistant API with Custom Data and Context
+## Demo 3: Responses API with File Search
 
-This demo showcases how to create an assistant (with a vector store attached) that can utilize specific data files to provide tailored responses. It is particularly useful for creating specialized assistants for events, courses, or research projects.
+This demo showcases how to use the Responses API with the `file_search` tool and a vector store to provide tailored responses based on specific data files. It is particularly useful for building retrieval-augmented generation (RAG) applications for events, courses, or research projects.
 
 ### Key Features
 
-- **Custom Assistant Creation**: Guides you through creating an assistant tailored to the needs of answering CS50 or computer science-related questions.
-- **Data File Utilization**: Demonstrates how to upload and associate data files with your assistant to enrich its responses.
-- **Dynamic Interaction**: Engages users in a conversational interface, utilizing the assistant to respond to queries based on the provided data and instructions.
+- **File Search Tool**: Guides you through uploading files, creating a vector store, and using the `file_search` tool to answer CS50 or computer science-related questions.
+- **Data File Utilization**: Demonstrates how to upload and associate data files with a vector store to enrich the model's responses.
+- **Streaming**: Shows how to stream responses incrementally using `ResponseTextDeltaEvent`.
 
 ### Usage Notes
 
-- **Data Preparation**: Before running the demo, ensure your `FILES_DIR` points to the directory containing relevant files you wish to use with your assistant. We have pre-configured the use of lecture transcripts in the example.
-- **Customization**: You can customize the assistant's name, behavior, and capabilities to fit various educational or research contexts.
+- **Data Preparation**: Before running the demo, ensure your `FILES_DIR` points to the directory containing relevant files you wish to search over. We have pre-configured the use of lecture transcripts in the example.
+- **Customization**: You can customize the instructions, behavior, and tools to fit various educational or research contexts.
