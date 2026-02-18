@@ -17,7 +17,7 @@ response = client.responses.create(
     input=[
         {"role": "user", "content": user_prompt}  # The message sent to the model is the user's input
     ],
-    model="gpt-5",  # Specifies that we are using the "gpt-5" model for this response
+    model="gpt-5.2",  # Specifies that we are using the "gpt-5.2" model for this response
 )
 
 # Extract the response text from the response object.

@@ -9,75 +9,93 @@ from openai import OpenAI
 # Initialize the OpenAI client
 client = OpenAI(api_key=os.environ["OPENAI_API_KEY"])
 
-# Define a function to get the embedding of a given text using a specified model
+# Define a function to get the embedding of a text using a specified model
 def get_embedding(text, model="text-embedding-3-small"):
 
-    # Replace newline characters with spaces to ensure consistent formatting
+    # Replace newline characters with spaces in the text
     text = text.replace("\n", " ")
 
-    # Request the embedding for the text from the OpenAI API and return the first embedding from the result
+    # Use the OpenAI client to create embeddings for the text using the specified model
+    # and return the first embedding from the result
     return client.embeddings.create(input=[text], model=model).data[0].embedding
 
-# Open the 'embeddings.jsonl' file in read mode to load pre-computed embeddings
+# Open the 'embeddings.jsonl' file in read mode
 with open('embeddings.jsonl', 'r') as f:
 
     # Read all lines from the file
     lines = f.readlines()
 
-    # Initialize a dictionary to store the embeddings
+    # Initialize a dictionary to load the embeddings
     embeddings = {}
 
-    # Loop through each line in the file, assuming each line is a JSON object
+    # Loop through each line in the file
     for line in lines:
 
-        # Parse the JSON object from the line
+        # Parse the JSON object in the line
         line = json.loads(line)
 
-        # Store the text chunk and its corresponding embedding in the dictionary
+        # Map the text chunk to its corresponding embedding in the embeddings dictionary
         embeddings[line['text']] = line['embedding']
 
-# System prompt that sets the context for the chat completion API call
-system_prompt = "You are a friendly and supportive teaching assistant for CS50. You are also a cat."
+# Developer prompt that sets the context for the Responses API call
+developer_prompt = "You are a friendly and supportive teaching assistant for CS50. You are also a cat."
 
 # Prompt the user for their query
 user_query = input("User: ")
 
-# Get the embedding for the user's query using the function defined earlier
+# Step 1: Embed the user's query
+print(f"\n[Step 1] Embedding the query...")
 query_embedding = get_embedding(user_query)
 
-# Initialize variables to track the best matching chunk and its similarity score
+# Initialize variables to track the best matching chunk and its score
 best_chunk = None
 best_score = float("-inf")
 
 # Loop through each chunk and its embedding in the embeddings dictionary
 for chunk, embedding in embeddings.items():
 
-    # Compute the similarity score as the dot product of the query embedding and the chunk's embedding
+    # Compute the similarity score as the dot product of the embedding vectors
     score = np.dot(embedding, query_embedding)
 
-    # Update the best_chunk and best_score if the current score is higher
+    # If this score is better than the best score found so far,
+    # update the best_chunk and best_score with the current chunk and score
     if score > best_score:
         best_chunk = chunk
         best_score = score
 
-# Prepare the prompt for the chat completion by including the best matching chunk and the user's query
+# Step 2: Display the best matching chunk found via embedding search
+print(f"\n[Step 2] Searching for the most relevant chunk...")
+print(f"{'='*60}")
+print(f"Best match (score: {best_score:.4f})")
+print(f"{'='*60}")
+print(best_chunk)
+print(f"{'='*60}")
+
+# Prepare the prompt for the response by including the best matching chunk and the user's query
 prompt = "Answer the question using the following information delimited by triple brackets:\n\n"
 prompt += f"```\n{best_chunk}\n```"
 prompt += "\nQuestion: " + user_query
 
-print(f"Prompt:\n\n{prompt}\n")
+# Step 3: Show how the prompt is constructed from the search result and the user's query
+print(f"\n[Step 3] Building prompt with search result + user query...")
+print(f"{'-'*60}")
+print(prompt)
+print(f"{'-'*60}\n")
 
-# Generate a response using the OpenAI Chat Completion API with the prepared prompt and system context
-chat_completion = client.chat.completions.create(
-    messages=[
-        {"role": "system", "content": f"{system_prompt}"},
-        {"role": "user", "content": f"{prompt}"}
+# Step 4: Generate a response using the OpenAI Responses API with the prepared prompt and developer context
+print(f"[Step 4] Sending prompt to the model...")
+response = client.responses.create(
+    input=[
+        {"role": "developer", "content": developer_prompt},
+        {"role": "user", "content": prompt}
     ],
-    model="gpt-4o",
+    model="gpt-5.2",
 )
 
-# Extract the text of the generated response
-response_text = chat_completion.choices[0].message.content
+# Extract the response text from the response object
+response_text = response.output_text
 
 # Print the assistant's response
+print(f"\n{'='*60}")
 print(f"Assistant: {response_text}")
+print(f"{'='*60}")

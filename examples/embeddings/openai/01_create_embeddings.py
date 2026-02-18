@@ -29,16 +29,20 @@ with open(FILE_PATH, "r") as f:
 
     # Split the data into chunks of 500 characters and store them in a list called 'chunks'
     chunks = [data[i:i+500] for i in range(0, len(data), 500)]
+    print(f"Read '{FILE_PATH}': {len(data)} characters, {len(chunks)} chunks")
 
     # Initialize a dictionary to hold the mapping of text chunks to their embeddings
     embeddings = {}
 
     # Loop through each chunk in the chunks list
     print("Creating embeddings...")
-    for chunk in chunks:
+    for i, chunk in enumerate(chunks, 1):
 
         # Get the embedding for the current chunk and store it in the 'embeddings' dictionary
+        print(f"  Embedding chunk {i}/{len(chunks)}...", end="\r")
         embeddings[chunk] = get_embedding(chunk)
+
+    print()
 
     # Open a new file 'embeddings.jsonl' in write mode
     print("Writing embeddings to file...")

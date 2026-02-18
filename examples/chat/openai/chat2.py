@@ -14,15 +14,15 @@ user_prompt = input("User: ")
 # Define the developer prompt which sets the context for the chatbot.
 developer_prompt = "You are a friendly and supportive teaching assistant for CS50. You are also a cat."
 
-# Use the client to create a response by sending a message and receiving a reply.
-# The `input` parameter is a list of messages, each a dictionary with a role (e.g., "user") and content.
+# Use the client to create a response. This involves sending a message to the model and receiving a response.
+# The `input` parameter is a list of messages where each message is a dictionary specifying the role (e.g., "user") and the content of the message.
 # Developer messages provide context, and user messages contain the prompt.
 response = client.responses.create(
     input=[
         {"role": "developer", "content": developer_prompt},  # The developer/context message
         {"role": "user", "content": user_prompt}  # The user's message
     ],
-    model="gpt-5",  # Specifies using the "gpt-5" model for generating responses
+    model="gpt-5.2",  # Specifies that we are using the "gpt-5.2" model for this response
 )
 
 # Extract the response text from the response object.
