@@ -60,3 +60,33 @@ This demo showcases how to use the Responses API with the `file_search` tool and
 
 - **Data Preparation**: Before running the demo, ensure your `FILES_DIR` points to the directory containing relevant files you wish to search over. We have pre-configured the use of lecture transcripts in the example.
 - **Customization**: You can customize the instructions, behavior, and tools to fit various educational or research contexts.
+
+## Demo 4: RAG with ChromaDB
+
+This demo showcases how to build a local retrieval-augmented generation (RAG) pipeline using ChromaDB as a persistent vector store. Instead of uploading files to OpenAI, it processes SRT subtitle files into time-based chunks, embeds them locally with OpenAI's embedding model, and stores them in a ChromaDB collection for fast semantic search.
+
+### Key Features
+
+- **SRT Chunking**: Parses subtitle files and merges consecutive captions into ~30-second chunks, preserving start and end timestamps.
+- **Local Vector Store**: Uses ChromaDB with persistent storage so embeddings are computed once and reused across sessions.
+- **OpenAI Embeddings**: Embeds chunks using the `text-embedding-3-large` model via ChromaDB's `OpenAIEmbeddingFunction`.
+- **Streaming**: Streams responses incrementally using `ResponseTextDeltaEvent`.
+- **Source References**: Each response includes clickable YouTube links that jump to the exact lecture timestamp.
+
+### Usage Notes
+
+- **Ingestion**: Before chatting, run `ingest.py` to process all SRT files and populate the ChromaDB collection. This only needs to be done once (or re-run if the data changes).
+- **Chat**: Run `chat.py` to start the interactive Q&A. Use the `-v` or `--verbose` flag to display the retrieved chunks.
+- **Customization**: You can adjust chunking parameters (`CHUNK_MIN_DURATION`, `CHUNK_MAX_DURATION`), the embedding model, and the number of retrieved chunks in `config.py`.
+
+```bash
+# Step 1: Ingest SRT files into ChromaDB (one-time)
+cd examples/rag/chromadb
+python3 ingest.py
+
+# Step 2: Start the interactive chat
+python3 chat.py
+
+# Or with verbose mode to see retrieved chunks
+python3 chat.py -v
+```
