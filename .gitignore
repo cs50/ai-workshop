@@ -2,3 +2,4 @@
 *.jsonl
 *.vsix
 demo/
+__pycache__/
