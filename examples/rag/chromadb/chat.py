@@ -5,10 +5,11 @@ from dotenv import load_dotenv
 load_dotenv()
 
 import chromadb
+from chromadb.utils.embedding_functions import OpenAIEmbeddingFunction
 from openai import OpenAI
 from openai.types.responses import ResponseTextDeltaEvent
 
-from config import CHROMA_DIR, COLLECTION_NAME, INSTRUCTIONS, N_RESULTS
+from config import CHROMA_DIR, COLLECTION_NAME, EMBEDDING_MODEL, INSTRUCTIONS, N_RESULTS
 
 # Parse command-line arguments
 parser = argparse.ArgumentParser(description="CS50 RAG Chat")
@@ -89,10 +90,17 @@ def display_chunks(results):
 # Initialize the OpenAI client
 openai_client = OpenAI(api_key=os.environ["OPENAI_API_KEY"])
 
+# Create the same OpenAI embedding function used during ingestion
+# so that queries are embedded with the same model as the stored documents
+openai_ef = OpenAIEmbeddingFunction(
+    api_key=os.environ["OPENAI_API_KEY"],
+    model_name=EMBEDDING_MODEL,
+)
+
 # Connect to the persistent ChromaDB database and load the collection
 abs_chroma_dir = os.path.join(os.path.dirname(__file__), CHROMA_DIR)
 chroma_client = chromadb.PersistentClient(path=abs_chroma_dir)
-collection = chroma_client.get_collection(name=COLLECTION_NAME)
+collection = chroma_client.get_collection(name=COLLECTION_NAME, embedding_function=openai_ef)
 print(f"Loaded collection '{COLLECTION_NAME}' ({collection.count()} chunks)")
 
 # Store the previous response ID to maintain conversation context across turns

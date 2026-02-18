@@ -2,13 +2,18 @@ import csv
 import os
 import re
 
+from dotenv import load_dotenv
+load_dotenv()
+
 import chromadb
+from chromadb.utils.embedding_functions import OpenAIEmbeddingFunction
 
 from config import (
     CHUNK_MAX_DURATION,
     CHUNK_MIN_DURATION,
     CHROMA_DIR,
     COLLECTION_NAME,
+    EMBEDDING_MODEL,
     INDEX_CSV,
     SRT_DIR,
 )
@@ -131,6 +136,13 @@ abs_chroma_dir = os.path.join(os.path.dirname(__file__), CHROMA_DIR)
 index = load_index(abs_index_csv)
 print(f"Loaded index with {len(index)} lectures")
 
+# Create an OpenAI embedding function for ChromaDB to use during ingestion
+openai_ef = OpenAIEmbeddingFunction(
+    api_key=os.environ["OPENAI_API_KEY"],
+    model_name=EMBEDDING_MODEL,
+)
+print(f"Using OpenAI embedding model: {EMBEDDING_MODEL}")
+
 # Initialize a persistent ChromaDB client (data is saved to disk)
 client = chromadb.PersistentClient(path=abs_chroma_dir)
 
@@ -141,9 +153,10 @@ try:
 except Exception:
     pass
 
-# Create a new collection using cosine similarity for semantic search
+# Create a new collection using cosine similarity and OpenAI embeddings
 collection = client.create_collection(
     name=COLLECTION_NAME,
+    embedding_function=openai_ef,
     metadata={"hnsw:space": "cosine"},
 )
 print(f"Created collection '{COLLECTION_NAME}'")

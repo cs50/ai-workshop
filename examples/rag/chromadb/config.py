@@ -12,6 +12,9 @@ CHROMA_DIR = "../../../data/chromadb"
 # Name of the ChromaDB collection to store lecture chunks
 COLLECTION_NAME = "cs50_lectures"
 
+# OpenAI embedding model used by ChromaDB for both ingestion and retrieval
+EMBEDDING_MODEL = "text-embedding-3-large"
+
 # Chunking parameters (in seconds):
 # Each chunk will span at least CHUNK_MIN_DURATION but not exceed CHUNK_MAX_DURATION
 CHUNK_MIN_DURATION = 30
