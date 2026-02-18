@@ -1,0 +1,5351 @@
+0
+00:00:43,720 --> 00:00:43,729
+All
+
+1
+00:00:44,509 --> 00:00:44,889
+right,
+
+2
+00:00:45,069 --> 00:00:46,630
+this is CS 50,
+
+3
+00:00:46,729 --> 00:00:49,560
+and this is our lecture on artificial intelligence or AI,
+
+4
+00:00:49,790 --> 00:00:51,830
+particularly for all of those family members who are here
+
+5
+00:00:51,830 --> 00:00:53,459
+in the audience with us for the first time.
+
+6
+00:00:53,590 --> 00:00:53,869
+In fact,
+
+7
+00:00:53,990 --> 00:00:54,110
+uh,
+
+8
+00:00:54,150 --> 00:00:55,180
+for those students among us,
+
+9
+00:00:55,229 --> 00:00:57,430
+maybe a round of applause for all of the family
+
+10
+00:00:57,430 --> 00:00:59,869
+members who have come here today to join you.
+
+11
+00:01:00,619 --> 00:01:00,639
+Nice.
+
+12
+00:01:02,220 --> 00:01:03,340
+So nice to see everyone.
+
+13
+00:01:03,450 --> 00:01:05,279
+And as CS 50 students already know,
+
+14
+00:01:05,370 --> 00:01:09,529
+it's sort of a thing in programming circles to have a rubber duck on your desk.
+
+15
+00:01:09,569 --> 00:01:09,769
+Indeed,
+
+16
+00:01:09,779 --> 00:01:12,410
+a few weeks back we gave one to all CS 50 students,
+
+17
+00:01:12,449 --> 00:01:14,360
+and the motivation is to have someone,
+
+18
+00:01:14,599 --> 00:01:17,489
+something to talk to in the presence of a bug or mistake in
+
+19
+00:01:17,489 --> 00:01:21,050
+your code or confusion you're having when it comes to solving some problem.
+
+20
+00:01:21,129 --> 00:01:22,230
+And the idea is that
+
+21
+00:01:22,489 --> 00:01:23,720
+in the absence of having a friend,
+
+22
+00:01:23,809 --> 00:01:24,459
+family member,
+
+23
+00:01:24,690 --> 00:01:28,599
+TA of whom you can ask questions is to literally verbalize your confusion,
+
+24
+00:01:28,769 --> 00:01:29,610
+your question to this.
+
+25
+00:01:30,269 --> 00:01:32,339
+object on your desk and in that process
+
+26
+00:01:32,339 --> 00:01:34,779
+of verbalizing your own confusion and explaining yourself,
+
+27
+00:01:34,870 --> 00:01:38,620
+quite often does that proverbial light bulb go off over your head and voila,
+
+28
+00:01:38,750 --> 00:01:39,870
+problem is solved.
+
+29
+00:01:39,989 --> 00:01:41,739
+Now as CS50 students also know,
+
+30
+00:01:41,949 --> 00:01:46,000
+we sort of virtualized that rubber duck over the past few years and most recently
+
+31
+00:01:46,269 --> 00:01:48,339
+in a form of this guy here.
+
+32
+00:01:48,559 --> 00:01:51,269
+So in student's programming environment within CS 50,
+
+33
+00:01:51,309 --> 00:01:55,339
+a tool called Visual Studio Code at a URL of CS50.dv,
+
+34
+00:01:55,470 --> 00:01:59,440
+they have a virtual rubber duck available at available to them at all times.
+
+35
+00:01:59,639 --> 00:02:00,690
+And early on
+
+36
+00:02:00,809 --> 00:02:02,709
+in the very first version of this rubber duck,
+
+37
+00:02:02,830 --> 00:02:05,889
+it was a chat window that looked like this and if students had a question,
+
+38
+00:02:05,930 --> 00:02:08,119
+they could simply type into the chat window something like,
+
+39
+00:02:08,169 --> 00:02:09,880
+I'm hoping you can help me solve a problem.
+
+40
+00:02:10,008 --> 00:02:11,479
+And for multiple years,
+
+41
+00:02:11,649 --> 00:02:13,199
+all the CS 50 duck did
+
+42
+00:02:13,449 --> 00:02:16,380
+was respond with 12 or 3 quacks.
+
+43
+00:02:16,610 --> 00:02:18,809
+We have anecdotal evidence to suggest that that
+
+44
+00:02:18,809 --> 00:02:21,410
+alone was enough for answering students' questions because
+
+45
+00:02:21,410 --> 00:02:25,089
+it was in that process of like actually typing out the confusion that you realize,
+
+46
+00:02:25,169 --> 00:02:25,580
+oh,
+
+47
+00:02:25,649 --> 00:02:25,889
+I'm.
+
+48
+00:02:26,000 --> 00:02:28,990
+Doing something silly and you figure it out on your own.
+
+49
+00:02:29,029 --> 00:02:32,669
+But of course now that we live in an age of chat GBT and Claude and
+
+50
+00:02:32,669 --> 00:02:38,059
+Gemini and all of these other AI based tools came as no surprise perhaps when in 2023
+
+51
+00:02:38,229 --> 00:02:40,669
+the same duck started responding to students in English and
+
+52
+00:02:40,669 --> 00:02:42,429
+that now is the tool that they have available,
+
+53
+00:02:42,470 --> 00:02:46,830
+which is in effect meant to be a less helpful version of Chat GPT,
+
+54
+00:02:46,869 --> 00:02:48,699
+one that doesn't just spoil answers outright,
+
+55
+00:02:48,869 --> 00:02:53,009
+but tries to guide them to solutions akin to any good teacher or tutor.
+
+56
+00:02:53,149 --> 00:02:54,009
+And so today's
+
+57
+00:02:54,250 --> 00:02:58,089
+is indeed on just that and the underlying building blocks that make possible that
+
+58
+00:02:58,089 --> 00:03:02,080
+they're rubber duck in all of the AI with which we're all increasingly familiar,
+
+59
+00:03:02,250 --> 00:03:05,899
+namely generative artificial intelligence using this technology known as AI
+
+60
+00:03:06,089 --> 00:03:07,520
+to generate something,
+
+61
+00:03:07,529 --> 00:03:11,330
+whether that's images or sounds or video or text.
+
+62
+00:03:11,369 --> 00:03:11,729
+And in fact,
+
+63
+00:03:11,830 --> 00:03:15,960
+what we thought we'd do to get everyone involved early on is if you have a phone
+
+64
+00:03:16,369 --> 00:03:17,039
+by your side,
+
+65
+00:03:17,089 --> 00:03:20,720
+if you'd like to go ahead and scan this QR QR code here,
+
+66
+00:03:20,970 --> 00:03:22,059
+and that's going to lead you.
+
+67
+00:03:22,119 --> 00:03:25,470
+To a polling station where you can buzz in with some answers.
+
+68
+00:03:25,630 --> 00:03:27,500
+CS 50's preceptor Kelly is going to kindly join
+
+69
+00:03:27,500 --> 00:03:29,779
+me here on stage to help run the keyboard,
+
+70
+00:03:29,789 --> 00:03:32,190
+and what we're about to do is play a little game and
+
+71
+00:03:32,190 --> 00:03:37,100
+see just how good we humans are right now at distinguishing AI from
+
+72
+00:03:37,309 --> 00:03:37,990
+reality.
+
+73
+00:03:38,000 --> 00:03:40,649
+And so we'll borrow some data from The New York Times,
+
+74
+00:03:40,669 --> 00:03:44,669
+which a couple of years back actually published some examples of AI and not AI,
+
+75
+00:03:44,850 --> 00:03:47,949
+and we'll see just how good this this technology has gotten.
+
+76
+00:03:48,029 --> 00:03:50,070
+So here we have two photographs on the screen.
+
+77
+00:03:50,380 --> 00:03:50,990
+In a moment,
+
+78
+00:03:51,029 --> 00:03:54,339
+you'll be asked on your phone if you were successful in scanning that code,
+
+79
+00:03:54,710 --> 00:03:56,539
+which one of these is AI?
+
+80
+00:03:56,830 --> 00:03:58,339
+Left or right?
+
+81
+00:03:59,800 --> 00:04:01,339
+So hopefully on your phone here,
+
+82
+00:04:01,419 --> 00:04:03,050
+if you want to go ahead and swipe to the next screen,
+
+83
+00:04:03,220 --> 00:04:04,610
+we'll activate the pole here.
+
+84
+00:04:04,720 --> 00:04:06,979
+In a moment you should see on your phone a prompt
+
+85
+00:04:07,539 --> 00:04:10,529
+inviting you to select left
+
+86
+00:04:10,949 --> 00:04:11,589
+or
+
+87
+00:04:12,059 --> 00:04:12,649
+right.
+
+88
+00:04:14,729 --> 00:04:15,160
+And
+
+89
+00:04:16,200 --> 00:04:19,059
+Feel free to raise your hand if you're not seeing that,
+
+90
+00:04:19,230 --> 00:04:20,910
+but it looks like the responses are coming in,
+
+91
+00:04:20,988 --> 00:04:22,070
+and at the risk of spoiling,
+
+92
+00:04:22,108 --> 00:04:25,589
+it looks like 70%+ of you think it is the answer on the right.
+
+93
+00:04:25,670 --> 00:04:26,149
+And if Kelly,
+
+94
+00:04:26,190 --> 00:04:29,059
+maybe we could swipe back to the two photographs in this particular case,
+
+95
+00:04:29,269 --> 00:04:29,600
+yes,
+
+96
+00:04:29,670 --> 00:04:31,470
+it was in fact the one on the right,
+
+97
+00:04:31,549 --> 00:04:31,709
+maybe.
+
+98
+00:04:31,855 --> 00:04:35,315
+Looked a little too good or maybe a little too unreal,
+
+99
+00:04:35,725 --> 00:04:36,625
+maybe let's see,
+
+100
+00:04:36,684 --> 00:04:37,875
+maybe a couple of other examples.
+
+101
+00:04:37,924 --> 00:04:38,704
+So same QR code,
+
+102
+00:04:38,765 --> 00:04:39,725
+no need to re-scan.
+
+103
+00:04:39,885 --> 00:04:42,524
+Let's go ahead and pull up these two examples now 2 photographs,
+
+104
+00:04:42,605 --> 00:04:43,394
+same question.
+
+105
+00:04:43,644 --> 00:04:45,375
+Which of these is AI?
+
+106
+00:04:45,765 --> 00:04:46,255
+Left
+
+107
+00:04:46,484 --> 00:04:47,334
+or right?
+
+108
+00:04:48,450 --> 00:04:48,950
+Left
+
+109
+00:04:50,170 --> 00:04:51,459
+Or right
+
+110
+00:04:53,119 --> 00:04:53,130
+Alright,
+
+111
+00:04:53,239 --> 00:04:54,730
+I want to take a look at the chart,
+
+112
+00:04:54,799 --> 00:04:57,459
+see what the responses are coming in a little closer in this case,
+
+113
+00:04:57,519 --> 00:05:00,410
+but a majority of you think the answer is in fact left here,
+
+114
+00:05:00,519 --> 00:05:03,320
+though 5% of you are truthfully admitting that you're unsure.
+
+115
+00:05:03,359 --> 00:05:03,760
+But Kelly,
+
+116
+00:05:03,799 --> 00:05:05,109
+if you want to swipe back to the photos,
+
+117
+00:05:05,230 --> 00:05:07,239
+the answer this time was in fact a trick question.
+
+118
+00:05:07,279 --> 00:05:08,640
+They were both in fact AI,
+
+119
+00:05:08,679 --> 00:05:09,070
+which
+
+120
+00:05:09,730 --> 00:05:12,880
+perhaps speaks to just how good this technology is already getting.
+
+121
+00:05:13,040 --> 00:05:16,040
+Neither of these faces exists in the real world.
+
+122
+00:05:16,140 --> 00:05:19,160
+It was synthesized based on lots of training data,
+
+123
+00:05:19,329 --> 00:05:22,970
+so two photographs that look like humans but do not in fact exist.
+
+124
+00:05:23,010 --> 00:05:25,250
+How about one more this time focusing on text,
+
+125
+00:05:25,329 --> 00:05:27,769
+which will be the focus of course underlying our duck.
+
+126
+00:05:27,970 --> 00:05:30,220
+Did a 4th grader write this or the new chatbot?
+
+127
+00:05:30,230 --> 00:05:33,010
+Here are two final examples same code as before,
+
+128
+00:05:33,089 --> 00:05:34,160
+so no need to re-scan.
+
+129
+00:05:34,290 --> 00:05:35,890
+And here are the texts.
+
+130
+00:05:35,950 --> 00:05:39,049
+SA 1 I'd like to bring a yummy sandwich and a cold juice box for lunch.
+
+131
+00:05:39,299 --> 00:05:43,299
+Sometimes I'll even pack a tasty piece of fruit or a bag of crunchy chips.
+
+132
+00:05:43,380 --> 00:05:43,850
+As we eat,
+
+133
+00:05:43,859 --> 00:05:46,059
+we chat and laugh and catch up on each other's day.
+
+134
+00:05:47,420 --> 00:05:47,980
+SA 2.
+
+135
+00:05:48,100 --> 00:05:49,260
+My mother packs me a sandwich,
+
+136
+00:05:49,339 --> 00:05:49,670
+a drink,
+
+137
+00:05:49,779 --> 00:05:49,970
+fruit,
+
+138
+00:05:49,980 --> 00:05:50,480
+and a treat.
+
+139
+00:05:50,700 --> 00:05:51,690
+When I get into a lunchroom,
+
+140
+00:05:51,739 --> 00:05:54,609
+I find an empty table and sit there and eat my lunch.
+
+141
+00:05:54,739 --> 00:05:56,329
+My friends come and sit down with me.
+
+142
+00:05:57,500 --> 00:06:00,649
+The question now lastly is which of these is AI?
+
+143
+00:06:00,899 --> 00:06:02,059
+1 or 2?
+
+144
+00:06:03,170 --> 00:06:04,140
+SA 1
+
+145
+00:06:04,410 --> 00:06:05,440
+or 2.
+
+146
+00:06:06,329 --> 00:06:08,369
+The bars here are duking themselves out.
+
+147
+00:06:08,529 --> 00:06:10,130
+Looks like a majority of you say SA 1.
+
+148
+00:06:10,209 --> 00:06:11,929
+Let's go back to the text and some of you who,
+
+149
+00:06:12,130 --> 00:06:15,160
+one of you who says SA 1 Y if you want to raise a quick hand,
+
+150
+00:06:15,570 --> 00:06:16,209
+why SA 1,
+
+151
+00:06:16,250 --> 00:06:16,529
+yeah.
+
+152
+00:06:19,279 --> 00:06:19,570
+OK,
+
+153
+00:06:19,679 --> 00:06:22,880
+and uh it's so SA2 looks more like you would write and kind of ask what grade you are in?
+
+154
+00:06:23,929 --> 00:06:24,649
+A 5th grader.
+
+155
+00:06:24,730 --> 00:06:27,279
+So is this a new 5th grader or not?
+
+156
+00:06:28,109 --> 00:06:29,100
+The answer here,
+
+157
+00:06:29,130 --> 00:06:29,839
+in fact,
+
+158
+00:06:30,049 --> 00:06:35,200
+is that SA 1 is the AI because indeed SA 2 is more akin to what a 4th,
+
+159
+00:06:35,209 --> 00:06:35,839
+or if I may,
+
+160
+00:06:36,049 --> 00:06:37,049
+a 5th grader would write.
+
+161
+00:06:37,089 --> 00:06:39,369
+And I dare say there are maybe some telltale signs.
+
+162
+00:06:39,410 --> 00:06:42,970
+I'm not sure a typical 4th grader or 5th grader would catch up
+
+163
+00:06:42,970 --> 00:06:46,450
+on each other's day in the vernacular that we see in SA 1.
+
+164
+00:06:46,489 --> 00:06:49,690
+But suffice it to say this game is not something we can play for in the
+
+165
+00:06:49,690 --> 00:06:53,649
+years to come because it's just going to get too hard to discern something that's a.
+
+166
+00:06:53,783 --> 00:06:54,993
+I generated or not.
+
+167
+00:06:55,104 --> 00:06:58,694
+And so among our goals for today is really to give you a better sense of not just
+
+168
+00:06:58,694 --> 00:07:00,473
+how technologies like this duck and these games that
+
+169
+00:07:00,473 --> 00:07:02,324
+we've played here with images and text work,
+
+170
+00:07:02,493 --> 00:07:05,174
+but really what are the underlying principles of artificial
+
+171
+00:07:05,174 --> 00:07:07,773
+intelligence that frankly have been with us and have been
+
+172
+00:07:07,773 --> 00:07:10,294
+developing for decades and have really now come to a
+
+173
+00:07:10,294 --> 00:07:13,384
+head in recent years thanks to advances in research,
+
+174
+00:07:13,533 --> 00:07:15,164
+thanks to all the more cloud computing,
+
+175
+00:07:15,213 --> 00:07:19,273
+thanks to all the more memory and disk space and information,
+
+176
+00:07:19,373 --> 00:07:19,614
+sheer.
+
+177
+00:07:19,817 --> 00:07:21,997
+The volume thereof that we have at our disposal that
+
+178
+00:07:21,997 --> 00:07:24,917
+can be used to train all of these here technologies.
+
+179
+00:07:25,037 --> 00:07:29,197
+So that their duck is built on a fairly complicated architecture that looks a
+
+180
+00:07:29,197 --> 00:07:32,477
+little something like this where here's a student using one of CS 50's tools.
+
+181
+00:07:32,597 --> 00:07:36,458
+Here's a website with which CS 50 students are familiar called CS50.AI where we,
+
+182
+00:07:36,477 --> 00:07:36,838
+the staff,
+
+183
+00:07:36,917 --> 00:07:40,798
+wrote a bunch of code that actually talks to what are called APIs,
+
+184
+00:07:40,877 --> 00:07:42,477
+application programming interfaces,
+
+185
+00:07:42,678 --> 00:07:45,567
+third party services by companies like Microsoft and OpenAI.
+
+186
+00:07:45,832 --> 00:07:48,022
+Really have been doing the hard work of developing
+
+187
+00:07:48,022 --> 00:07:50,111
+these models as well as some local sweets,
+
+188
+00:07:50,861 --> 00:07:54,532
+some local sauce that we CS 50 add into the mix to make it specific,
+
+189
+00:07:54,622 --> 00:07:56,812
+the duck's answers to CS50 itself.
+
+190
+00:07:57,062 --> 00:07:59,182
+But what we've essentially been doing is something that
+
+191
+00:07:59,182 --> 00:08:01,092
+with which you might be familiar in part,
+
+192
+00:08:01,101 --> 00:08:02,062
+prompt engineering,
+
+193
+00:08:02,101 --> 00:08:03,421
+which has started popping up for better
+
+194
+00:08:03,421 --> 00:08:06,252
+or for worse on LinkedIn profiles everywhere,
+
+195
+00:08:06,261 --> 00:08:07,731
+and prompt engineering really,
+
+196
+00:08:07,782 --> 00:08:11,742
+it's not so much a form of engineering as it is a form of asking good questions.
+
+197
+00:08:11,855 --> 00:08:16,756
+And being detailed in your question giving context to the underlying AI
+
+198
+00:08:16,756 --> 00:08:19,716
+so that the answer with high probability is what you want back.
+
+199
+00:08:19,925 --> 00:08:21,605
+And so there's two terms in this world
+
+200
+00:08:21,605 --> 00:08:23,596
+of prompt engineering that are worth knowing about.
+
+201
+00:08:23,805 --> 00:08:26,656
+So in CS 50 has leveraged both of these to implement that duck.
+
+202
+00:08:26,925 --> 00:08:28,885
+We for instance wrote what's called a system prompt,
+
+203
+00:08:28,895 --> 00:08:30,726
+which are instructions written by us humans,
+
+204
+00:08:30,805 --> 00:08:31,835
+often in English,
+
+205
+00:08:32,085 --> 00:08:35,125
+that sort of nudge the underlying AI technology to
+
+206
+00:08:35,125 --> 00:08:37,726
+have a certain personality or a specific domain.
+
+207
+00:08:38,219 --> 00:08:39,070
+Of expertise.
+
+208
+00:08:39,299 --> 00:08:40,058
+For instance,
+
+209
+00:08:40,299 --> 00:08:43,729
+we CS 50 have written a system prompt essentially that looks like this.
+
+210
+00:08:43,750 --> 00:08:46,179
+In reality it's like a lot of lines long nowadays,
+
+211
+00:08:46,340 --> 00:08:47,369
+but the essence of it
+
+212
+00:08:47,539 --> 00:08:48,130
+is this.
+
+213
+00:08:48,340 --> 00:08:50,820
+You are a friendly and supportive teaching assistant for CS 50.
+
+214
+00:08:51,830 --> 00:08:53,369
+You are also a rubber duck,
+
+215
+00:08:53,580 --> 00:08:56,500
+and that is sufficient to turn an AI into a rubber duck.
+
+216
+00:08:56,510 --> 00:08:57,059
+It turns out.
+
+217
+00:08:57,299 --> 00:09:00,349
+Answer student questions only about CS 50 in the field of computer science.
+
+218
+00:09:00,500 --> 00:09:02,460
+Do not answer questions about unrelated topics.
+
+219
+00:09:02,539 --> 00:09:06,419
+Do not provide full answers to problem sets as this would violate academic honesty.
+
+220
+00:09:06,659 --> 00:09:08,169
+Answer this question colon.
+
+221
+00:09:08,400 --> 00:09:09,330
+And after that
+
+222
+00:09:09,489 --> 00:09:10,179
+preamble,
+
+223
+00:09:10,340 --> 00:09:10,700
+if you will,
+
+224
+00:09:11,250 --> 00:09:12,010
+aka system prompt,
+
+225
+00:09:12,140 --> 00:09:15,390
+we effectively copy paste whatever question a student has typed in,
+
+226
+00:09:15,580 --> 00:09:17,419
+otherwise known as a user prompt,
+
+227
+00:09:17,429 --> 00:09:21,200
+and that is why the duck behaves like a duck in our case and not a cat or a dog.
+
+228
+00:09:21,536 --> 00:09:22,377
+Or a PhD,
+
+229
+00:09:22,486 --> 00:09:24,536
+but rather something that's been attenuated to the
+
+230
+00:09:24,536 --> 00:09:26,956
+particular goals we have pedagogically in the course.
+
+231
+00:09:27,127 --> 00:09:27,677
+And in fact,
+
+232
+00:09:27,807 --> 00:09:29,937
+those of you who are CS 50 students
+
+233
+00:09:30,046 --> 00:09:33,276
+might recall from quite some weeks ago in week zero
+
+234
+00:09:33,276 --> 00:09:36,956
+when we first introduced the course to the class,
+
+235
+00:09:37,247 --> 00:09:39,356
+we had code that we whipped up that day
+
+236
+00:09:39,356 --> 00:09:41,716
+that ultimately looked a little something like this,
+
+237
+00:09:41,846 --> 00:09:43,726
+and I'll walk through it briefly line by line,
+
+238
+00:09:43,767 --> 00:09:47,137
+but now on the heels of having studied some Python in CS 50,
+
+239
+00:09:47,327 --> 00:09:51,086
+this year code that I whipped up in the first lecture might make now a bit more sense.
+
+240
+00:09:51,244 --> 00:09:52,114
+In that first lecture,
+
+241
+00:09:52,193 --> 00:09:55,713
+we imported OpenAI's own library code that a third party
+
+242
+00:09:55,713 --> 00:09:58,564
+company wrote to make it possible for us to implement
+
+243
+00:09:58,754 --> 00:10:00,073
+code on top of theirs.
+
+244
+00:10:00,193 --> 00:10:02,393
+We created a variable called client in week zero,
+
+245
+00:10:02,414 --> 00:10:04,794
+and this gave us access to the OpenAI client,
+
+246
+00:10:04,874 --> 00:10:06,583
+that is software that they wrote for us.
+
+247
+00:10:06,794 --> 00:10:09,674
+We then defined in week zero a user prompt which came from the
+
+248
+00:10:09,674 --> 00:10:12,943
+user using the input function with which CS 50 students are now familiar,
+
+249
+00:10:13,093 --> 00:10:15,013
+and then we defined this system prompt that day
+
+250
+00:10:15,013 --> 00:10:17,073
+where I said limit your answer to one sentence,
+
+251
+00:10:17,193 --> 00:10:18,234
+pretend you're a cat,
+
+252
+00:10:19,193 --> 00:10:20,783
+I think was the persona of the day.
+
+253
+00:10:20,950 --> 00:10:23,541
+And then we used some bit more arcane code here,
+
+254
+00:10:23,661 --> 00:10:26,450
+but in essence we created a variable called response which
+
+255
+00:10:26,450 --> 00:10:28,971
+was meant to represent the response from OpenAI Server.
+
+256
+00:10:29,181 --> 00:10:31,301
+We used client.responses.create,
+
+257
+00:10:31,580 --> 00:10:34,620
+which is a function or method that OpenAI gives us that allows
+
+258
+00:10:34,620 --> 00:10:37,731
+us to pass in three arguments the input from the user,
+
+259
+00:10:37,901 --> 00:10:38,971
+that is the user prompt,
+
+260
+00:10:39,060 --> 00:10:40,700
+the instructions from us,
+
+261
+00:10:40,820 --> 00:10:41,971
+that is the system prompt,
+
+262
+00:10:42,140 --> 00:10:45,651
+and then the specific model or version of AI that we wanted to use.
+
+263
+00:10:45,820 --> 00:10:48,671
+And the last thing we did that day was print out response.
+
+264
+00:10:49,020 --> 00:10:50,421
+output_text.
+
+265
+00:10:50,658 --> 00:10:54,877
+That's how we were able to answer questions like what is CS 50 or the like.
+
+266
+00:10:55,088 --> 00:10:56,877
+So we've seen all of that before,
+
+267
+00:10:56,968 --> 00:11:00,328
+but we didn't talk about that week exactly how it was
+
+268
+00:11:00,328 --> 00:11:02,677
+working or what more we could actually do with it.
+
+269
+00:11:02,807 --> 00:11:04,867
+And so in fact what I thought we'd do today
+
+270
+00:11:05,208 --> 00:11:07,038
+is peel back a layer that we've not allowed into
+
+271
+00:11:07,038 --> 00:11:09,357
+the course up until now and indeed you still cannot
+
+272
+00:11:09,357 --> 00:11:11,598
+use this feature until the very end of the class
+
+273
+00:11:11,598 --> 00:11:13,857
+in CS 50 when you get to your final projects,
+
+274
+00:11:13,968 --> 00:11:19,197
+at which point you are welcome and encouraged to use VS code in this particular way.
+
+275
+00:11:19,447 --> 00:11:20,208
+So here again is.
+
+276
+00:11:20,515 --> 00:11:21,474
+Code for those unfamiliar,
+
+277
+00:11:21,515 --> 00:11:24,085
+this is the programming environment we use here with students.
+
+278
+00:11:24,155 --> 00:11:27,554
+And let me open up some code that was assigned to students a couple of weeks back,
+
+279
+00:11:27,784 --> 00:11:31,174
+namely a spell checker that they had to implement in C.
+
+280
+00:11:31,554 --> 00:11:33,905
+So I came in advance with a folder called speller,
+
+281
+00:11:34,075 --> 00:11:38,065
+and inside of this folder I had code that day and all students had that week
+
+282
+00:11:38,275 --> 00:11:39,515
+called dictionary.c.
+
+283
+00:11:39,955 --> 00:11:40,864
+And in this file,
+
+284
+00:11:41,034 --> 00:11:42,794
+which will not look familiar to many of you if
+
+285
+00:11:42,794 --> 00:11:46,344
+you've not taken week 0 through 7 up until now,
+
+286
+00:11:46,554 --> 00:11:48,515
+we did have some placeholders for students.
+
+287
+00:11:48,594 --> 00:11:49,594
+So long story short,
+
+288
+00:11:50,252 --> 00:11:51,671
+had to answer a few questions,
+
+289
+00:11:51,781 --> 00:11:52,062
+that is,
+
+290
+00:11:52,101 --> 00:11:55,192
+write code to do this to do this to do this to do,
+
+291
+00:11:55,382 --> 00:11:55,981
+and one more.
+
+292
+00:11:56,101 --> 00:11:59,731
+There were 4 functions or blanks that students needed to fill in with code,
+
+293
+00:12:00,021 --> 00:12:02,062
+and I dare say it took most students
+
+294
+00:12:02,291 --> 00:12:03,252
+5 hours,
+
+295
+00:12:03,341 --> 00:12:04,341
+10 hours,
+
+296
+00:12:04,461 --> 00:12:05,661
+15 hours,
+
+297
+00:12:05,822 --> 00:12:07,812
+something in that very broad range.
+
+298
+00:12:08,021 --> 00:12:10,742
+Let me show you now how using AI
+
+299
+00:12:11,062 --> 00:12:15,221
+you soon the aspiring programmers can start to write code all the more quickly,
+
+300
+00:12:15,302 --> 00:12:16,971
+not by just choosing a different language,
+
+301
+00:12:17,182 --> 00:12:19,702
+but by using these AI based technologies.
+
+302
+00:12:20,148 --> 00:12:21,369
+beyond the duck itself.
+
+303
+00:12:21,568 --> 00:12:24,809
+So what I've done here on the right hand side of VS Code is enabled the
+
+304
+00:12:24,809 --> 00:12:27,328
+feature that CS50 disables for all students from
+
+305
+00:12:27,328 --> 00:12:29,169
+the start of the course called copilot.
+
+306
+00:12:29,249 --> 00:12:30,888
+This is very similar in spirit to products from
+
+307
+00:12:30,888 --> 00:12:33,968
+Google and Anthropic and other companies as well,
+
+308
+00:12:34,088 --> 00:12:36,838
+but this is the one that comes from Microsoft and in turned GitHub here,
+
+309
+00:12:36,999 --> 00:12:40,838
+and it too gives us me sort of a chat window here and this is just one of its features.
+
+310
+00:12:41,049 --> 00:12:41,489
+For instance,
+
+311
+00:12:41,528 --> 00:12:45,039
+if I wanted to implement to get started the check function,
+
+312
+00:12:45,088 --> 00:12:46,568
+I could just ask it to do that.
+
+313
+00:12:46,809 --> 00:12:47,638
+Ilement
+
+314
+00:12:47,919 --> 00:12:49,408
+the check function.
+
+315
+00:12:49,929 --> 00:12:50,580
+And
+
+316
+00:12:50,809 --> 00:12:54,940
+uh how about using a hash table in C?
+
+317
+00:12:55,169 --> 00:12:56,729
+I'm going to go ahead and click Enter.
+
+318
+00:12:57,320 --> 00:12:58,280
+Now it's going to work.
+
+319
+00:12:58,479 --> 00:12:59,760
+It's using as reference,
+
+320
+00:12:59,880 --> 00:13:00,780
+that is context,
+
+321
+00:13:00,799 --> 00:13:02,239
+the very file that I've opened,
+
+322
+00:13:02,250 --> 00:13:03,989
+which is dictionary.c here.
+
+323
+00:13:04,520 --> 00:13:05,510
+Co-pilot in general,
+
+324
+00:13:05,580 --> 00:13:08,219
+as well as a lot of AI tools are familiar with CS50
+
+325
+00:13:08,219 --> 00:13:10,869
+itself because it's been freely available as open courseware for years.
+
+326
+00:13:11,080 --> 00:13:11,789
+What you see
+
+327
+00:13:12,000 --> 00:13:14,309
+here doing is essentially thinking,
+
+328
+00:13:14,419 --> 00:13:15,559
+though that's a bit of an overstatement.
+
+329
+00:13:15,599 --> 00:13:16,669
+It's not really thinking,
+
+330
+00:13:16,840 --> 00:13:20,599
+it's trying to find patterns in what the problem is I
+
+331
+00:13:20,599 --> 00:13:23,400
+want to solve among all of its training data that it's.
+
+332
+00:13:23,789 --> 00:13:26,219
+before and come up with a pretty good answer.
+
+333
+00:13:26,469 --> 00:13:27,460
+So for today's purposes,
+
+334
+00:13:27,469 --> 00:13:29,989
+I'm going to wave my hand at the chat GPT-like
+
+335
+00:13:29,989 --> 00:13:32,940
+explanation of what to do that was appeared it right,
+
+336
+00:13:33,030 --> 00:13:35,580
+but what's juiciest to look at here is on the left,
+
+337
+00:13:35,630 --> 00:13:36,859
+if I now scroll down,
+
+338
+00:13:37,070 --> 00:13:39,460
+is highlighted in green is all of the
+
+339
+00:13:39,460 --> 00:13:43,380
+suggested code for implementing this here check function.
+
+340
+00:13:43,630 --> 00:13:46,099
+Now it might not be the way you implemented it yourself,
+
+341
+00:13:46,309 --> 00:13:50,140
+but I do dare say this has hints of exactly what You
+
+342
+00:13:50,140 --> 00:13:54,250
+probably did when it came to implementing a hash hash table.
+
+343
+00:13:54,419 --> 00:13:54,739
+And in fact,
+
+344
+00:13:54,780 --> 00:13:57,570
+I can go ahead and keep all of this code if I like how it looks.
+
+345
+00:13:57,739 --> 00:13:59,369
+Let's assume that's all correct there.
+
+346
+00:13:59,659 --> 00:14:02,030
+It might be the case that I want to now implement the load function.
+
+347
+00:14:02,140 --> 00:14:05,250
+So how about now implement load
+
+348
+00:14:05,580 --> 00:14:06,210
+function,
+
+349
+00:14:06,419 --> 00:14:06,969
+enter,
+
+350
+00:14:07,270 --> 00:14:08,260
+as simple as that,
+
+351
+00:14:08,299 --> 00:14:09,580
+and what data is being used?
+
+352
+00:14:09,630 --> 00:14:09,719
+Well,
+
+353
+00:14:09,859 --> 00:14:10,700
+a few different things.
+
+354
+00:14:10,780 --> 00:14:11,739
+It says one reference,
+
+355
+00:14:11,780 --> 00:14:13,570
+so it's indeed using this one file,
+
+356
+00:14:13,859 --> 00:14:15,820
+but there's also what are called comments in the
+
+357
+00:14:15,820 --> 00:14:17,489
+code with which All students are now familiar,
+
+358
+00:14:17,570 --> 00:14:20,530
+these slash slash commands in gray that are giving English
+
+359
+00:14:20,530 --> 00:14:22,599
+hints as to what this function is supposed to do.
+
+360
+00:14:22,770 --> 00:14:25,570
+There's implicit information as to what the inputs to these functions,
+
+361
+00:14:25,650 --> 00:14:26,690
+otherwise known as arguments,
+
+362
+00:14:26,729 --> 00:14:27,400
+are meant to be,
+
+363
+00:14:27,530 --> 00:14:29,000
+what the outputs are meant to be.
+
+364
+00:14:29,169 --> 00:14:30,419
+So the underlying AI
+
+365
+00:14:30,609 --> 00:14:33,659
+called copilot here kind of has a decent number of hits,
+
+366
+00:14:33,849 --> 00:14:34,239
+hints,
+
+367
+00:14:34,250 --> 00:14:37,169
+and much like a good TA or a good software engineer,
+
+368
+00:14:37,270 --> 00:14:38,880
+that's enough context to figure out
+
+369
+00:14:39,090 --> 00:14:40,450
+how to fill in those blanks.
+
+370
+00:14:40,460 --> 00:14:41,250
+And so here too,
+
+371
+00:14:41,330 --> 00:14:42,719
+if I scroll down now,
+
+372
+00:14:43,090 --> 00:14:43,969
+we'll see in green.
+
+373
+00:14:44,369 --> 00:14:46,119
+Some suggested code
+
+374
+00:14:46,369 --> 00:14:47,299
+via which
+
+375
+00:14:47,609 --> 00:14:51,000
+it could solve that same problem as well,
+
+376
+00:14:51,489 --> 00:14:52,400
+the load function,
+
+377
+00:14:52,510 --> 00:14:54,969
+and I dare say I've been talking for far fewer minutes
+
+378
+00:14:54,969 --> 00:14:58,719
+than CS 50 students spent actually coding the solution from scratch
+
+379
+00:14:58,969 --> 00:14:59,929
+to this here problem.
+
+380
+00:15:00,010 --> 00:15:01,270
+So I'll go ahead and click keep.
+
+381
+00:15:01,330 --> 00:15:02,650
+I'll assume that it's correct,
+
+382
+00:15:02,710 --> 00:15:04,919
+but that's actually quite a big assumption.
+
+383
+00:15:05,049 --> 00:15:07,609
+And those of you wondering like why have we been learning off all this
+
+384
+00:15:07,609 --> 00:15:10,159
+if I could just ask in English it to do my homework for me,
+
+385
+00:15:10,210 --> 00:15:11,340
+I mean there's a lot to be said for the
+
+386
+00:15:11,340 --> 00:15:13,609
+muscle memory that hopefully you feel you've been developing.
+
+387
+00:15:13,732 --> 00:15:14,793
+For the past several weeks,
+
+388
+00:15:14,922 --> 00:15:17,362
+the reality is if you don't have an eye for what you're looking at,
+
+389
+00:15:17,403 --> 00:15:20,353
+there's no way you're going to be able to troubleshoot an issue in here,
+
+390
+00:15:20,763 --> 00:15:21,552
+explain it to someone else,
+
+391
+00:15:21,682 --> 00:15:23,273
+make marginal changes or the like,
+
+392
+00:15:23,643 --> 00:15:26,322
+and yet what's incredibly exciting even to someone like me,
+
+393
+00:15:26,482 --> 00:15:27,203
+all of the staff,
+
+394
+00:15:27,322 --> 00:15:30,723
+friends of mine in the industry is that this kind of functionality
+
+395
+00:15:30,723 --> 00:15:35,302
+in AI amplifies your capabilities as a programmer sort of overnight.
+
+396
+00:15:35,353 --> 00:15:36,992
+Once you have that vocabulary,
+
+397
+00:15:37,163 --> 00:15:39,043
+that muscle memory for doing it yourself,
+
+398
+00:15:39,242 --> 00:15:42,442
+the AI can just take it from there and get rid of all of the tedium,
+
+399
+00:15:42,723 --> 00:15:43,083
+allow you to.
+
+400
+00:15:43,205 --> 00:15:46,705
+Focus at the whiteboard with the other humans on sort of the overarching problems
+
+401
+00:15:46,705 --> 00:15:50,216
+that you want to solve and leave it to this AI to actually solve
+
+402
+00:15:50,556 --> 00:15:51,745
+problems for you.
+
+403
+00:15:51,955 --> 00:15:54,676
+A fun exercise too might be to go back at term's
+
+404
+00:15:54,676 --> 00:15:57,315
+end and try solving any number of the courses assignments.
+
+405
+00:15:57,395 --> 00:15:57,716
+For instance,
+
+406
+00:15:57,796 --> 00:15:58,786
+let me go ahead and do this.
+
+407
+00:15:59,036 --> 00:16:00,306
+In my terminal window here.
+
+408
+00:16:00,356 --> 00:16:02,106
+I'm going to go back to my main directory.
+
+409
+00:16:02,276 --> 00:16:05,265
+I'm going to create an empty file called Mario.c
+
+410
+00:16:05,476 --> 00:16:06,526
+that has nothing in it,
+
+411
+00:16:06,635 --> 00:16:09,145
+and I'm going to go ahead in my chat window here and say
+
+412
+00:16:09,476 --> 00:16:12,476
+please implement a program in C.
+
+413
+00:16:12,869 --> 00:16:16,700
+That prints a left aligned pyramid.
+
+414
+00:16:17,080 --> 00:16:25,059
+Of bricks using hash symbols for bricks and use the CS 50 library to
+
+415
+00:16:25,400 --> 00:16:31,070
+ask the user for a non-negative height as an integer period.
+
+416
+00:16:31,250 --> 00:16:34,669
+I dare say that's essentially the English description of what was for CS
+
+417
+00:16:34,669 --> 00:16:39,200
+50 this year problem set one to implement a program called Mario.C.
+
+418
+00:16:39,440 --> 00:16:41,390
+This too is sort of doing its thing.
+
+419
+00:16:41,640 --> 00:16:42,719
+It's using one reference.
+
+420
+00:16:42,760 --> 00:16:43,239
+It's working,
+
+421
+00:16:43,330 --> 00:16:43,760
+it knows.
+
+422
+00:16:43,820 --> 00:16:46,530
+As a hint that this file is called Mario.c and it's
+
+423
+00:16:46,530 --> 00:16:48,559
+seen a lot of those in its training data over time.
+
+424
+00:16:48,770 --> 00:16:50,849
+There's an English explanation of what I should do and
+
+425
+00:16:50,849 --> 00:16:54,169
+those CS 50 students in the room probably recognize the sort
+
+426
+00:16:54,169 --> 00:16:56,570
+of basic structure here of using a doy loop to prompt
+
+427
+00:16:56,570 --> 00:16:58,419
+the user for a height using the CS 50 library,
+
+428
+00:16:58,450 --> 00:16:59,359
+which has been included,
+
+429
+00:16:59,450 --> 00:17:01,650
+print a left of line pyramid using some kind of loop,
+
+430
+00:17:01,659 --> 00:17:02,049
+and
+
+431
+00:17:02,369 --> 00:17:02,880
+boom,
+
+432
+00:17:03,049 --> 00:17:03,690
+we are done.
+
+433
+00:17:03,729 --> 00:17:06,300
+And these are fairly bite-sized problems as you'll see as
+
+434
+00:17:06,300 --> 00:17:08,848
+you get to term's end with your final project,
+
+435
+00:17:08,890 --> 00:17:10,569
+which is a fairly open ended.
+
+436
+00:17:10,708 --> 00:17:14,098
+to apply your newfound knowledge and savvy with
+
+437
+00:17:14,098 --> 00:17:15,888
+programming itself to a problem of interest,
+
+438
+00:17:16,098 --> 00:17:19,218
+it will allow you to implement far grander projects,
+
+439
+00:17:19,417 --> 00:17:22,218
+far greater projects than has been possible to date,
+
+440
+00:17:22,338 --> 00:17:24,249
+certainly in just a few weeks we have to do it
+
+441
+00:17:24,698 --> 00:17:28,208
+because of this amplification of your own abilities.
+
+442
+00:17:28,388 --> 00:17:29,529
+So with that promise,
+
+443
+00:17:29,739 --> 00:17:32,889
+let's talk about how in the heck any of this is actually working.
+
+444
+00:17:33,029 --> 00:17:35,619
+I clearly just generated a whole lot of stuff and
+
+445
+00:17:35,619 --> 00:17:37,458
+that's how we began the story with the generation.
+
+446
+00:17:37,599 --> 00:17:39,500
+Those images and those two essays by kids,
+
+447
+00:17:39,709 --> 00:17:44,099
+but what is generative artificial intelligence or really what is AI itself?
+
+448
+00:17:44,150 --> 00:17:46,150
+And these are some of the underlying building blocks that aren't
+
+449
+00:17:46,150 --> 00:17:49,790
+going anywhere anytime soon and indeed have led us as a progression
+
+450
+00:17:50,030 --> 00:17:51,660
+to the capabilities you just saw.
+
+451
+00:17:51,869 --> 00:17:52,339
+So spam,
+
+452
+00:17:52,390 --> 00:17:54,750
+we sort of take for granted now that in our Gmail inboxes,
+
+453
+00:17:54,829 --> 00:17:55,750
+our Outlook inboxes,
+
+454
+00:17:55,829 --> 00:17:58,180
+most of the spam just ends up in a folder.
+
+455
+00:17:58,310 --> 00:17:58,349
+Well,
+
+456
+00:17:58,390 --> 00:18:01,780
+there's not some human at Microsoft or Google sort of manually labeling
+
+457
+00:18:01,780 --> 00:18:04,319
+the messages as they come in deciding spam or not spam.
+
+458
+00:18:04,670 --> 00:18:08,069
+They're figuring out using code and nowadays using AI
+
+459
+00:18:08,380 --> 00:18:11,660
+that looks like spam and therefore I'm going to put it in the spam folder,
+
+460
+00:18:11,739 --> 00:18:14,349
+which is probably correct 99% of the time,
+
+461
+00:18:14,420 --> 00:18:16,810
+but indeed there's potentially a failure rate.
+
+462
+00:18:17,219 --> 00:18:19,530
+Other applications might include handwriting recognition.
+
+463
+00:18:19,579 --> 00:18:22,260
+Certainly Microsoft and Google doesn't know the handwriting style
+
+464
+00:18:22,260 --> 00:18:23,650
+of all of us here in this room,
+
+465
+00:18:23,900 --> 00:18:26,540
+but it's been trained on enough other humans'
+
+466
+00:18:26,540 --> 00:18:29,380
+handwriting styles that odds are your handwriting and mine
+
+467
+00:18:29,780 --> 00:18:31,420
+looks similar to someone else's.
+
+468
+00:18:31,670 --> 00:18:34,920
+And so with very high probability they could recognize something
+
+469
+00:18:34,920 --> 00:18:38,209
+like Hello world here as indeed that same digital text.
+
+470
+00:18:38,359 --> 00:18:40,439
+All of us are into streaming services nowadays,
+
+471
+00:18:40,520 --> 00:18:41,430
+Netflix and the like.
+
+472
+00:18:41,520 --> 00:18:41,750
+Well,
+
+473
+00:18:42,160 --> 00:18:45,000
+they're getting pretty darn good at knowing if I watched X,
+
+474
+00:18:45,010 --> 00:18:46,630
+I might also like Y.
+
+475
+00:18:46,839 --> 00:18:47,310
+Why?
+
+476
+00:18:47,479 --> 00:18:47,560
+Well,
+
+477
+00:18:47,800 --> 00:18:51,560
+because of other things I've I've watched before and maybe upvoted and downvoted,
+
+478
+00:18:51,680 --> 00:18:55,000
+maybe because of other things people have watched who
+
+479
+00:18:55,000 --> 00:18:57,469
+like similar movies or TV shows to me,
+
+480
+00:18:57,760 --> 00:18:58,280
+so that too.
+
+481
+00:18:58,540 --> 00:18:59,000
+AI.
+
+482
+00:18:59,140 --> 00:19:00,180
+There's no if,
+
+483
+00:19:00,420 --> 00:19:00,579
+if,
+
+484
+00:19:00,979 --> 00:19:04,530
+if construct for every movie or TV show in their database.
+
+485
+00:19:04,619 --> 00:19:06,949
+It's sort of figuring out much more organically,
+
+486
+00:19:06,979 --> 00:19:09,449
+dynamically what you and I might like.
+
+487
+00:19:09,540 --> 00:19:11,280
+And then all these voice assistants today Siri,
+
+488
+00:19:11,339 --> 00:19:11,660
+Alexa,
+
+489
+00:19:11,780 --> 00:19:12,420
+Google Assistant,
+
+490
+00:19:12,459 --> 00:19:13,020
+and the like,
+
+491
+00:19:13,180 --> 00:19:15,569
+those two don't recognize your voice or necessarily
+
+492
+00:19:15,569 --> 00:19:17,609
+know what questions you're going to ask it.
+
+493
+00:19:17,780 --> 00:19:20,660
+There's no massive if else if that has all possible questions in
+
+494
+00:19:20,660 --> 00:19:22,890
+the world just waiting for you or me to ask it.
+
+495
+00:19:23,069 --> 00:19:23,459
+That too,
+
+496
+00:19:23,500 --> 00:19:23,770
+of course,
+
+497
+00:19:23,780 --> 00:19:25,060
+is dynamically generated.
+
+498
+00:19:25,849 --> 00:19:27,329
+But that's getting a bit ahead of ourselves.
+
+499
+00:19:27,410 --> 00:19:29,089
+Let's like rewind in time and some of the
+
+500
+00:19:29,089 --> 00:19:31,890
+parents in the audience might remember this year's game,
+
+501
+00:19:32,040 --> 00:19:33,479
+among the first arcade games in the world,
+
+502
+00:19:33,569 --> 00:19:34,410
+namely Pong.
+
+503
+00:19:34,489 --> 00:19:37,579
+And so this was a black and white game whereby there's two players,
+
+504
+00:19:37,609 --> 00:19:38,530
+a paddle on the left,
+
+505
+00:19:38,689 --> 00:19:39,599
+a paddle on the right,
+
+506
+00:19:39,650 --> 00:19:41,609
+and then using some kind of joystick or trackball,
+
+507
+00:19:41,890 --> 00:19:43,400
+they can move their paddles up and down,
+
+508
+00:19:43,449 --> 00:19:46,849
+and the goal is to bounce the ball back and forth and ideally catch it every time,
+
+509
+00:19:46,859 --> 00:19:49,250
+otherwise you lose a point.
+
+510
+00:19:49,395 --> 00:19:49,436
+This is just an
+
+511
+00:19:50,145 --> 00:19:51,186
+animated GIF,
+
+512
+00:19:51,296 --> 00:19:52,745
+so there's nothing really dramatic to watch.
+
+513
+00:19:52,826 --> 00:19:54,826
+It's going to stay at 15 against 12,
+
+514
+00:19:55,225 --> 00:19:56,225
+just looping again and again.
+
+515
+00:19:56,306 --> 00:19:57,345
+Nothing interesting is going to happen,
+
+516
+00:19:57,426 --> 00:19:58,725
+but this is a nice example
+
+517
+00:19:59,066 --> 00:20:02,895
+of a game that lends itself to solving it with code.
+
+518
+00:20:02,906 --> 00:20:04,546
+And indeed it's been in our vernacular for
+
+519
+00:20:04,546 --> 00:20:06,776
+years to play against not just the computer,
+
+520
+00:20:07,145 --> 00:20:08,276
+but the CPU,
+
+521
+00:20:08,345 --> 00:20:09,656
+the central processing unit,
+
+522
+00:20:09,666 --> 00:20:11,135
+or really the AI.
+
+523
+00:20:11,145 --> 00:20:12,985
+And yet AI does not need to be nearly.
+
+524
+00:20:13,092 --> 00:20:14,911
+Sophisticated as the tools we now see.
+
+525
+00:20:15,161 --> 00:20:15,442
+For instance,
+
+526
+00:20:15,482 --> 00:20:17,751
+here's a successor to Pong known as Breakout,
+
+527
+00:20:17,921 --> 00:20:18,592
+similar in spirit,
+
+528
+00:20:18,641 --> 00:20:20,472
+but there's just one paddle and one ball,
+
+529
+00:20:20,722 --> 00:20:24,031
+and the goal is to bounce the ball off of these colorful bricks and you
+
+530
+00:20:24,031 --> 00:20:26,751
+get more and more points depending on how high up you can get the ball.
+
+531
+00:20:27,001 --> 00:20:27,842
+All of us as humans,
+
+532
+00:20:27,921 --> 00:20:29,791
+even if you've never played this old school game,
+
+533
+00:20:30,001 --> 00:20:31,921
+probably have an instinct as to where we should move the
+
+534
+00:20:31,921 --> 00:20:34,712
+paddle if the ball just left it going this way,
+
+535
+00:20:34,942 --> 00:20:36,592
+which direction should I move the paddle.
+
+536
+00:20:37,180 --> 00:20:40,369
+I mean probably to the left and indeed that'll catch it on the way down.
+
+537
+00:20:40,500 --> 00:20:43,290
+So you and I just made a decision that's fairly instinctive,
+
+538
+00:20:43,420 --> 00:20:44,579
+but it's been ingrained in us,
+
+539
+00:20:44,660 --> 00:20:46,619
+but we could sort of take all the fun out of the
+
+540
+00:20:46,619 --> 00:20:51,770
+game and start to quantify it or describe it a little more algorithmically
+
+541
+00:20:52,020 --> 00:20:52,819
+step by step.
+
+542
+00:20:53,170 --> 00:20:53,599
+In fact,
+
+543
+00:20:53,959 --> 00:20:55,959
+decision trees are a concept from economics,
+
+544
+00:20:56,030 --> 00:20:56,760
+strategic thinking,
+
+545
+00:20:56,959 --> 00:20:57,839
+computer science as well.
+
+546
+00:20:57,880 --> 00:21:00,760
+That's one way of solving this problem in such a way that you
+
+547
+00:21:00,760 --> 00:21:04,910
+will always play this game well if you just follow this algorithm.
+
+548
+00:21:05,040 --> 00:21:05,599
+So for instance,
+
+549
+00:21:05,719 --> 00:21:08,069
+how might we implement code
+
+550
+00:21:08,520 --> 00:21:11,160
+or decision making process for something like breakout?
+
+551
+00:21:11,199 --> 00:21:11,280
+Well,
+
+552
+00:21:11,319 --> 00:21:13,640
+you ask yourself first is the ball to the left of the paddle?
+
+553
+00:21:14,079 --> 00:21:14,650
+If so,
+
+554
+00:21:14,729 --> 00:21:15,770
+you know where we're going,
+
+555
+00:21:16,010 --> 00:21:17,920
+then go ahead and move the paddle left.
+
+556
+00:21:18,089 --> 00:21:20,119
+But what if the answer were no in fact?
+
+557
+00:21:20,290 --> 00:21:20,449
+Well,
+
+558
+00:21:20,569 --> 00:21:22,569
+you don't just blindly move the paddle to the right,
+
+559
+00:21:22,650 --> 00:21:23,010
+probably,
+
+560
+00:21:23,089 --> 00:21:24,280
+what should you then ask?
+
+561
+00:21:26,579 --> 00:21:27,540
+Are you right below the ball.
+
+562
+00:21:27,579 --> 00:21:28,619
+If the ball's coming right at you,
+
+563
+00:21:28,660 --> 00:21:31,150
+you don't want to just naively go to the right and then risk missing it.
+
+564
+00:21:31,260 --> 00:21:32,369
+So there's another question to ask.
+
+565
+00:21:32,400 --> 00:21:33,949
+Is the ball to the right of the paddle?
+
+566
+00:21:33,959 --> 00:21:35,130
+And that's a yes no question.
+
+567
+00:21:35,300 --> 00:21:36,010
+If yes,
+
+568
+00:21:36,180 --> 00:21:36,579
+well then,
+
+569
+00:21:36,619 --> 00:21:36,819
+OK,
+
+570
+00:21:36,979 --> 00:21:37,890
+move it to the right.
+
+571
+00:21:37,979 --> 00:21:38,630
+But if not,
+
+572
+00:21:38,699 --> 00:21:42,810
+you should probably stay exactly where you are and don't move the paddle.
+
+573
+00:21:43,020 --> 00:21:43,219
+All right,
+
+574
+00:21:43,319 --> 00:21:44,819
+so that's fairly deterministic,
+
+575
+00:21:44,939 --> 00:21:45,640
+if you will,
+
+576
+00:21:46,060 --> 00:21:46,170
+um,
+
+577
+00:21:46,300 --> 00:21:48,810
+and we can map it to code using pseudo code in,
+
+578
+00:21:48,979 --> 00:21:49,250
+uh,
+
+579
+00:21:49,579 --> 00:21:50,739
+say a class like CS 50.
+
+580
+00:21:50,780 --> 00:21:51,699
+We can say in a loop,
+
+581
+00:21:51,859 --> 00:21:51,939
+well,
+
+582
+00:21:52,020 --> 00:21:53,290
+while the game is ongoing,
+
+583
+00:21:53,540 --> 00:21:55,010
+if the balls to the left of the paddle.
+
+584
+00:21:55,099 --> 00:21:56,540
+Then move the paddle left.
+
+585
+00:21:57,310 --> 00:21:58,689
+ET if the balls to the right of the paddle,
+
+586
+00:21:58,810 --> 00:21:59,660
+sorry for the typo there,
+
+587
+00:21:59,729 --> 00:22:01,160
+move the paddle right.
+
+588
+00:22:01,500 --> 00:22:03,170
+Es just don't move the paddle.
+
+589
+00:22:03,209 --> 00:22:05,160
+And so these decision trees as we drew it,
+
+590
+00:22:05,290 --> 00:22:09,500
+have a perfect mapping to code or really pseudo code in this particular case,
+
+591
+00:22:09,550 --> 00:22:12,569
+which is to say that's how people who implemented the breakout game or
+
+592
+00:22:12,569 --> 00:22:16,290
+the pong game who implemented a computer player surely coded it up.
+
+593
+00:22:16,329 --> 00:22:17,839
+It was as straightforward as that.
+
+594
+00:22:18,050 --> 00:22:19,359
+But how about something like tic tac toe,
+
+595
+00:22:19,369 --> 00:22:21,079
+which some of you might have played on the way
+
+596
+00:22:21,079 --> 00:22:23,199
+in for just a moment on the scraps of paper,
+
+597
+00:22:23,319 --> 00:22:23,609
+um.
+
+598
+00:22:24,130 --> 00:22:25,060
+That you might have had,
+
+599
+00:22:25,270 --> 00:22:25,329
+uh,
+
+600
+00:22:25,489 --> 00:22:29,209
+here we have a tic tac toe board with two O's and two X's.
+
+601
+00:22:29,250 --> 00:22:29,969
+For those unfamiliar,
+
+602
+00:22:30,250 --> 00:22:31,209
+this game tic tac toe,
+
+603
+00:22:31,250 --> 00:22:33,280
+otherwise known as knights and Crosses,
+
+604
+00:22:33,569 --> 00:22:36,319
+is a matter of going back and forth Xs and O's between two people,
+
+605
+00:22:36,449 --> 00:22:39,449
+and the goal is to get 3 O's in a row or 3 X's in a row,
+
+606
+00:22:39,530 --> 00:22:40,170
+either vertically,
+
+607
+00:22:40,329 --> 00:22:41,010
+horizontally,
+
+608
+00:22:41,089 --> 00:22:41,810
+or diagonally.
+
+609
+00:22:41,849 --> 00:22:42,579
+So this is a game.
+
+610
+00:22:42,790 --> 00:22:44,020
+in mid progress.
+
+611
+00:22:44,189 --> 00:22:44,229
+Well,
+
+612
+00:22:44,310 --> 00:22:48,060
+let's consider how you could solve the game of tic tac toe like a computer,
+
+613
+00:22:48,270 --> 00:22:49,150
+like an AI might.
+
+614
+00:22:49,390 --> 00:22:49,430
+Well,
+
+615
+00:22:49,510 --> 00:22:50,140
+you could ask yourself,
+
+616
+00:22:50,199 --> 00:22:51,939
+can I get 3 in a row on this turn?
+
+617
+00:22:52,189 --> 00:22:52,310
+Well,
+
+618
+00:22:52,390 --> 00:22:52,989
+if yes,
+
+619
+00:22:53,109 --> 00:22:54,829
+we'll play in the square to get 3 in a row.
+
+620
+00:22:54,869 --> 00:22:56,180
+It's as straightforward as that.
+
+621
+00:22:56,390 --> 00:22:57,310
+If you can't though,
+
+622
+00:22:57,510 --> 00:22:58,180
+what should you ask?
+
+623
+00:22:58,390 --> 00:22:58,430
+Well,
+
+624
+00:22:58,630 --> 00:23:01,189
+can my opponent get 3 in a row on their next turn?
+
+625
+00:23:01,569 --> 00:23:02,170
+Because if so,
+
+626
+00:23:02,209 --> 00:23:04,079
+you should probably at least block
+
+627
+00:23:04,369 --> 00:23:06,920
+their move next so at least you don't lose now.
+
+628
+00:23:07,130 --> 00:23:09,920
+But this game tic tac toe is relatively simple as it is,
+
+629
+00:23:10,089 --> 00:23:11,839
+gets a little harder to play
+
+630
+00:23:12,170 --> 00:23:14,160
+when it's not obvious where you should go.
+
+631
+00:23:14,290 --> 00:23:15,209
+Now all of us as humans,
+
+632
+00:23:15,290 --> 00:23:16,250
+if you grew up playing this game,
+
+633
+00:23:16,410 --> 00:23:17,829
+probably had heuristics you use,
+
+634
+00:23:17,930 --> 00:23:21,130
+like you really like the middle or you like the top corner or something like that,
+
+635
+00:23:21,209 --> 00:23:22,109
+so we probably
+
+636
+00:23:22,290 --> 00:23:24,449
+can uh make our next move quickly.
+
+637
+00:23:24,849 --> 00:23:26,050
+But is it optimal?
+
+638
+00:23:26,209 --> 00:23:28,540
+And I dare say if back in childhood or more
+
+639
+00:23:28,540 --> 00:23:30,849
+recently you've ever lost a game of tic tac toe,
+
+640
+00:23:31,140 --> 00:23:34,859
+like you're just bad at tic tac toe because logically there's no reason you
+
+641
+00:23:34,859 --> 00:23:38,300
+should ever lose a game of tic tac toe if you're playing optimally.
+
+642
+00:23:38,310 --> 00:23:40,479
+At worst you should force a tie,
+
+643
+00:23:40,640 --> 00:23:42,369
+but at best you should win the game.
+
+644
+00:23:42,459 --> 00:23:44,810
+So think of that the next time you play tic tac toe and lose,
+
+645
+00:23:44,839 --> 00:23:46,089
+like you're doing something wrong,
+
+646
+00:23:46,219 --> 00:23:46,609
+but
+
+647
+00:23:46,819 --> 00:23:48,180
+in your defense it's because.
+
+648
+00:23:48,272 --> 00:23:49,863
+Question mark is sort of not obvious.
+
+649
+00:23:49,942 --> 00:23:52,942
+Like how do I answer it when the answer is not right in
+
+650
+00:23:52,942 --> 00:23:56,032
+front of me to move for the win or move for the block?
+
+651
+00:23:56,182 --> 00:23:56,243
+Well,
+
+652
+00:23:56,383 --> 00:23:59,682
+one algorithm you could have been using all of these years is called Mini Max,
+
+653
+00:23:59,703 --> 00:24:00,703
+and as the name suggests,
+
+654
+00:24:00,782 --> 00:24:03,973
+it's all about minimizing something and or maximizing something else.
+
+655
+00:24:04,182 --> 00:24:04,623
+So here too,
+
+656
+00:24:04,703 --> 00:24:07,432
+let's take a bit of fun out of the game and turn it into some math,
+
+657
+00:24:07,583 --> 00:24:08,902
+but relatively simple math.
+
+658
+00:24:08,942 --> 00:24:11,383
+So here we have 3 representative.
+
+659
+00:24:11,865 --> 00:24:13,615
+To boards O has won here.
+
+660
+00:24:13,765 --> 00:24:14,666
+X has one here,
+
+661
+00:24:14,706 --> 00:24:15,725
+and the middle is a tie.
+
+662
+00:24:15,985 --> 00:24:17,796
+It doesn't matter how we score these boards,
+
+663
+00:24:17,865 --> 00:24:19,385
+but we need a consistent system.
+
+664
+00:24:19,426 --> 00:24:21,666
+So I'm going to propose that anytime O wins,
+
+665
+00:24:21,745 --> 00:24:23,495
+the score of the game is -1.
+
+666
+00:24:23,706 --> 00:24:24,666
+Anytime X wins,
+
+667
+00:24:24,706 --> 00:24:26,735
+the score of the game is a positive one,
+
+668
+00:24:26,826 --> 00:24:28,385
+and anytime nobody wins,
+
+669
+00:24:28,456 --> 00:24:29,975
+the score is 0.
+
+670
+00:24:30,426 --> 00:24:31,316
+So at this point,
+
+671
+00:24:31,385 --> 00:24:33,786
+each of these boards have these values -1,
+
+672
+00:24:33,906 --> 00:24:34,395
+0,
+
+673
+00:24:34,505 --> 00:24:35,026
+and 1.
+
+674
+00:24:35,609 --> 00:24:37,410
+So the goal therefore,
+
+675
+00:24:37,540 --> 00:24:40,699
+in this game of tic tac toe now is for X to maximize its score because
+
+676
+00:24:40,780 --> 00:24:44,719
+one is the biggest value available and O's goal in life is to minimize its score.
+
+677
+00:24:44,739 --> 00:24:46,140
+So that's how we take the fun out of the game.
+
+678
+00:24:46,180 --> 00:24:48,130
+We turn it into math where one
+
+679
+00:24:48,380 --> 00:24:49,500
+player just wants to maximize,
+
+680
+00:24:49,619 --> 00:24:52,369
+one player just wants to minimize their score.
+
+681
+00:24:52,650 --> 00:24:52,780
+All right,
+
+682
+00:24:52,819 --> 00:24:53,660
+so a quick,
+
+683
+00:24:53,790 --> 00:24:54,020
+uh,
+
+684
+00:24:54,030 --> 00:24:55,050
+sanity check here.
+
+685
+00:24:55,219 --> 00:24:55,739
+Here's a board.
+
+686
+00:24:55,750 --> 00:24:56,890
+It's not color coded.
+
+687
+00:24:57,180 --> 00:24:58,810
+What is the value of this board?
+
+688
+00:24:59,680 --> 00:24:59,969
+One,
+
+689
+00:25:00,160 --> 00:25:01,349
+because X
+
+690
+00:25:01,599 --> 00:25:02,760
+has in fact 1
+
+691
+00:25:03,109 --> 00:25:04,479
+straight there down the middle.
+
+692
+00:25:04,599 --> 00:25:08,099
+So X is 1000 is -1,
+
+693
+00:25:08,119 --> 00:25:08,949
+otherwise a tie.
+
+694
+00:25:09,280 --> 00:25:13,209
+So now let's see how we go about with those principles in place,
+
+695
+00:25:13,760 --> 00:25:15,760
+figuring out where we should play in tic tac toe.
+
+696
+00:25:15,780 --> 00:25:17,630
+Now here's a fairly easy configuration.
+
+697
+00:25:17,719 --> 00:25:18,560
+There's only 2 moves left.
+
+698
+00:25:18,640 --> 00:25:20,869
+It's not hard to figure out how to win or tie this game,
+
+699
+00:25:20,959 --> 00:25:21,959
+but let's use it for
+
+700
+00:25:22,209 --> 00:25:23,339
+for simplicity.
+
+701
+00:25:23,666 --> 00:25:25,046
+O's turn for instance.
+
+702
+00:25:25,215 --> 00:25:26,495
+So where cano go?
+
+703
+00:25:26,656 --> 00:25:26,816
+Well,
+
+704
+00:25:26,926 --> 00:25:27,806
+that invites the question,
+
+705
+00:25:27,816 --> 00:25:27,855
+Well,
+
+706
+00:25:27,936 --> 00:25:29,936
+what is the value of the board or how do we how
+
+707
+00:25:29,936 --> 00:25:32,926
+do we minimize the value of the board for O to win?
+
+708
+00:25:33,095 --> 00:25:33,316
+Well,
+
+709
+00:25:33,456 --> 00:25:37,086
+O can go in one of two places top left or bottom middle.
+
+710
+00:25:37,255 --> 00:25:38,725
+Which way should O go?
+
+711
+00:25:38,895 --> 00:25:39,015
+Well,
+
+712
+00:25:39,056 --> 00:25:40,696
+if O goes in top left,
+
+713
+00:25:40,776 --> 00:25:42,906
+we should consider what's the value of this board.
+
+714
+00:25:43,005 --> 00:25:43,926
+Is it minimal?
+
+715
+00:25:44,176 --> 00:25:44,375
+Well,
+
+716
+00:25:44,536 --> 00:25:45,166
+let's see.
+
+717
+00:25:45,576 --> 00:25:46,806
+If O goes here,
+
+718
+00:25:46,936 --> 00:25:47,735
+X is obviously.
+
+719
+00:25:47,881 --> 00:25:50,102
+Go here X is therefore going to win,
+
+720
+00:25:50,112 --> 00:25:52,021
+so the value of this board is going to be a
+
+721
+00:25:52,472 --> 00:25:53,021
+1.
+
+722
+00:25:53,302 --> 00:25:56,991
+Now since there's only one way logically to get from this configuration to this one,
+
+723
+00:25:57,031 --> 00:25:59,942
+we might as well call the value of this board by transitivity 1.
+
+724
+00:26:00,151 --> 00:26:02,432
+And so O probably doesn't want to go there because
+
+725
+00:26:02,432 --> 00:26:04,852
+that's a pretty maximal score and O wants to minimize.
+
+726
+00:26:04,991 --> 00:26:05,631
+Over here though,
+
+727
+00:26:05,671 --> 00:26:06,982
+if O goes bottom middle,
+
+728
+00:26:07,151 --> 00:26:10,271
+well then X is going to go top left and now no one has one,
+
+729
+00:26:10,312 --> 00:26:11,952
+so the value of this board is thus.
+
+730
+00:26:12,569 --> 00:26:13,089
+0,
+
+731
+00:26:13,410 --> 00:26:16,589
+we might as well treat this as 0 because that's the only way to get there logically.
+
+732
+00:26:16,729 --> 00:26:17,479
+So now
+
+733
+00:26:17,729 --> 00:26:21,040
+O more mathematically and logically can decide do I want
+
+734
+00:26:21,040 --> 00:26:24,579
+an endpoint of 1 or an endpoint of 0?
+
+735
+00:26:24,930 --> 00:26:25,160
+Well,
+
+736
+00:26:25,410 --> 00:26:28,339
+0 is probably the better option because that's less than 1,
+
+737
+00:26:28,349 --> 00:26:30,050
+and thus it's the minimal possibility.
+
+738
+00:26:30,130 --> 00:26:30,800
+So O
+
+739
+00:26:31,089 --> 00:26:34,699
+is going to go ahead in the bottom middle and at least force a tie.
+
+740
+00:26:34,890 --> 00:26:35,569
+And so that's where you.
+
+741
+00:26:35,699 --> 00:26:38,609
+The evidence where if you humans are ever losing the game of tic tac toe,
+
+742
+00:26:38,619 --> 00:26:40,880
+you have not followed that their logic,
+
+743
+00:26:41,329 --> 00:26:43,369
+but you could probably do it if there's just 2 moves left.
+
+744
+00:26:43,449 --> 00:26:44,400
+But the catch is,
+
+745
+00:26:44,849 --> 00:26:47,199
+let's go ahead and sort of rewind to 3 moves left.
+
+746
+00:26:47,410 --> 00:26:48,670
+Here there are 3 blanks,
+
+747
+00:26:48,680 --> 00:26:49,880
+and I've kind of zoomed out.
+
+748
+00:26:50,089 --> 00:26:52,569
+The catch is that the decision tree gets a lot
+
+749
+00:26:52,569 --> 00:26:54,959
+bigger the more and more moves that are left.
+
+750
+00:26:55,010 --> 00:26:58,890
+It gets sort of bigger and bushier in that it's essentially doubling in size.
+
+751
+00:26:58,979 --> 00:26:59,630
+And with,
+
+752
+00:27:00,010 --> 00:27:02,520
+and that's great if you have the luxury of writing it down on a piece of paper,
+
+753
+00:27:02,609 --> 00:27:05,260
+but if you're doing this on your head while playing against 1/5 grader,
+
+754
+00:27:05,290 --> 00:27:05,689
+if I may,
+
+755
+00:27:05,770 --> 00:27:08,170
+you're probably not drawing out all of the various
+
+756
+00:27:08,170 --> 00:27:10,920
+boards and configurations trying to play it optimally.
+
+757
+00:27:11,089 --> 00:27:12,290
+You're going with some instinct,
+
+758
+00:27:12,300 --> 00:27:14,800
+and your instincts might not be aligned with an algorithm
+
+759
+00:27:14,969 --> 00:27:19,119
+that is tried and truedmini Max that will ideally get you to win the game,
+
+760
+00:27:19,130 --> 00:27:22,130
+but at least will get you to force a tie if you can't win.
+
+761
+00:27:22,959 --> 00:27:23,619
+But
+
+762
+00:27:23,939 --> 00:27:25,300
+Tic Tac Toe is not that hard.
+
+763
+00:27:25,420 --> 00:27:25,540
+I mean,
+
+764
+00:27:25,660 --> 00:27:27,729
+how many different ways are there to play Tic Tac Toe?
+
+765
+00:27:27,739 --> 00:27:31,859
+We could write a computer program to pretty much play Tic Tac Toe optimally.
+
+766
+00:27:32,170 --> 00:27:32,439
+Um,
+
+767
+00:27:32,500 --> 00:27:35,650
+we could use code like this if the player is X for each possible move,
+
+768
+00:27:35,780 --> 00:27:38,089
+calculate the score for the board at that point in time,
+
+769
+00:27:38,300 --> 00:27:40,250
+and then choose the move with the highest score.
+
+770
+00:27:40,300 --> 00:27:43,369
+So you just try all possibilities mathematically and then you make the decision.
+
+771
+00:27:43,579 --> 00:27:45,010
+Most of us in our heads are not doing that,
+
+772
+00:27:45,020 --> 00:27:45,729
+but we could,
+
+773
+00:27:46,180 --> 00:27:47,099
+else if the player iso,
+
+774
+00:27:47,300 --> 00:27:49,329
+essentially do the same thing but choose the minimal
+
+775
+00:27:49,579 --> 00:27:50,380
+possible score.
+
+776
+00:27:50,420 --> 00:27:52,339
+So that's the code for implementing tic tac toe.
+
+777
+00:27:52,540 --> 00:27:54,989
+How many ways are there to play tic tac toe though?
+
+778
+00:27:55,260 --> 00:27:55,530
+Well,
+
+779
+00:27:55,699 --> 00:27:58,489
+255,168,
+
+780
+00:27:58,699 --> 00:28:00,099
+which means if we were to draw that tree,
+
+781
+00:28:00,140 --> 00:28:02,495
+it would be pretty darn big and it Take you quite a
+
+782
+00:28:02,495 --> 00:28:04,446
+bit of time to sort of think through all those possibilities.
+
+783
+00:28:04,485 --> 00:28:05,235
+So in your defense,
+
+784
+00:28:05,365 --> 00:28:07,005
+you're maybe not that bad at tic tac toe,
+
+785
+00:28:07,026 --> 00:28:09,436
+it's just harder than you thought as a game.
+
+786
+00:28:09,645 --> 00:28:12,556
+But what about games with which we might as adults be more familiar?
+
+787
+00:28:12,765 --> 00:28:12,816
+Well,
+
+788
+00:28:12,885 --> 00:28:13,885
+what about the game of chess,
+
+789
+00:28:13,926 --> 00:28:16,806
+which is often used as a measure of like how smart a computer is,
+
+790
+00:28:16,885 --> 00:28:19,796
+whether it's Watson back in the day playing against it or something else?
+
+791
+00:28:20,005 --> 00:28:20,086
+Well,
+
+792
+00:28:20,125 --> 00:28:23,105
+if we consider even just the 1st 4 moves of tic tac toe,
+
+793
+00:28:23,286 --> 00:28:25,135
+whereby I mean black goes and white goes,
+
+794
+00:28:25,206 --> 00:28:26,645
+and then they each go 3 more times,
+
+795
+00:28:26,806 --> 00:28:28,326
+so 4 pair wise moves,
+
+796
+00:28:28,526 --> 00:28:31,485
+how many different ways are there to play chess?
+
+797
+00:28:31,562 --> 00:28:31,671
+Well,
+
+798
+00:28:31,682 --> 00:28:32,702
+it turns out
+
+799
+00:28:32,991 --> 00:28:35,832
+85 billion just to get the game started,
+
+800
+00:28:35,862 --> 00:28:39,482
+and that's a lot of decisions to consider and then make.
+
+801
+00:28:39,631 --> 00:28:41,112
+How about the game of Goa familiar?
+
+802
+00:28:41,121 --> 00:28:45,021
+Consider the first four more 266 quintillion possibilities.
+
+803
+00:28:45,192 --> 00:28:49,472
+And this is where we sort of as humans and even with our modern PCs and
+
+804
+00:28:49,472 --> 00:28:53,342
+Macs and phones kind of have to throw up our hands because I don't have this many
+
+805
+00:28:53,712 --> 00:28:55,552
+bits of memory in my computer.
+
+806
+00:28:55,631 --> 00:28:58,291
+I don't have this many hours in my life left to actually
+
+807
+00:28:58,291 --> 00:29:01,202
+crunch all of those numbers and figure out the solution and so.
+
+808
+00:29:01,267 --> 00:29:05,297
+So where AI comes in is where it's no longer as simple as just writing if,
+
+809
+00:29:05,338 --> 00:29:05,817
+else's,
+
+810
+00:29:05,828 --> 00:29:09,647
+and loops and no longer as simple as just trying all possibilities,
+
+811
+00:29:09,817 --> 00:29:12,057
+you instead need to write code that doesn't solve
+
+812
+00:29:12,057 --> 00:29:14,537
+the problem directly but in some sense indirectly.
+
+813
+00:29:14,578 --> 00:29:15,488
+You write code
+
+814
+00:29:15,697 --> 00:29:18,647
+so that the computer figures out how to win,
+
+815
+00:29:18,817 --> 00:29:22,177
+perhaps by showing it configurations of the board that are a
+
+816
+00:29:22,177 --> 00:29:25,417
+good place to be in that is promising and maybe showing
+
+817
+00:29:25,417 --> 00:29:27,657
+it boards that it doesn't want to find itself in the
+
+818
+00:29:27,657 --> 00:29:29,927
+configuration of because that's going to lead it to lose.
+
+819
+00:29:29,978 --> 00:29:30,378
+In other words,
+
+820
+00:29:30,417 --> 00:29:30,858
+you train.
+
+821
+00:29:30,973 --> 00:29:31,333
+It
+
+822
+00:29:31,524 --> 00:29:33,404
+but not necessarily as exhaustive,
+
+823
+00:29:33,443 --> 00:29:35,793
+and this is what we mean nowadays by machine learning,
+
+824
+00:29:35,803 --> 00:29:39,563
+writing code via which machines learn how to solve
+
+825
+00:29:39,563 --> 00:29:42,723
+problems generally by being trained on massive amounts of
+
+826
+00:29:42,723 --> 00:29:45,803
+data and then in new problems looking for patterns
+
+827
+00:29:45,803 --> 00:29:48,553
+via which they can apply those past training data
+
+828
+00:29:48,764 --> 00:29:49,913
+to the problem at hand.
+
+829
+00:29:50,043 --> 00:29:52,114
+And reinforcement learning is one way to think about this.
+
+830
+00:29:52,124 --> 00:29:52,473
+In fact,
+
+831
+00:29:52,524 --> 00:29:52,913
+in fact,
+
+832
+00:29:52,943 --> 00:29:54,443
+we as humans use
+
+833
+00:29:54,884 --> 00:29:56,083
+reinforcement learning,
+
+834
+00:29:56,104 --> 00:29:57,913
+which is a type of machine learning sort of
+
+835
+00:29:58,284 --> 00:30:00,394
+all of the time in fact.
+
+836
+00:30:00,900 --> 00:30:04,010
+A fun demonstration to watch here involves these pancakes.
+
+837
+00:30:04,089 --> 00:30:04,329
+So in fact,
+
+838
+00:30:04,410 --> 00:30:08,579
+let me go ahead and pull up a short recording here of an actual researcher in a lab
+
+839
+00:30:08,770 --> 00:30:11,640
+who's trying to teach a robot how to make,
+
+840
+00:30:11,930 --> 00:30:13,199
+how to flip pancakes.
+
+841
+00:30:13,329 --> 00:30:14,680
+So we'll see here in this video
+
+842
+00:30:14,890 --> 00:30:16,839
+that there's a robot that has an arm that can go up,
+
+843
+00:30:16,849 --> 00:30:17,000
+down,
+
+844
+00:30:17,020 --> 00:30:17,170
+left,
+
+845
+00:30:17,250 --> 00:30:17,489
+right.
+
+846
+00:30:17,650 --> 00:30:18,760
+This of course is the human,
+
+847
+00:30:19,010 --> 00:30:19,609
+the researcher,
+
+848
+00:30:19,689 --> 00:30:23,290
+and he's just going to show the robot one or more times like how to flip a pancake.
+
+849
+00:30:25,150 --> 00:30:26,989
+And crosses his fingers and OK,
+
+850
+00:30:27,189 --> 00:30:27,939
+seems to have done it well,
+
+851
+00:30:27,989 --> 00:30:28,540
+does it again,
+
+852
+00:30:28,709 --> 00:30:29,859
+not quite the same,
+
+853
+00:30:30,430 --> 00:30:31,270
+but pretty good.
+
+854
+00:30:31,790 --> 00:30:35,729
+And now he's going to let the robot just try to figure out how
+
+855
+00:30:35,729 --> 00:30:39,040
+to flip that pancake after having just trained it a few different times.
+
+856
+00:30:39,329 --> 00:30:40,130
+The first few times,
+
+857
+00:30:40,180 --> 00:30:43,979
+odds are the robot's not going to do super well because it really
+
+858
+00:30:43,979 --> 00:30:47,170
+doesn't understand what the human just did or what the whole purpose of.
+
+859
+00:30:47,250 --> 00:30:47,579
+But,
+
+860
+00:30:47,729 --> 00:30:51,400
+and here's the key detail with reinforcement learning behind the scenes,
+
+861
+00:30:51,770 --> 00:30:52,640
+the human
+
+862
+00:30:52,849 --> 00:30:55,680
+is probably rewarding the robot when it does a good job,
+
+863
+00:30:55,770 --> 00:30:57,130
+like better and better it flips the more.
+
+864
+00:30:57,275 --> 00:30:59,574
+It's rewarded as by hitting a key and giving it a point,
+
+865
+00:30:59,625 --> 00:31:00,025
+for instance,
+
+866
+00:31:00,064 --> 00:31:02,944
+or giving it the digital equivalent of a cookie or conversely,
+
+867
+00:31:03,025 --> 00:31:05,714
+every time the robot screws up and drops the pancake on the floor,
+
+868
+00:31:05,954 --> 00:31:07,464
+sort of a proverbial slap on the wrist,
+
+869
+00:31:07,704 --> 00:31:11,295
+a punishment so that it does less of that behavior the next time.
+
+870
+00:31:11,415 --> 00:31:12,785
+And any of you who are parents,
+
+871
+00:31:12,875 --> 00:31:14,655
+which by definition today many of you are,
+
+872
+00:31:14,864 --> 00:31:15,415
+odds are,
+
+873
+00:31:15,425 --> 00:31:19,145
+whether it's not this or maybe just verbal approval or reprimands,
+
+874
+00:31:19,305 --> 00:31:22,625
+have you probably trained children at some point to do more of one thing.
+
+875
+00:31:22,949 --> 00:31:24,130
+And less of another.
+
+876
+00:31:24,219 --> 00:31:25,660
+And what you're seeing in the backdrop there is
+
+877
+00:31:25,660 --> 00:31:28,020
+now just a quantization of the movements X,
+
+878
+00:31:28,099 --> 00:31:28,219
+Y,
+
+879
+00:31:28,339 --> 00:31:33,010
+and Z coordinates so that it can do more of the X's and the Y's and the Z that led it to
+
+880
+00:31:33,300 --> 00:31:34,290
+some kind of reward.
+
+881
+00:31:34,459 --> 00:31:37,010
+And now after you're up to some 50 trials,
+
+882
+00:31:37,260 --> 00:31:39,849
+the robot seems to be getting better and better
+
+883
+00:31:40,439 --> 00:31:41,569
+such that like a good human,
+
+884
+00:31:41,579 --> 00:31:43,219
+we'll see if I can do this without embarrassing myself,
+
+885
+00:31:43,339 --> 00:31:44,219
+can flip the thing.
+
+886
+00:31:45,219 --> 00:31:45,739
+That's pretty good.
+
+887
+00:31:45,859 --> 00:31:46,130
+That's pretty,
+
+888
+00:31:46,219 --> 00:31:47,250
+I've been doing this a long time.
+
+889
+00:31:47,310 --> 00:31:47,750
+OK.
+
+890
+00:31:49,390 --> 00:31:49,400
+So
+
+891
+00:31:50,739 --> 00:31:54,650
+we've seen then how you might reinforce
+
+892
+00:31:54,979 --> 00:31:56,339
+learning through that kind of domain.
+
+893
+00:31:56,459 --> 00:31:59,170
+Let's take an example that's familiar to those of you who are gamers.
+
+894
+00:31:59,219 --> 00:32:01,020
+Any time you've played a game where there's some kind of
+
+895
+00:32:01,020 --> 00:32:02,989
+map or a world that you need to explore up,
+
+896
+00:32:03,000 --> 00:32:03,170
+down,
+
+897
+00:32:03,180 --> 00:32:03,339
+left,
+
+898
+00:32:03,390 --> 00:32:03,619
+right,
+
+899
+00:32:03,900 --> 00:32:05,180
+maybe you're trying to get to the exit.
+
+900
+00:32:05,219 --> 00:32:05,459
+So
+
+901
+00:32:05,699 --> 00:32:08,719
+here simplistically is the player at the yellow dot.
+
+902
+00:32:08,900 --> 00:32:09,140
+Here,
+
+903
+00:32:09,180 --> 00:32:09,530
+for instance,
+
+904
+00:32:09,540 --> 00:32:11,420
+in green is the exit of the map,
+
+905
+00:32:11,430 --> 00:32:13,699
+and you want to get to that point and maybe somewhere
+
+906
+00:32:13,699 --> 00:32:16,060
+else in this world there's a lot of like lava pits.
+
+907
+00:32:16,175 --> 00:32:18,234
+You don't want to fall into the lava pit because you lose a life
+
+908
+00:32:18,234 --> 00:32:21,954
+or you lose a point or there's some penalty or punishment associated with that.
+
+909
+00:32:22,165 --> 00:32:22,285
+Well,
+
+910
+00:32:22,435 --> 00:32:22,724
+we,
+
+911
+00:32:22,734 --> 00:32:25,704
+with this bird's eye view can obviously see how to get to the green dot,
+
+912
+00:32:25,805 --> 00:32:28,005
+but if you're playing a game like Zelda or something like that,
+
+913
+00:32:28,084 --> 00:32:29,234
+all you can do is move up,
+
+914
+00:32:29,244 --> 00:32:29,405
+down,
+
+915
+00:32:29,444 --> 00:32:29,604
+left,
+
+916
+00:32:29,685 --> 00:32:29,905
+right,
+
+917
+00:32:29,925 --> 00:32:31,354
+and sort of hope for the best.
+
+918
+00:32:31,564 --> 00:32:32,444
+So let's do just that.
+
+919
+00:32:32,564 --> 00:32:35,194
+Suppose the yellow dot just randomly chooses a direction
+
+920
+00:32:35,364 --> 00:32:36,314
+and goes to the right.
+
+921
+00:32:36,484 --> 00:32:36,604
+Well,
+
+922
+00:32:36,675 --> 00:32:38,604
+now we can sort of take away a life,
+
+923
+00:32:38,765 --> 00:32:39,555
+take away a point,
+
+924
+00:32:39,584 --> 00:32:40,915
+or effectively punish it
+
+925
+00:32:41,285 --> 00:32:42,844
+so that it knows don't do that.
+
+926
+00:32:42,959 --> 00:32:45,829
+And so long as the player has a bit of memory,
+
+927
+00:32:45,910 --> 00:32:48,459
+either the human player or the code that's implementing this,
+
+928
+00:32:48,630 --> 00:32:49,550
+just with a dark red line,
+
+929
+00:32:49,589 --> 00:32:53,109
+that means don't do that again because that didn't lead to a good outcome.
+
+930
+00:32:53,270 --> 00:32:55,229
+So maybe the next time the yellow dot goes this way and this way,
+
+931
+00:32:55,270 --> 00:32:55,510
+and then,
+
+932
+00:32:55,589 --> 00:32:55,630
+ah,
+
+933
+00:32:55,729 --> 00:32:57,989
+I didn't realize that that's actually the same lava pit,
+
+934
+00:32:58,030 --> 00:32:58,699
+but that's fine.
+
+935
+00:32:58,910 --> 00:33:00,739
+Use a little bit more memory and remind me,
+
+936
+00:33:00,869 --> 00:33:03,619
+don't do that because I just lost a second life in this story.
+
+937
+00:33:03,739 --> 00:33:05,050
+And maybe it goes this way next time,
+
+938
+00:33:05,150 --> 00:33:05,339
+ah,
+
+939
+00:33:05,489 --> 00:33:06,859
+now I need to remember,
+
+940
+00:33:06,989 --> 00:33:07,780
+don't do that.
+
+941
+00:33:07,989 --> 00:33:09,670
+But effectively I'm either being punished for.
+
+942
+00:33:09,744 --> 00:33:10,614
+Doing the wrong thing,
+
+943
+00:33:10,655 --> 00:33:11,055
+uh,
+
+944
+00:33:11,334 --> 00:33:12,574
+or as we'll soon see,
+
+945
+00:33:12,655 --> 00:33:15,175
+being rewarded for doing more of the successful
+
+946
+00:33:15,175 --> 00:33:18,295
+thing and just by chance maybe I finally make
+
+947
+00:33:18,295 --> 00:33:21,494
+my way to the exit in this way and so I can be rewarded for that.
+
+948
+00:33:21,535 --> 00:33:23,135
+Now I got 100 points or whatever it is,
+
+949
+00:33:23,175 --> 00:33:23,964
+the high score.
+
+950
+00:33:24,214 --> 00:33:25,614
+So now as for these green lines,
+
+951
+00:33:25,655 --> 00:33:28,494
+I can just follow that path again and again and I
+
+952
+00:33:28,494 --> 00:33:30,535
+can always win this game kind of like me nowadays,
+
+953
+00:33:30,574 --> 00:33:32,255
+like 30 years later playing Super Mario Brothers
+
+954
+00:33:32,255 --> 00:33:33,535
+because they can get through all the warp levels
+
+955
+00:33:33,535 --> 00:33:34,935
+because I know where everything is because for
+
+956
+00:33:34,935 --> 00:33:36,305
+some reason that's still stored in my brain.
+
+957
+00:33:37,050 --> 00:33:38,680
+Is this the best way to play?
+
+958
+00:33:38,890 --> 00:33:41,560
+Am I as good at Super Mario Brothers as I might think?
+
+959
+00:33:43,189 --> 00:33:45,619
+What's bad about this solution?
+
+960
+00:33:45,910 --> 00:33:46,229
+Yeah.
+
+961
+00:33:50,160 --> 00:33:50,680
+Exactly,
+
+962
+00:33:50,839 --> 00:33:50,920
+yeah,
+
+963
+00:33:51,000 --> 00:33:53,439
+I've moved many more times than I need to and just for fun today,
+
+964
+00:33:53,479 --> 00:33:54,160
+what grade are you in?
+
+965
+00:33:55,489 --> 00:33:56,199
+7th grade.
+
+966
+00:33:56,449 --> 00:33:56,770
+Wonderful.
+
+967
+00:33:56,930 --> 00:33:59,579
+So now 7th grade observation is like exactly that,
+
+968
+00:33:59,589 --> 00:34:00,199
+that we
+
+969
+00:34:00,489 --> 00:34:01,859
+could have taken a shorter path,
+
+970
+00:34:01,930 --> 00:34:03,520
+which is essentially that way,
+
+971
+00:34:03,599 --> 00:34:04,199
+albeit
+
+972
+00:34:04,410 --> 00:34:05,810
+uh making some straight moves.
+
+973
+00:34:05,819 --> 00:34:08,449
+And so we're never gonna find that shorter path.
+
+974
+00:34:08,500 --> 00:34:10,629
+We're never gonna get the highest score possible if
+
+975
+00:34:10,629 --> 00:34:13,560
+I just keep naively following my well trodden path.
+
+976
+00:34:13,610 --> 00:34:15,520
+And so how do we break out of that mold?
+
+977
+00:34:15,770 --> 00:34:17,570
+And you can see this even in the real world,
+
+978
+00:34:17,580 --> 00:34:18,129
+another sort of.
+
+979
+00:34:18,239 --> 00:34:20,389
+No example is I'm the type of person for some reason
+
+980
+00:34:20,389 --> 00:34:22,000
+where if I go to a restaurant for the first time,
+
+981
+00:34:22,149 --> 00:34:24,000
+I choose a dish off the menu and I really like it,
+
+982
+00:34:24,188 --> 00:34:26,708
+I will never again order anything else off that menu
+
+983
+00:34:26,708 --> 00:34:29,580
+other than that dish because I know it is good,
+
+984
+00:34:29,708 --> 00:34:31,708
+but there could be something even better on the menu,
+
+985
+00:34:31,750 --> 00:34:35,260
+but I'm never going to explore that because I'm sort of fixed in my ways,
+
+986
+00:34:35,270 --> 00:34:37,458
+as some of you from the smiles might be too.
+
+987
+00:34:37,668 --> 00:34:40,989
+But what if we took advantage of exploring just a little bit?
+
+988
+00:34:41,100 --> 00:34:44,010
+And there's this principle of exploring versus exploiting when
+
+989
+00:34:44,010 --> 00:34:47,228
+it comes to using artificial intelligence to solve problems.
+
+990
+00:34:47,370 --> 00:34:49,958
+Up until now I've just been exploiting knowledge I already have.
+
+991
+00:34:50,090 --> 00:34:51,250
+Don't go through the red walls,
+
+992
+00:34:51,409 --> 00:34:52,449
+do go through the green walls.
+
+993
+00:34:52,530 --> 00:34:52,850
+Exploit,
+
+994
+00:34:52,929 --> 00:34:53,250
+exploit,
+
+995
+00:34:53,330 --> 00:34:53,728
+exploit,
+
+996
+00:34:53,770 --> 00:34:54,719
+and I will get to
+
+997
+00:34:54,850 --> 00:34:55,958
+a final solution.
+
+998
+00:34:56,168 --> 00:34:59,399
+But what if I just sprinkle in a little bit of randomness along the
+
+999
+00:34:59,399 --> 00:35:03,679
+way and maybe 10% of the time as represented by this epsilon variable.
+
+1000
+00:35:03,959 --> 00:35:04,310
+I,
+
+1001
+00:35:04,350 --> 00:35:05,570
+as the computer in the story,
+
+1002
+00:35:05,750 --> 00:35:07,780
+generate a random number between 0 and 1,
+
+1003
+00:35:07,790 --> 00:35:08,760
+and if it's less than that,
+
+1004
+00:35:09,350 --> 00:35:11,060
+which is going to happen 10% of the time,
+
+1005
+00:35:11,139 --> 00:35:13,110
+I'm going to make a random move instead of one
+
+1006
+00:35:13,110 --> 00:35:15,100
+that I know will get me closer to the exit.
+
+1007
+00:35:15,110 --> 00:35:17,899
+Otherwise I'll indeed make the move with the highest value.
+
+1008
+00:35:18,070 --> 00:35:20,750
+Now this isn't going to necessarily win me the game that first time,
+
+1009
+00:35:20,790 --> 00:35:24,629
+but if I play it enough and enough and enough and insert some of this randomness,
+
+1010
+00:35:24,709 --> 00:35:26,709
+I might very well find a better solution.
+
+1011
+00:35:26,949 --> 00:35:28,500
+And therefore be a better player,
+
+1012
+00:35:28,580 --> 00:35:29,409
+a better winner
+
+1013
+00:35:29,659 --> 00:35:30,139
+overall.
+
+1014
+00:35:30,260 --> 00:35:32,780
+If I just 10% of the time ordered something else off the menu,
+
+1015
+00:35:32,899 --> 00:35:35,090
+I might find that there's an amazing dish out there
+
+1016
+00:35:35,300 --> 00:35:37,290
+that otherwise I wouldn't have discovered.
+
+1017
+00:35:37,419 --> 00:35:39,929
+And so indeed using that approach,
+
+1018
+00:35:40,100 --> 00:35:42,820
+can we finally find a more optimal path through the maze,
+
+1019
+00:35:42,830 --> 00:35:44,209
+as was shorter there,
+
+1020
+00:35:44,540 --> 00:35:47,699
+presumably therefore maximizing our score and doing even
+
+1021
+00:35:47,699 --> 00:35:49,219
+better than we might have by just.
+
+1022
+00:35:49,320 --> 00:35:51,300
+Exploiting the same knowledge,
+
+1023
+00:35:51,699 --> 00:35:53,590
+so you can see this even in the game of Breakout,
+
+1024
+00:35:53,750 --> 00:35:57,479
+especially if you write a solution in code to play this game for you.
+
+1025
+00:35:57,510 --> 00:36:01,659
+Let me go ahead and pull up another video recording of an AI playing Breakout,
+
+1026
+00:36:01,820 --> 00:36:04,459
+and what this AI is doing is essentially figuring out,
+
+1027
+00:36:04,550 --> 00:36:06,540
+maybe more intelligently than you or I could,
+
+1028
+00:36:06,709 --> 00:36:08,100
+how to play this game
+
+1029
+00:36:08,419 --> 00:36:09,219
+optimally.
+
+1030
+00:36:09,260 --> 00:36:10,780
+And what we'll see here
+
+1031
+00:36:11,070 --> 00:36:11,550
+is that.
+
+1032
+00:36:12,209 --> 00:36:15,219
+Just like the pancake flipping robot,
+
+1033
+00:36:15,489 --> 00:36:18,000
+there's some notion of scoring and rewards and penalties here.
+
+1034
+00:36:18,050 --> 00:36:20,479
+So like right now the paddle's just doing random stuff.
+
+1035
+00:36:20,520 --> 00:36:22,560
+It doesn't really know how to play the game yet,
+
+1036
+00:36:22,889 --> 00:36:27,530
+but it realizes after 200 episodes that oh my score goes up if
+
+1037
+00:36:27,530 --> 00:36:31,320
+I hit the ball and it goes down equivalently if I miss it,
+
+1038
+00:36:31,449 --> 00:36:32,449
+and it's still a little twitchy,
+
+1039
+00:36:32,459 --> 00:36:34,570
+it doesn't quite understand what it's supposed.
+
+1040
+00:36:34,719 --> 00:36:35,500
+To do and why,
+
+1041
+00:36:35,510 --> 00:36:40,459
+but if you do it again and again and again and it's rewarded and or punished enough,
+
+1042
+00:36:40,669 --> 00:36:42,179
+you'll see that it starts to get
+
+1043
+00:36:42,550 --> 00:36:45,699
+pretty good and closer to what a good human might do.
+
+1044
+00:36:45,949 --> 00:36:48,540
+But here's where the algorithm gets a little creepy.
+
+1045
+00:36:48,629 --> 00:36:50,590
+If you let it play long enough or if you and I,
+
+1046
+00:36:50,600 --> 00:36:50,989
+the humans,
+
+1047
+00:36:51,070 --> 00:36:51,739
+play long enough,
+
+1048
+00:36:51,870 --> 00:36:54,000
+you might find a certain trick to the game.
+
+1049
+00:36:54,070 --> 00:36:57,350
+I dare say the AI becomes a bit scarily sentient.
+
+1050
+00:36:57,590 --> 00:37:01,649
+In that turns out if you're smart enough to break through that top row,
+
+1051
+00:37:01,860 --> 00:37:03,709
+you can let the game just play itself for you
+
+1052
+00:37:03,709 --> 00:37:06,250
+and maximize your score without even touching the ball,
+
+1053
+00:37:06,540 --> 00:37:08,379
+something that I do find a little creepy that I
+
+1054
+00:37:08,379 --> 00:37:10,489
+just figured out how to do that without being told,
+
+1055
+00:37:10,649 --> 00:37:14,570
+but it's just a logical continuation of rewarding it for good behavior
+
+1056
+00:37:14,699 --> 00:37:15,729
+and punishing it
+
+1057
+00:37:16,060 --> 00:37:16,489
+for
+
+1058
+00:37:16,739 --> 00:37:17,770
+bad behavior.
+
+1059
+00:37:17,860 --> 00:37:20,219
+So that next time you have an occasion to play Breakout,
+
+1060
+00:37:20,419 --> 00:37:23,570
+consider that kind of strategy as opposed to doing more of the work yourself,
+
+1061
+00:37:23,760 --> 00:37:26,239
+let the computer do it for you instead.
+
+1062
+00:37:26,582 --> 00:37:26,721
+Well,
+
+1063
+00:37:26,731 --> 00:37:31,011
+what else is there to consider in this world of AI in the context of machine learning?
+
+1064
+00:37:31,172 --> 00:37:31,372
+Well,
+
+1065
+00:37:31,552 --> 00:37:34,971
+there's specifically a category of learning that's supervised,
+
+1066
+00:37:34,981 --> 00:37:36,191
+and we've been using this for years.
+
+1067
+00:37:36,211 --> 00:37:36,572
+And in fact,
+
+1068
+00:37:36,612 --> 00:37:39,731
+our first example of spam early on was certainly supervised.
+
+1069
+00:37:39,812 --> 00:37:39,931
+Why?
+
+1070
+00:37:40,052 --> 00:37:42,132
+Because it was you and I who was like putting
+
+1071
+00:37:42,132 --> 00:37:44,521
+the email into the spam folder and to this day,
+
+1072
+00:37:44,652 --> 00:37:47,521
+maybe once a day I hit the keyboard shortcut in Gmail to say,
+
+1073
+00:37:47,531 --> 00:37:47,672
+Ah,
+
+1074
+00:37:47,812 --> 00:37:48,412
+this is spam.
+
+1075
+00:37:48,451 --> 00:37:49,362
+You should have caught this,
+
+1076
+00:37:49,572 --> 00:37:51,761
+and that is training Google's algorithm further,
+
+1077
+00:37:51,852 --> 00:37:53,251
+assuming it's not just little old me,
+
+1078
+00:37:53,291 --> 00:37:55,491
+but maybe thousands of people tagging that same kind of.
+
+1079
+00:37:55,593 --> 00:37:55,993
+Email
+
+1080
+00:37:56,124 --> 00:37:56,864
+as spam,
+
+1081
+00:37:57,083 --> 00:37:59,964
+that's supervised learning and that there's a human in the loop doing
+
+1082
+00:37:59,964 --> 00:38:03,114
+at least something so spam detection might be one of those.
+
+1083
+00:38:03,323 --> 00:38:05,323
+But the catch is that labeling data in
+
+1084
+00:38:05,323 --> 00:38:07,684
+that way manually just doesn't scale very well.
+
+1085
+00:38:07,803 --> 00:38:11,364
+That would be akin to having someone at Google or Microsoft labeling every email
+
+1086
+00:38:11,364 --> 00:38:14,154
+or someone at Netflix doing the same for all of the videos out there.
+
+1087
+00:38:14,364 --> 00:38:16,194
+It's expensive in terms of human power,
+
+1088
+00:38:16,283 --> 00:38:18,483
+and there's certainly problems out there with so much data.
+
+1089
+00:38:18,724 --> 00:38:22,033
+It's just not realistic for humans to label millions of pieces of data,
+
+1090
+00:38:22,164 --> 00:38:23,263
+billions of pieces of data.
+
+1091
+00:38:23,444 --> 00:38:24,444
+We've got to move to an
+
+1092
+00:38:24,565 --> 00:38:25,906
+Supervised model.
+
+1093
+00:38:26,075 --> 00:38:29,345
+And so this is where the world starts to consider deep learning,
+
+1094
+00:38:29,476 --> 00:38:30,656
+solving problems
+
+1095
+00:38:30,956 --> 00:38:35,506
+using code whereby you don't even have humans in the loop in quite the same way.
+
+1096
+00:38:35,635 --> 00:38:38,635
+And neural networks inspired by the world of biology are sort
+
+1097
+00:38:38,635 --> 00:38:41,395
+of the inspiration for what is the state of the art,
+
+1098
+00:38:41,595 --> 00:38:44,395
+even underlying today's rubber duck and more generally these
+
+1099
+00:38:44,395 --> 00:38:46,906
+things called large language models like chat GPT,
+
+1100
+00:38:46,916 --> 00:38:47,506
+and the like.
+
+1101
+00:38:47,676 --> 00:38:50,105
+So here pictured somewhat abstractly is a neuron,
+
+1102
+00:38:50,115 --> 00:38:52,426
+and it's something in the human body that transmits a signal,
+
+1103
+00:38:52,635 --> 00:38:52,756
+say,
+
+1104
+00:38:52,795 --> 00:38:53,436
+from left to right.
+
+1105
+00:38:53,558 --> 00:38:55,468
+Electrically and if you have multiple neurons,
+
+1106
+00:38:55,548 --> 00:38:58,177
+you can intercommunicate among them so that if I think a thought,
+
+1107
+00:38:58,788 --> 00:39:00,667
+then I know how to raise my hand because some kind of
+
+1108
+00:39:00,667 --> 00:39:03,937
+message electrically has gone from my head to this extremity here.
+
+1109
+00:39:04,028 --> 00:39:06,978
+So that's in essence what I remember from 9th grade biology.
+
+1110
+00:39:07,147 --> 00:39:08,357
+But as the computer scientists,
+
+1111
+00:39:08,468 --> 00:39:10,097
+we sort of abstract all of this away.
+
+1112
+00:39:10,268 --> 00:39:13,107
+So instead of calling these two neurons drawing them as neurons,
+
+1113
+00:39:13,187 --> 00:39:15,458
+let's just start drawing neurons as these little circles,
+
+1114
+00:39:15,498 --> 00:39:18,147
+and if they have connective tissue between them of sorts,
+
+1115
+00:39:18,177 --> 00:39:19,748
+we'll just draw a straight line,
+
+1116
+00:39:19,827 --> 00:39:20,917
+an edge between them.
+
+1117
+00:39:21,028 --> 00:39:22,468
+So this is what a computer scientist would call.
+
+1118
+00:39:22,550 --> 00:39:23,239
+A graph.
+
+1119
+00:39:23,340 --> 00:39:28,250
+If you have two such neurons over here leading to 11 neuron here,
+
+1120
+00:39:28,459 --> 00:39:31,290
+you can think of this as being like maybe 2 inputs to a problem
+
+1121
+00:39:31,500 --> 00:39:33,360
+and now one output there too.
+
+1122
+00:39:33,540 --> 00:39:35,449
+We can represent the notion of problem solving,
+
+1123
+00:39:35,500 --> 00:39:38,770
+which is what CS 50 and intercourses more generally are all about.
+
+1124
+00:39:38,979 --> 00:39:40,929
+So let's solve a problem with a neural
+
+1125
+00:39:40,929 --> 00:39:43,179
+network without necessarily training it in advance,
+
+1126
+00:39:43,260 --> 00:39:45,489
+just letting it figure out how to answer this question.
+
+1127
+00:39:45,659 --> 00:39:47,300
+Here's a very simple two dimensional world,
+
+1128
+00:39:47,340 --> 00:39:48,100
+XY grid,
+
+1129
+00:39:48,260 --> 00:39:49,179
+and here are two dots,
+
+1130
+00:39:49,189 --> 00:39:51,459
+and the dots in this world are either blue or they are.
+
+1131
+00:39:51,572 --> 00:39:51,771
+Red,
+
+1132
+00:39:52,052 --> 00:39:53,481
+but I have no idea yet
+
+1133
+00:39:54,011 --> 00:39:55,922
+what makes a dot blue or red.
+
+1134
+00:39:56,052 --> 00:39:56,402
+However,
+
+1135
+00:39:56,612 --> 00:39:58,251
+if you train me on those two dots,
+
+1136
+00:39:58,332 --> 00:40:00,471
+I bet I could come up with predictions,
+
+1137
+00:40:00,691 --> 00:40:02,332
+especially if you let me label this world
+
+1138
+00:40:02,332 --> 00:40:04,372
+in terms of X coordinates on the horizontal,
+
+1139
+00:40:04,572 --> 00:40:05,771
+Y coordinates on the vertical,
+
+1140
+00:40:05,892 --> 00:40:07,372
+and then you know what we can think of this
+
+1141
+00:40:07,372 --> 00:40:10,602
+neural network very simply as representing the X coordinate here,
+
+1142
+00:40:10,731 --> 00:40:11,771
+the Y coordinate here,
+
+1143
+00:40:11,812 --> 00:40:16,612
+and the answer I want to get is quote unquote red or blue or 0 or 1 or true or false,
+
+1144
+00:40:16,652 --> 00:40:17,562
+however you want to think
+
+1145
+00:40:17,771 --> 00:40:18,882
+of the representation.
+
+1146
+00:40:19,092 --> 00:40:20,451
+So how do I get from a specific.
+
+1147
+00:40:20,543 --> 00:40:24,833
+XY coordinate to a prediction of color if I only know the coordinates.
+
+1148
+00:40:24,843 --> 00:40:24,964
+Well,
+
+1149
+00:40:25,364 --> 00:40:26,043
+up from the get-go,
+
+1150
+00:40:26,124 --> 00:40:28,474
+maybe the best I can do is just divide the world into
+
+1151
+00:40:28,474 --> 00:40:30,404
+blue dots on the left and red dots on the right,
+
+1152
+00:40:30,483 --> 00:40:31,283
+a best fit line,
+
+1153
+00:40:31,323 --> 00:40:31,874
+if you will,
+
+1154
+00:40:32,083 --> 00:40:33,513
+based on very minimal data.
+
+1155
+00:40:33,724 --> 00:40:34,033
+Of course,
+
+1156
+00:40:34,043 --> 00:40:35,354
+if you give me a third dot,
+
+1157
+00:40:35,404 --> 00:40:39,224
+it's going to be pretty easy to dize that I was a little too hasty.
+
+1158
+00:40:39,283 --> 00:40:40,364
+That line is not vertical,
+
+1159
+00:40:40,444 --> 00:40:43,204
+so maybe we pivot the line this way and now I'm back in business.
+
+1160
+00:40:43,323 --> 00:40:47,874
+Now I can predict with higher probability based on XY what color the next dot will be.
+
+1161
+00:40:48,043 --> 00:40:49,444
+You give me enough of these dots.
+
+1162
+00:40:49,760 --> 00:40:52,229
+I can come up with a pretty good best fit line.
+
+1163
+00:40:52,280 --> 00:40:53,139
+It's not perfect,
+
+1164
+00:40:53,350 --> 00:40:55,429
+but here's a hint at why AI is not perfect.
+
+1165
+00:40:55,510 --> 00:40:58,780
+But 99% of the time maybe I'll be able to predict correctly,
+
+1166
+00:40:58,949 --> 00:41:00,760
+and I can do even better if you let me squiggle the
+
+1167
+00:41:00,760 --> 00:41:03,179
+line a little bit and maybe make it more than just a simple
+
+1168
+00:41:03,709 --> 00:41:04,350
+slope.
+
+1169
+00:41:04,709 --> 00:41:06,500
+So what is it we're really doing
+
+1170
+00:41:06,790 --> 00:41:09,149
+with implementing this neural network,
+
+1171
+00:41:09,189 --> 00:41:11,310
+albeit simplistically with just 3 neurons?
+
+1172
+00:41:11,429 --> 00:41:11,510
+Well,
+
+1173
+00:41:11,709 --> 00:41:14,030
+essentially we're trying to come up with 3 values,
+
+1174
+00:41:14,110 --> 00:41:15,550
+3 parameters an A,
+
+1175
+00:41:15,629 --> 00:41:16,070
+a B,
+
+1176
+00:41:16,149 --> 00:41:16,709
+and a C.
+
+1177
+00:41:17,050 --> 00:41:18,389
+And what do those represent?
+
+1178
+00:41:18,560 --> 00:41:18,639
+Well,
+
+1179
+00:41:18,719 --> 00:41:21,989
+really just a solution to this formula that there line we drew
+
+1180
+00:41:21,989 --> 00:41:24,520
+can be represented if you think back to like high school math
+
+1181
+00:41:24,520 --> 00:41:28,419
+with a formula along these lines whereby it's ax x plus B
+
+1182
+00:41:28,419 --> 00:41:32,030
+times Y plus some constant C and we can just arbitrarily conclude that
+
+1183
+00:41:32,320 --> 00:41:35,000
+if that value mathematically gives me a number greater than 0,
+
+1184
+00:41:35,320 --> 00:41:36,429
+predict it's going to be blue.
+
+1185
+00:41:36,560 --> 00:41:38,280
+Otherwise predict it's going to be red.
+
+1186
+00:41:38,360 --> 00:41:40,850
+We can sort of map our mathematics just like with tic tac toe
+
+1187
+00:41:41,120 --> 00:41:45,030
+to the actual problem we care about by defining the world in this way.
+
+1188
+00:41:45,159 --> 00:41:46,389
+And so if you give me enough.
+
+1189
+00:41:46,535 --> 00:41:50,176
+Data points and enough data points I can come up with answers for that A,
+
+1190
+00:41:50,486 --> 00:41:50,645
+B,
+
+1191
+00:41:50,845 --> 00:41:51,045
+C,
+
+1192
+00:41:51,085 --> 00:41:53,085
+the so-called parameters in neural networks.
+
+1193
+00:41:53,166 --> 00:41:53,766
+Now in reality,
+
+1194
+00:41:53,805 --> 00:41:57,025
+neural networks are not composed of like 3 neurons and a couple of edges.
+
+1195
+00:41:57,125 --> 00:41:58,555
+They look a little something more like this,
+
+1196
+00:41:58,605 --> 00:42:02,355
+and in practice they've got billions of these things here on the screen,
+
+1197
+00:42:02,726 --> 00:42:06,805
+in which case pretty much every one of these edges represents some mathematical
+
+1198
+00:42:06,805 --> 00:42:11,275
+value that was contrived based on lots and lots of training data.
+
+1199
+00:42:11,325 --> 00:42:12,085
+And whereas I,
+
+1200
+00:42:12,095 --> 00:42:13,075
+the computer scientist,
+
+1201
+00:42:13,246 --> 00:42:15,926
+might know what these neurons over here represent because those are my.
+
+1202
+00:42:16,021 --> 00:42:17,562
+Inputs 3 in this case,
+
+1203
+00:42:17,652 --> 00:42:17,971
+and I,
+
+1204
+00:42:17,981 --> 00:42:18,691
+the computer scientist,
+
+1205
+00:42:18,771 --> 00:42:20,602
+know what this one represents at the end.
+
+1206
+00:42:20,852 --> 00:42:24,362
+If you sort of took the hood off of this thing and looked inside the neural network,
+
+1207
+00:42:24,451 --> 00:42:25,771
+even though there'd be millions,
+
+1208
+00:42:25,852 --> 00:42:27,402
+billions of numbers going on there,
+
+1209
+00:42:27,612 --> 00:42:31,521
+I can't tell you what this neuron represents or why this edge has this weight.
+
+1210
+00:42:31,652 --> 00:42:34,001
+It's because of the massive amount of training data that
+
+1211
+00:42:34,122 --> 00:42:36,162
+that's just how the math works out.
+
+1212
+00:42:36,251 --> 00:42:37,281
+And if you feed me more data,
+
+1213
+00:42:37,332 --> 00:42:38,961
+I might change some of those parameters more.
+
+1214
+00:42:39,172 --> 00:42:41,201
+So the graph ultimately might look quite different,
+
+1215
+00:42:41,332 --> 00:42:45,372
+but my inputs and my outputs are going to be what I use to solve that problem.
+
+1216
+00:42:45,830 --> 00:42:48,419
+So if you want to predict like rainfall from humidity or pressure,
+
+1217
+00:42:48,500 --> 00:42:52,419
+you can have two inputs giving that one output an advertising dollar spent in a given
+
+1218
+00:42:52,419 --> 00:42:56,050
+month that might predict sales by just having trained again on such volumes of data.
+
+1219
+00:42:56,260 --> 00:42:59,139
+And when we get now full circle to something like CS 50's rubber
+
+1220
+00:42:59,139 --> 00:43:02,750
+duck and large language models like Claude and Gemini and Chat GBT,
+
+1221
+00:43:03,110 --> 00:43:04,090
+what's really happening,
+
+1222
+00:43:04,179 --> 00:43:06,449
+and this is all hot off the press in recent years,
+
+1223
+00:43:06,500 --> 00:43:08,899
+screenshotted here are some of the recent research papers that
+
+1224
+00:43:08,899 --> 00:43:11,409
+have driven a lot of this advancement in recent years.
+
+1225
+00:43:11,699 --> 00:43:12,060
+You have.
+
+1226
+00:43:12,160 --> 00:43:15,341
+From OpenAI say a generative pre-trained transformer,
+
+1227
+00:43:15,551 --> 00:43:16,420
+which is a lot to say,
+
+1228
+00:43:16,480 --> 00:43:20,281
+but there's the GPT in chat GPT,
+
+1229
+00:43:20,291 --> 00:43:22,571
+and essentially this is a neural network that's
+
+1230
+00:43:22,571 --> 00:43:25,781
+been trained on large volumes of textual information
+
+1231
+00:43:26,031 --> 00:43:28,591
+that gives us the interactive chat feature that we have in
+
+1232
+00:43:28,591 --> 00:43:32,660
+the class and we all have more generally in chatBT itself.
+
+1233
+00:43:32,910 --> 00:43:37,591
+So an example of what is actually happening underneath the hood of these GPTs.
+
+1234
+00:43:37,670 --> 00:43:37,750
+Well,
+
+1235
+00:43:37,831 --> 00:43:38,391
+here's a paragraph.
+
+1236
+00:43:38,491 --> 00:43:39,751
+That up until recent years
+
+1237
+00:43:40,122 --> 00:43:44,842
+was kind of a hard paragraph to end with the Massachusetts is
+
+1238
+00:43:44,842 --> 00:43:47,261
+a state in the New England region of the northeastern United States.
+
+1239
+00:43:47,291 --> 00:43:49,082
+It borders on the Atlantic Ocean to the east.
+
+1240
+00:43:49,322 --> 00:43:50,402
+The state's capital is.
+
+1241
+00:43:51,412 --> 00:43:53,862
+Almost anyone living in Massachusetts probably knows that answer,
+
+1242
+00:43:53,941 --> 00:43:57,552
+but if this AI has just been trained on lots and lots of data,
+
+1243
+00:43:57,721 --> 00:44:01,271
+there's probably a lot of people who say Massachusetts in part of a sentence,
+
+1244
+00:44:01,281 --> 00:44:01,721
+and then
+
+1245
+00:44:02,041 --> 00:44:02,511
+the answer,
+
+1246
+00:44:02,572 --> 00:44:03,201
+which I won't say yet,
+
+1247
+00:44:03,281 --> 00:44:04,681
+is in the other part of the.
+
+1248
+00:44:04,822 --> 00:44:05,163
+Sentence.
+
+1249
+00:44:05,173 --> 00:44:06,282
+But in this example,
+
+1250
+00:44:06,492 --> 00:44:09,683
+given that the question we're asking is sort of so far
+
+1251
+00:44:10,173 --> 00:44:13,093
+from some of the useful key words up until recently this was
+
+1252
+00:44:13,093 --> 00:44:15,252
+a hard problem to solve because there was so much distance.
+
+1253
+00:44:15,333 --> 00:44:15,732
+Moreover,
+
+1254
+00:44:15,812 --> 00:44:18,373
+there's these nouns that are being used to substitute for the
+
+1255
+00:44:18,373 --> 00:44:20,562
+proper noun like we suddenly start calling it a state,
+
+1256
+00:44:20,732 --> 00:44:22,163
+we call it a state down here,
+
+1257
+00:44:22,373 --> 00:44:26,812
+and it wasn't necessarily obvious to AIs that we're talking about the same thing as
+
+1258
+00:44:26,812 --> 00:44:30,732
+if it were just city comma state where you'd have much more proximity so.
+
+1259
+00:44:31,154 --> 00:44:31,604
+In a nutshell,
+
+1260
+00:44:31,664 --> 00:44:32,654
+what we now do,
+
+1261
+00:44:33,144 --> 00:44:34,624
+especially to solve problems like these,
+
+1262
+00:44:34,704 --> 00:44:37,944
+is we first break down a sentence or the training data or input
+
+1263
+00:44:37,944 --> 00:44:41,533
+a like into like an array or a list of the words themselves.
+
+1264
+00:44:41,704 --> 00:44:44,944
+We come up with a representation of each of these words.
+
+1265
+00:44:44,983 --> 00:44:45,533
+For instance,
+
+1266
+00:44:45,583 --> 00:44:46,694
+the word Massachusetts,
+
+1267
+00:44:46,743 --> 00:44:48,333
+if you encode it in a certain way,
+
+1268
+00:44:48,783 --> 00:44:51,263
+is going to be represented with an array or vector of numbers,
+
+1269
+00:44:51,343 --> 00:44:52,493
+floating point values,
+
+1270
+00:44:52,664 --> 00:44:57,384
+so many so that the word Massachusetts in one model would use these 1,536.
+
+1271
+00:44:57,754 --> 00:45:00,754
+Floating point numbers to represent Massachusetts
+
+1272
+00:45:00,754 --> 00:45:02,764
+essentially in an N-dimensional space,
+
+1273
+00:45:02,875 --> 00:45:04,064
+so not just an XY plane,
+
+1274
+00:45:04,074 --> 00:45:06,344
+but somewhere sort of virtually out there.
+
+1275
+00:45:06,554 --> 00:45:07,024
+And then,
+
+1276
+00:45:07,054 --> 00:45:09,064
+and this has been the key to these GPTs,
+
+1277
+00:45:10,034 --> 00:45:13,705
+attention is calculated based on all of that data whereby in this picture
+
+1278
+00:45:13,705 --> 00:45:17,274
+the thicker lines imply more of a relationship between those two words.
+
+1279
+00:45:17,314 --> 00:45:20,715
+So Massachusetts and state is inferred as having a thicker line,
+
+1280
+00:45:20,754 --> 00:45:23,064
+a higher attention from one word to the other,
+
+1281
+00:45:23,235 --> 00:45:23,764
+whereas our
+
+1282
+00:45:23,936 --> 00:45:26,926
+and our is and our thes have thinner lines because they're just not as
+
+1283
+00:45:26,926 --> 00:45:31,035
+much signal to the AI as to what the answer to this question is.
+
+1284
+00:45:31,406 --> 00:45:32,105
+Meanwhile,
+
+1285
+00:45:32,305 --> 00:45:34,926
+when you then feed that sentence like the
+
+1286
+00:45:34,926 --> 00:45:38,166
+state's capital is one word per neuron here,
+
+1287
+00:45:38,206 --> 00:45:40,775
+the goal is to get the answer to that question.
+
+1288
+00:45:40,825 --> 00:45:43,045
+And even here this is way smaller of a
+
+1289
+00:45:43,045 --> 00:45:45,395
+representation than the actual neural network would be.
+
+1290
+00:45:45,605 --> 00:45:46,476
+But in effect,
+
+1291
+00:45:46,565 --> 00:45:48,006
+all these LLMs,
+
+1292
+00:45:48,125 --> 00:45:49,275
+large language models are
+
+1293
+00:45:49,446 --> 00:45:50,045
+are just statistic.
+
+1294
+00:45:50,376 --> 00:45:53,937
+Models like what is the highest probability word that it should spit out at the
+
+1295
+00:45:53,937 --> 00:45:58,406
+end of this paragraph based on all of the Reddit posts and Google search results
+
+1296
+00:45:58,646 --> 00:46:02,166
+and encyclopedias and Wikipedias that it's found and trained on online?
+
+1297
+00:46:02,416 --> 00:46:02,457
+Well,
+
+1298
+00:46:02,497 --> 00:46:03,767
+the answer hopefully will be
+
+1299
+00:46:04,146 --> 00:46:04,757
+Boston.
+
+1300
+00:46:04,856 --> 00:46:05,606
+But of course
+
+1301
+00:46:05,916 --> 00:46:06,816
+1% of the time,
+
+1302
+00:46:06,896 --> 00:46:07,576
+maybe less than that,
+
+1303
+00:46:07,616 --> 00:46:10,806
+the answer might not be correct and even CS 50's own duck is fallible,
+
+1304
+00:46:10,816 --> 00:46:12,257
+even though we've written lots of code to
+
+1305
+00:46:12,257 --> 00:46:14,767
+try to put downward pressure on those mistakes,
+
+1306
+00:46:14,777 --> 00:46:16,287
+and those mistakes are what we'll call.
+
+1307
+00:46:16,949 --> 00:46:17,270
+Lastly,
+
+1308
+00:46:17,300 --> 00:46:19,469
+hallucinations where the AI just makes
+
+1309
+00:46:19,469 --> 00:46:21,669
+something up perhaps because some crazy human
+
+1310
+00:46:21,669 --> 00:46:25,260
+on the internet made something up and it was interpreted as authoritative or
+
+1311
+00:46:25,510 --> 00:46:28,750
+just by bad luck because of a bit of that exploration 10% of the time,
+
+1312
+00:46:28,830 --> 00:46:29,780
+1% of the time,
+
+1313
+00:46:29,870 --> 00:46:33,110
+the AI sort of veered this way in the large language model in the
+
+1314
+00:46:33,110 --> 00:46:36,739
+neural network and spit out an answer that just in fact is not correct.
+
+1315
+00:46:36,909 --> 00:46:38,989
+And so I thought I'd end for today on this final note.
+
+1316
+00:46:39,080 --> 00:46:42,790
+A poem with which many of us might have grown up from Shel Silverstein here about
+
+1317
+00:46:42,790 --> 00:46:44,949
+the homework machine which years ago somehow sort
+
+1318
+00:46:44,949 --> 00:46:46,699
+of predicted the state we would be in
+
+1319
+00:46:46,989 --> 00:46:48,739
+with these AI machines.
+
+1320
+00:46:49,149 --> 00:46:49,500
+He said,
+
+1321
+00:46:49,550 --> 00:46:50,500
+the homework machine,
+
+1322
+00:46:50,590 --> 00:46:50,699
+oh,
+
+1323
+00:46:50,709 --> 00:46:51,629
+the homework machine,
+
+1324
+00:46:51,870 --> 00:46:53,979
+most perfect contraption that's ever been seen.
+
+1325
+00:46:54,189 --> 00:46:55,260
+Just put in your homework,
+
+1326
+00:46:55,350 --> 00:46:56,419
+then drop in a dime,
+
+1327
+00:46:56,580 --> 00:46:57,399
+snap on the switch,
+
+1328
+00:46:57,550 --> 00:46:58,699
+and in 10 seconds' time,
+
+1329
+00:46:58,750 --> 00:47:01,270
+your homework comes out quick and clean as can be.
+
+1330
+00:47:01,780 --> 00:47:02,189
+Here it is,
+
+1331
+00:47:02,229 --> 00:47:03,040
+9 + 4,
+
+1332
+00:47:03,050 --> 00:47:05,780
+and the answer is 33?
+
+1333
+00:47:06,070 --> 00:47:06,580
+Oh me,
+
+1334
+00:47:06,909 --> 00:47:08,110
+I guess it's not as perfect.
+
+1335
+00:47:08,530 --> 00:47:09,550
+As I thought it would be
+
+1336
+00:47:10,270 --> 00:47:11,909
+This then was CS 50.
+
+1337
+00:47:12,550 --> 00:47:13,340
+See you next time.
