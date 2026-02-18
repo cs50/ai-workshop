@@ -3,19 +3,9 @@ from dotenv import load_dotenv
 load_dotenv()
 
 from openai import OpenAI
+from utils import clean_up
+
 client = OpenAI(api_key=os.environ["OPENAI_API_KEY"])
-
-def clean_up(vector_store_id, file_ids):
-    """Delete the vector store and uploaded files."""
-
-    print("\nCleaning up resources...")
-    client.vector_stores.delete(vector_store_id)
-    for file_id in file_ids:
-        try:
-            client.files.delete(file_id)
-        except Exception as e:
-            print(f"Failed to delete file {file_id}: {e}")
-    print("Done.")
 
 
 FILES_DIR = "../../../data/transcripts/"
@@ -78,4 +68,4 @@ try:
 
 except (KeyboardInterrupt, EOFError):
     # Clean up the vector store and uploaded files when the user exits
-    clean_up(vector_store.id, file_ids)
+    clean_up(client, vector_store.id, file_ids)
