@@ -14,20 +14,26 @@ if confirmation != "yes":
     print("Exiting...")
     exit()
 
-# Delete all files
-all_files = client.files.list()
-for file in all_files:
-    try:
-        response = client.files.delete(file.id)
-        print(response)
-    except Exception as e:
-        print(e)
+# Delete all files (re-fetch each page since deletion invalidates cursors)
+while True:
+    page = client.files.list(limit=100)
+    if not page.data:
+        break
+    for file in page.data:
+        try:
+            response = client.files.delete(file.id)
+            print(response)
+        except Exception as e:
+            print(e)
 
-# Delete all vector stores
-all_vector_stores = client.vector_stores.list()
-for vector_store in all_vector_stores:
-    try:
-        response = client.vector_stores.delete(vector_store.id)
-        print(response)
-    except Exception as e:
-        print(e)
+# Delete all vector stores (re-fetch each page since deletion invalidates cursors)
+while True:
+    page = client.vector_stores.list(limit=100)
+    if not page.data:
+        break
+    for vector_store in page.data:
+        try:
+            response = client.vector_stores.delete(vector_store.id)
+            print(response)
+        except Exception as e:
+            print(e)

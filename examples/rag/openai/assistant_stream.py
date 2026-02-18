@@ -12,7 +12,11 @@ def clean_up(vector_store_id, file_ids):
 
     print("\nCleaning up resources...")
     client.vector_stores.delete(vector_store_id)
-    [client.files.delete(file_id) for file_id in file_ids]
+    for file_id in file_ids:
+        try:
+            client.files.delete(file_id)
+        except Exception as e:
+            print(f"Failed to delete file {file_id}: {e}")
     print("Done.")
 
 
@@ -23,7 +27,8 @@ file_ids = []
 for file in sorted(os.listdir(FILES_DIR)):
 
     # Upload each file to the OpenAI platform for use with file search
-    _file = client.files.create(file=open(FILES_DIR + file, "rb"), purpose="assistants")
+    with open(FILES_DIR + file, "rb") as f:
+        _file = client.files.create(file=f, purpose="assistants")
 
     # Append the reference to the uploaded file to the list
     file_ids.append(_file.id)
