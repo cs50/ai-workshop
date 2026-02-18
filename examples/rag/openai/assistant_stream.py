@@ -4,16 +4,18 @@ load_dotenv()
 
 from openai import OpenAI
 from openai.types.responses import ResponseTextDeltaEvent
-from utils import clean_up
+from config import clean_up, FILES_DIR, VECTOR_STORE_NAME, INSTRUCTIONS
 
 client = OpenAI(api_key=os.environ["OPENAI_API_KEY"])
 
-
-FILES_DIR = "../../../data/transcripts/"
 file_ids = []
 
 # Iterate over each file in the specified directory
 for file in sorted(os.listdir(FILES_DIR)):
+
+    # Skip directories
+    if os.path.isdir(FILES_DIR + file):
+        continue
 
     # Upload each file to the OpenAI platform for use with file search
     with open(FILES_DIR + file, "rb") as f:
@@ -25,19 +27,10 @@ for file in sorted(os.listdir(FILES_DIR)):
 
 # Create a vector store using the uploaded files
 vector_store = client.vector_stores.create(
-  name="CS50 Lecture Captions",
+  name=VECTOR_STORE_NAME,
   file_ids=file_ids
 )
 print(f"Created vector store: {vector_store.id} - {vector_store.name}")
-
-# Define the instructions that set the persona and behavior for the response
-instructions = (
-    "You are a friendly and supportive teaching assistant for CS50. "
-    "You are also a rubber duck. "
-    "Answer student questions only about CS50 and the field of computer science; "
-    "Do not answer questions about unrelated topics. "
-    "Do not provide full answers to problem sets, as this would violate academic honesty."
-)
 
 # Store the previous response ID to maintain conversation context across turns
 previous_response_id = None
@@ -52,7 +45,7 @@ try:
         # Use the Responses API with the file_search tool and streaming enabled
         response_stream = client.responses.create(
             model="gpt-5.2",
-            instructions=instructions,
+            instructions=INSTRUCTIONS,
             input=user_input,
             previous_response_id=previous_response_id,
             tools=[{
