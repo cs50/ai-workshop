@@ -1,5 +1,7 @@
 *.env
 *.jsonl
 *.vsix
+.venv/
 demo/
+data/chromadb/
 __pycache__/
