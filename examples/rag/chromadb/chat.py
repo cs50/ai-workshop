@@ -1,5 +1,6 @@
 import argparse
 import os
+import re
 
 from dotenv import load_dotenv
 load_dotenv()
@@ -63,8 +64,14 @@ def format_sources(results):
             seen.add(key)
             unique.append(meta)
 
-    # Sort by lecture name first, then by start time within each lecture
-    unique.sort(key=lambda m: (m["lecture_name"], m["start_time"]))
+    # Sort by lecture name (numerically) first, then by start time within each lecture
+    # Extract the number from the lecture name (e.g., "Lecture 10" -> 10) for proper ordering
+    def sort_key(m):
+        match = re.search(r"\d+", m["lecture_name"])
+        num = int(match.group()) if match else -1
+        return (num, m["start_time"])
+
+    unique.sort(key=sort_key)
     return "\n".join(format_source(m) for m in unique)
 
 
@@ -166,4 +173,4 @@ try:
             previous_response_id = completed_response.id
 
 except (KeyboardInterrupt, EOFError):
-    print("\nGoodbye!")
+    print("\nQuack! Goodbye! 🐤")
