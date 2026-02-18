@@ -19,10 +19,13 @@ from config import (
 )
 
 
-# Convert an SRT timestamp string (e.g., "00:02:03,959") to total seconds
+# Convert an SRT timestamp string (e.g., "00:02:03,959") to total seconds.
+# Returns None if the timestamp format is invalid.
 def parse_timestamp(ts):
 
     match = re.match(r"(\d+):(\d+):(\d+)[,.](\d+)", ts.strip())
+    if not match:
+        return None
     h, m, s, ms = int(match.group(1)), int(match.group(2)), int(match.group(3)), int(match.group(4))
     return h * 3600 + m * 60 + s + ms / 1000
 
@@ -56,6 +59,11 @@ def parse_srt(filepath):
         start = parse_timestamp(match.group(1))
         end = parse_timestamp(match.group(2))
 
+        # Skip entries with malformed timestamps
+        if start is None or end is None:
+            print(f"  WARNING: Skipping block with invalid timestamp: {timestamp_line}")
+            continue
+
         # Join all remaining lines as the caption text
         text = " ".join(lines[2:]).strip()
 
@@ -66,7 +74,8 @@ def parse_srt(filepath):
 
 
 # Merge consecutive subtitle entries into time-based chunks.
-# Each chunk spans at least min_duration seconds but does not exceed max_duration.
+# Each chunk targets min_duration seconds but will not exceed max_duration.
+# The last chunk (or chunks near gaps) may be shorter than min_duration.
 def chunk_entries(entries, min_duration=CHUNK_MIN_DURATION, max_duration=CHUNK_MAX_DURATION):
 
     chunks = []
@@ -150,7 +159,7 @@ client = chromadb.PersistentClient(path=abs_chroma_dir)
 try:
     client.delete_collection(COLLECTION_NAME)
     print(f"Deleted existing collection '{COLLECTION_NAME}'")
-except Exception:
+except chromadb.errors.NotFoundError:
     pass
 
 # Create a new collection using cosine similarity and OpenAI embeddings
